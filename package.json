@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "client": "openapi-generator-cli generate -i ../monolith/swagger.yml -g typescript-angular -o generated-src/openapi --additional-properties=ngVersion=6.1.7,npmName=restClient,supportsES6=true,npmVersion=6.9.0,withInterfaces=true --skip-validate-spec"
   },
   "dependencies": {
     "next": "10.2.0",
@@ -13,6 +14,7 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.3.3",
     "@types/node": "^15.3.0",
     "@types/react": "^17.0.5",
     "autoprefixer": "^9.8.6",
