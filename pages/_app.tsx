@@ -27,8 +27,9 @@ export default function App({ Component, pageProps }: AppProps) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <script src="https://use.fontawesome.com/c910636fcd.js"></script>
       </Head>
-      <Component {...pageProps} />
+      <Component className="font-sans" {...pageProps} />
     </html>
   );
 }

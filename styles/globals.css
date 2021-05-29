@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --teal: #53d3d1;
+  --amber: #feb249;
+  --blue: #002447;
+  --grey: #f3f4f6;
+  --white: #ffffff;
+}
+
+.tk-text-blue {
+  color: var(--blue);
+}
+
+.tk-bg-grey {
+  background-color: var(--grey);
+}
+
+.tk-bg-amber {
+  background-color: var(--amber);
+}
+
+.tk-bg-teal {
+  background-color: var(--teal);
+}
