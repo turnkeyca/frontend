@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from "react";
 import { Button } from "./button";
+import { Radio } from "./radio";
 
 export interface IToggle extends HTMLAttributes<HTMLElement> {
   className?: string;
@@ -15,8 +16,12 @@ export const Toggle = ({
 }: IToggle) => {
   return (
     <div className={"flex ".concat(className)}>
-      <Button className="mr-2">{labelTrue}</Button>
-      <Button variant="secondary">{labelFalse}</Button>
+      <Button className="mr-2">
+        <Radio>{labelTrue}</Radio>
+      </Button>
+      <Button variant="secondary">
+        <Radio>{labelFalse}</Radio>
+      </Button>
     </div>
   );
 };

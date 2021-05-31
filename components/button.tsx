@@ -22,14 +22,14 @@ export const Button = ({
     colourClasses = "tk-text-blue bg-white";
   }
   return (
-    <button
+    <div
       onClick={handleClick}
-      className={"border rounded tracking-wide font-medium text-sm "
+      className={"flex cursor-pointer border rounded tracking-wide font-medium text-sm "
         .concat(colourClasses)
         .concat(" ")
         .concat(className)}
     >
       <span className="p-2">{children}</span>
-    </button>
+    </div>
   );
 };

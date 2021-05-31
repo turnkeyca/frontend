@@ -8,11 +8,12 @@ import { ShareableLink } from "../components/shareablelink";
 import { Spinner } from "../components/spinner";
 import { TextInput } from "../components/text";
 import { Textarea } from "../components/textarea";
-import { Toggle } from "../components/toggle";
+import { Toggle } from "../components/binarytoggle";
+import { NToggle } from "../components/ntoggle";
 
 export default function Showcase() {
   return (
-    <div className="grid grid-cols-3 grid-gap-4 m-8">
+    <div className="flex flex-col m-8">
       <div className="flex flex-col tk-bg-teal border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 text-white">
           Back arrow
@@ -21,7 +22,7 @@ export default function Showcase() {
           <BackArrow />
         </div>
       </div>
-      <div className="flex flex-col tk-bg-grey border border-l-0 border-b-0 border-gray-400">
+      <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
           Buttons
         </span>
@@ -46,7 +47,7 @@ export default function Showcase() {
         </div>
       </div>
 
-      <div className="flex flex-col tk-bg-grey border border-l-0 border-b-0 border-gray-400">
+      <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
           Label
         </span>
@@ -64,7 +65,7 @@ export default function Showcase() {
           </Select>
         </div>
       </div>
-      <div className="flex flex-col tk-bg-grey border border-b-0 border-l-0 border-gray-400">
+      <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
           Shareable link
         </span>
@@ -72,7 +73,7 @@ export default function Showcase() {
           <ShareableLink />
         </div>
       </div>
-      <div className="flex flex-col tk-bg-grey border border-b-0 border-l-0 border-gray-400">
+      <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
           Spinner
         </span>
@@ -80,28 +81,44 @@ export default function Showcase() {
           <Spinner />
         </div>
       </div>
-      <div className="flex flex-col tk-bg-grey border border-gray-400">
+      <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
           Text
         </span>
         <div className="flex justify-center items-center m-4">
-          <TextInput className="w-64" />
+          <TextInput placeholder="Placeholder" className="w-64" />
         </div>
       </div>
-      <div className="flex flex-col tk-bg-grey border border-l-0 border-gray-400">
+      <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
           Textarea
         </span>
         <div className="flex justify-center items-center m-4">
-          <Textarea className="w-64" />
+          <Textarea placeholder="Placeholder" className="w-64" />
         </div>
       </div>
-      <div className="flex flex-col tk-bg-grey border border-l-0 border-gray-400">
+      <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
-          Toggle
+          Binary Toggle
         </span>
         <div className="flex justify-center items-center m-4">
           <Toggle labelTrue="True" labelFalse="False" />
+        </div>
+      </div>
+      <div className="flex flex-col tk-bg-grey border border-gray-400">
+        <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          N-Toggle
+        </span>
+        <div className="flex justify-center items-center m-4">
+          <NToggle
+            labels={
+              new Map([
+                ["Value 1", "primary"],
+                ["Value 2", "secondary"],
+                ["Value 3", "tertiary"],
+              ])
+            }
+          />
         </div>
       </div>
       {/* <div className="flex flex-col">
