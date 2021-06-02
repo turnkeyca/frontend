@@ -17,14 +17,14 @@ export const Button = ({
   if (variant === "primary") {
     colourClasses = "text-white tk-bg-teal";
   } else if (variant === "secondary") {
-    colourClasses = "tk-text-blue tk-bg-amber";
+    colourClasses = "text-white tk-bg-amber";
   } else if (variant === "tertiary") {
-    colourClasses = "tk-text-blue bg-white";
+    colourClasses = "tk-text-blue bg-white border tk-border-blue";
   }
   return (
     <div
       onClick={handleClick}
-      className={"flex cursor-pointer border rounded tracking-wide font-medium text-sm "
+      className={"flex cursor-pointer rounded tracking-wide font-medium text-sm "
         .concat(colourClasses)
         .concat(" ")
         .concat(className)}

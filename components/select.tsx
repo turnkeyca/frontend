@@ -2,19 +2,21 @@ import React, { SelectHTMLAttributes } from "react";
 
 export interface ISelect extends SelectHTMLAttributes<HTMLSelectElement> {
   className?: string;
-  handleClick?: () => any;
+  handleSelect?: () => any;
 }
 
 export const Select = ({
   children,
-  handleClick,
+  handleSelect,
   className,
   ...rest
 }: ISelect) => {
   return (
     <select
-      onClick={handleClick}
-      className={"text-sm tracking-wide tk-text-blue ".concat(className)}
+      onSelect={handleSelect}
+      className={"p-2 text-sm tracking-wide border rounded-sm tk-text-blue ".concat(
+        className
+      )}
     >
       {children}
     </select>

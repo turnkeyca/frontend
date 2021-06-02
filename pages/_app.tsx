@@ -5,7 +5,7 @@ import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <html>
+    <div>
       <Head>
         <title>Turnkey</title>
         <meta charSet="utf-8" />
@@ -27,9 +27,12 @@ export default function App({ Component, pageProps }: AppProps) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-        <script src="https://use.fontawesome.com/c910636fcd.js"></script>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
       </Head>
       <Component className="font-sans" {...pageProps} />
-    </html>
+    </div>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import { PrimaryButton } from "./button";
+import { Button } from "./button";
 
 export class PictureUpload extends React.Component {
   render() {
-    return <PrimaryButton></PrimaryButton>;
+    return <Button variant="primary"></Button>;
   }
 }

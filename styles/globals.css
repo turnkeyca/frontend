@@ -14,6 +14,10 @@
   color: var(--blue);
 }
 
+.tk-text-teal {
+  color: var(--teal);
+}
+
 .tk-bg-grey {
   background-color: var(--grey);
 }
@@ -24,4 +28,8 @@
 
 .tk-bg-teal {
   background-color: var(--teal);
+}
+
+.tk-border-blue {
+  border-color: var(--blue);
 }

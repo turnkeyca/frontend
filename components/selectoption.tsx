@@ -7,11 +7,17 @@ export interface ISelectOption extends HTMLAttributes<HTMLElement> {
 
 export const SelectOption = ({
   children,
+  handleClick,
   className,
   ...rest
 }: ISelectOption) => {
   return (
-    <option className={"text-sm tk-text-blue tracking-wide ".concat(className)}>
+    <option
+      onClick={handleClick}
+      className={"p-2 text-sm tracking-wide border rounded-sm tk-text-blue ".concat(
+        className
+      )}
+    >
       {children}
     </option>
   );
