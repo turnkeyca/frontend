@@ -1,7 +1,18 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 
-export class Currency extends React.Component {
-  render() {
-    return <input type="number"></input>;
-  }
+export interface ICurrency extends InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+  placeholder?: string;
 }
+
+export const CurrencyInput = ({ className, placeholder, ...rest }: ICurrency) => {
+  return (
+    <input
+      type="text"
+      placeholder={placeholder}
+      className={"p-2 text-sm tracking-wide border rounded-sm tk-text-blue ".concat(
+        className
+      )}
+    ></input>
+  );
+};

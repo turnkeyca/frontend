@@ -10,9 +10,9 @@ export default class Profile extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="My Profile" showEdit={true} showBack={true} />
         Profile
-        <Footer />
+        <Footer showConnections={true} showProfile={true} />
       </div>
     );
   }

@@ -12,6 +12,8 @@ import { Toggle } from "../components/binarytoggle";
 import { NToggle } from "../components/ntoggle";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
+import { CurrencyInput } from "../components/currency";
+import { PhoneNumberInput } from "../components/phonenumber";
 
 export default function Showcase() {
   return (
@@ -64,6 +66,22 @@ export default function Showcase() {
           </span>
           <div className="flex justify-center items-center m-4">
             <TextInput placeholder="Placeholder" className="w-64" />
+          </div>
+        </div>
+        <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
+          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+            Currency
+          </span>
+          <div className="flex justify-center items-center m-4">
+            <CurrencyInput placeholder="$2,000.00" className="w-64" />
+          </div>
+        </div>
+        <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
+          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+            Phone number
+          </span>
+          <div className="flex justify-center items-center m-4">
+            <PhoneNumberInput placeholder="123-456-7890" className="w-64" />
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
@@ -131,21 +149,9 @@ export default function Showcase() {
         </div>
       </div> */}
         {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-2 tk-text-blue">Currency</span>
-        <div className="flex justify-center items-center">
-          <Currency />
-        </div>
-      </div> */}
-        {/* <div className="flex flex-col">
         <span className="text-sm font-light tracking-wide m-2 tk-text-blue">Duration</span>
         <div className="flex justify-center items-center">
           <Duration />
-        </div>
-      </div> */}
-        {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-2 tk-text-blue">Phone number</span>
-        <div className="flex justify-center items-center">
-          <PhoneNumber />
         </div>
       </div> */}
         {/* <div className="flex flex-col">
