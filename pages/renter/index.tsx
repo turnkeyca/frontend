@@ -17,7 +17,7 @@ export default function Profile(): any {
         <div className="grid grid-cols-3 gap-2 mb-2 tracking-wide">
           <div className="flex flex-col items-center">
             <Picture src="../../public/favicon-32x32.png" />
-            <div className="tk-text-blue">Renter</div>
+            <div className="tk-text-teal opacity-80 font-medium">Renter</div>
           </div>
           <div className="colspan-2">
             <div className="tk-text-blue font-medium">Hi, I'm Spongebob</div>
