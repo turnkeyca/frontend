@@ -18,7 +18,12 @@ import { PhoneNumberInput } from "../components/phonenumber";
 export default function Showcase() {
   return (
     <div>
-      <Header showBack={false} showEdit={false} title="Showcase"></Header>
+      <Header
+        showLogout={false}
+        showBack={false}
+        showEdit={false}
+        title="Showcase"
+      ></Header>
       <div className="flex flex-col m-8">
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
           <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
@@ -167,7 +172,7 @@ export default function Showcase() {
         </div>
       </div> */}
       </div>
-      <Footer showConnections={true} showProfile={true}></Footer>
+      <Footer showShareMyProfile={true} showProfile={true}></Footer>
     </div>
   );
 }
