@@ -1,7 +1,5 @@
 import React, { HTMLAttributes } from "react";
-import { BackArrow } from "./backarrow";
-import { EditPencil } from "./editpencil";
-import { Logout } from "./logout";
+import { Icon } from "./icon";
 
 export interface IHeader extends HTMLAttributes<HTMLElement> {
   title: string;
@@ -12,6 +10,10 @@ export interface IHeader extends HTMLAttributes<HTMLElement> {
   onEdit?: () => any;
 }
 
+function logout(): void {
+  console.log("logged out");
+}
+
 export const Header = ({
   title,
   showBack,
@@ -20,15 +22,13 @@ export const Header = ({
   onBack,
   onEdit,
   ...rest
-}: IHeader) => {
-  return (
-    <div className="tk-bg-teal flex justify-between items-center pb-2 pt-4">
-      <span>
-        {showBack && <BackArrow handleClick={onBack}></BackArrow>}
-        {showLogout && <Logout></Logout>}
-      </span>
-      <span className="text-white font-medium">{title}</span>
-      <span>{showEdit && <EditPencil handleClick={onEdit}></EditPencil>}</span>
+}: IHeader) => (
+  <div className="tk-bg-teal text-white flex justify-between items-center px-2 py-4">
+    <div>
+      {showBack && <Icon name="arrow_back" handleClick={onBack} />}
+      {showLogout && <Icon name="logout" handleClick={logout} />}
     </div>
-  );
-};
+    <div className="text-white font-medium">{title}</div>
+    <div>{showEdit && <Icon name="edit" handleClick={onEdit} />}</div>
+  </div>
+);

@@ -29,8 +29,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest" />
         <link
           rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        ></link>
       </Head>
       <Component className="font-sans" {...pageProps} />
     </div>

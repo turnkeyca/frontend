@@ -16,7 +16,10 @@ export default function Profile(): any {
       <div className="p-2">
         <div className="grid grid-cols-3 gap-2 mb-2 tracking-wide">
           <div className="flex flex-col items-center">
-            <Picture src="../../public/favicon-32x32.png" />
+            <Picture
+              alt="profile picture"
+              src="../../public/favicon-32x32.png"
+            />
             <div className="tk-text-teal opacity-80 font-medium">Renter</div>
           </div>
           <div className="col-span-2 w-full">
@@ -33,32 +36,32 @@ export default function Profile(): any {
         </div>
         <div className="tk-text-blue tracking-wide">
           <div className="flex items-center justify-between border border-r-0 border-l-0 border-b-0 p-2">
-            <div>
+            <div className="flex items-center">
               <span className="mr-2">General information</span>
-              <Icon name="exclamation-circle" />
+              <Icon name="error_outline" small={true} />
             </div>
-            <Icon name="chevron-right" />
+            <Icon name="chevron_right" />
           </div>
           <div className="flex items-center justify-between border border-r-0 border-l-0 border-b-0 p-2">
-            <div>
+            <div className="flex items-center">
               <span className="mr-2">Lease information</span>
-              <Icon name="exclamation-circle" />
+              <Icon name="error_outline" small={true} />
             </div>
-            <Icon name="chevron-right" />
+            <Icon name="chevron_right" />
           </div>
           <div className="flex items-center justify-between border border-r-0 border-l-0 border-b-0 p-2">
-            <div>
+            <div className="flex items-center">
               <span className="mr-2">Employment information</span>
-              <Icon name="exclamation-circle" />
+              <Icon name="error_outline" small={true} />
             </div>
-            <Icon name="chevron-right" />
+            <Icon name="chevron_right" />
           </div>
           <div className="flex items-center justify-between border border-r-0 border-l-0 p-2">
-            <div>
+            <div className="flex items-center">
               <span className="mr-2">Reference information</span>
-              <Icon name="exclamation-circle" />
+              <Icon name="error_outline" small={true} />
             </div>
-            <Icon name="chevron-right" />
+            <Icon name="chevron_right" />
           </div>
         </div>
       </div>
