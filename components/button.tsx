@@ -24,12 +24,12 @@ export const Button = ({
   return (
     <div
       onClick={handleClick}
-      className={"flex justify-center cursor-pointer rounded tracking-wide font-medium text-sm "
+      className={"flex justify-center cursor-pointer rounded tracking-wide font-medium text-sm p-2 "
         .concat(colourClasses)
         .concat(" ")
         .concat(className)}
     >
-      <span className="p-2">{children}</span>
+      {children}
     </div>
   );
 };

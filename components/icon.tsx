@@ -1,7 +1,13 @@
 import { HTMLAttributes } from "react";
 
 export interface IIcon extends HTMLAttributes<HTMLElement> {
-  name: "chevron_right" | "error_outline" | "arrow_back" | "edit" | "logout";
+  name:
+    | "chevron_right"
+    | "error_outline"
+    | "arrow_back"
+    | "edit"
+    | "logout"
+    | "add";
   handleClick?: () => any;
   small?: boolean;
   className?: string;

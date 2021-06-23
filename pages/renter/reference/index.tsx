@@ -50,7 +50,10 @@ export default function Reference(): any {
           </div>
         </div>
         <div>
-          <Button variant="tertiary">Add new reference</Button>
+          <Button variant="tertiary" className="flex items-center">
+            <Icon name="add" small={true} />
+            Add new reference
+          </Button>
         </div>
       </div>
       <Footer showProfile={true} showShareMyProfile={true} />
