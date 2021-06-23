@@ -4,7 +4,7 @@ import { Header } from "../../components/header";
 import { Icon } from "../../components/icon";
 import { Picture } from "../../components/image";
 
-export default function Profile(): any {
+export default function Renter(): any {
   return (
     <div>
       <Header
