@@ -14,8 +14,6 @@ export default class Reference extends React.Component {
           showEdit={true}
           showBack={true}
           showLogout={false}
-          onBackRoute="/renter"
-          onEditRoute="/renter/reference/edit"
         />
         <div className="p-3">
           <div className="flex items-center justify-center">

@@ -14,8 +14,6 @@ export default class Renter extends React.Component {
           showEdit={true}
           showBack={true}
           showLogout={false}
-          onBackRoute="/"
-          onEditRoute="/renter/edit"
         />
         <div className="p-3">
           <div className="grid grid-cols-3 gap-3 mb-3 tracking-wide">

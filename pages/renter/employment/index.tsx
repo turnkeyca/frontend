@@ -11,8 +11,6 @@ render(): any {
           showEdit={true}
           showBack={true}
           showLogout={false}
-          onBackRoute="/renter"
-          onEditRoute="/renter/employment/edit"
         />
         <div className="p-2">
           <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
