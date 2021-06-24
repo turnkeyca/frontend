@@ -1,5 +1,4 @@
 import React from "react";
-import { BackArrow } from "../components/backarrow";
 import { Button } from "../components/button";
 import { Label } from "../components/label";
 import { Select } from "../components/select";
@@ -129,14 +128,6 @@ export default function Showcase() {
                 ])
               }
             />
-          </div>
-        </div>
-        <div className="flex flex-col tk-bg-teal border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 text-white">
-            Back arrow
-          </span>
-          <div className="flex justify-center items-center m-4">
-            <BackArrow />
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-gray-400">
