@@ -163,7 +163,10 @@ export default function Showcase() {
         </div>
       </div> */}
       </div>
-      <Footer showShareMyProfile={true} showProfile={true}></Footer>
+      <Footer
+        showProfile={true}
+        showConnections={true}
+      ></Footer>
     </div>
   );
 }

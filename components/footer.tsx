@@ -1,43 +1,38 @@
+import { useRouter } from "next/router";
 import React, { HTMLAttributes } from "react";
+import { Icon } from "./icon";
 
 export interface IFooter extends HTMLAttributes<HTMLElement> {
-  showShareMyProfile: boolean;
   showProfile: boolean;
-  onShareMyProfile?: () => any;
-  onProfile?: () => any;
+  showConnections: boolean;
 }
 
-export const Footer = ({
-  showShareMyProfile,
-  showProfile,
-  onShareMyProfile,
-  onProfile,
-  ...rest
-}: IFooter) => {
+export const Footer = ({ showProfile, showConnections, ...rest }: IFooter) => {
+  const router = useRouter();
   return (
-    <div className="w-full absolute bottom-0 bg-white border border-x-0 border-b-0 flex justify-around items-center">
-      <span>
+    <div className="w-full absolute bottom-0 bg-white border border-r-0 border-l-0 border-b-0 flex justify-around items-center">
+      <div>
         {showProfile && (
           <div
-            className="cursor-pointer tk-text-teal p-4 flex items-center justify-center"
-            onClick={onProfile}
+            className="cursor-pointer tk-text-teal p-3 flex flex-col items-center justify-center"
+            onClick={() => router.push("/renter")}
           >
-            <i></i>
+            <Icon name="account_circle" />
             <span className="text-xs tracking-wide">Profile</span>
           </div>
         )}
-      </span>
-      <span>
-        {showShareMyProfile && (
+      </div>
+      <div>
+        {showConnections && (
           <div
-            className="cursor-pointer tk-text-teal flex items-center justify-center"
-            onClick={onShareMyProfile}
+            className="cursor-pointer tk-text-teal flex flex-col items-center justify-center"
+            onClick={() => router.push("/renter/activity")}
           >
-            <i></i>
-            <span className="text-xs tracking-wide">Share my profile</span>
+            <Icon name="list" />
+            <span className="text-xs tracking-wide">Activity</span>
           </div>
         )}
-      </span>
+      </div>
     </div>
   );
 };

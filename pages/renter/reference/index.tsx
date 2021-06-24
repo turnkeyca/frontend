@@ -22,15 +22,15 @@ export default class Reference extends React.Component {
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 mb-3">
-            <div className="border rounded p-1 shadow">
+            <div className="border rounded p-3 shadow">
               <div className="grid grid-cols-3 gap-2 mb-2 tracking-wide">
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center mr-1">
                   <Picture
                     alt="profile picture"
                     src="../../public/favicon-32x32.png"
                   />
                 </div>
-                <div className="col-span-2 w-full flex ">
+                <div className="col-span-2 w-full flex">
                   <div>
                     <div className="tk-text-blue text-lg font-medium">
                       Brooke Ham
@@ -53,11 +53,14 @@ export default class Reference extends React.Component {
           <div>
             <Button variant="tertiary" className="flex items-center">
               <Icon name="add" small={true} />
-              Add new reference
+              <span>Add new reference</span>
             </Button>
           </div>
         </div>
-        <Footer showProfile={true} showShareMyProfile={true} />
+        <Footer
+          showProfile={true}
+          showConnections={true}
+        />
       </div>
     );
   }

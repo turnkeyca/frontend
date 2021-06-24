@@ -3,7 +3,7 @@ import { Footer } from "../../../components/footer";
 import { Header } from "../../../components/header";
 
 export default class Employment extends React.Component {
-render(): any {
+  render(): any {
     return (
       <div>
         <Header
@@ -53,7 +53,10 @@ render(): any {
             </div>
           </div>
         </div>
-        <Footer showShareMyProfile={true} showProfile={true} />
+        <Footer
+          showProfile={true}
+          showConnections={true}
+        />
       </div>
     );
   }

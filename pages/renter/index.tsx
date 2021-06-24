@@ -12,8 +12,8 @@ export default class Renter extends React.Component {
         <Header
           title="My Turnkey"
           showEdit={true}
-          showBack={true}
-          showLogout={false}
+          showBack={false}
+          showLogout={true}
         />
         <div className="p-3">
           <div className="grid grid-cols-3 gap-3 mb-3 tracking-wide">
@@ -75,7 +75,10 @@ export default class Renter extends React.Component {
             </Link>
           </div>
         </div>
-        <Footer showShareMyProfile={true} showProfile={true} />
+        <Footer
+          showProfile={true}
+          showConnections={true}
+        />
       </div>
     );
   }

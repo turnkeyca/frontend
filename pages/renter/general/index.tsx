@@ -65,7 +65,10 @@ export default class General extends React.Component {
             </div>
           </div>
         </div>
-        <Footer showShareMyProfile={true} showProfile={true} />
+        <Footer
+          showProfile={true}
+          showConnections={true}
+        />
       </div>
     );
   }
