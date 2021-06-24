@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes } from "react";
+import React, { HTMLAttributes } from "react";
 import { Icon } from "./icon";
 import { useRouter } from "next/router";
 
