@@ -5,10 +5,9 @@ import { Button } from "../../../components/button";
 import { Footer } from "../../../components/footer";
 import { Header } from "../../../components/header";
 import { Icon } from "../../../components/icon";
-import { TextInput } from "../../../components/text";
 import { Textarea } from "../../../components/textarea";
 
-export default function EditEmployment() {
+export default function EditGeneral() {
   return (
     <div>
       <Header
