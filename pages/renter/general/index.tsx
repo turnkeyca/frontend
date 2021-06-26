@@ -13,7 +13,7 @@ export default class General extends React.Component {
           showBack={true}
           showLogout={false}
         />
-        <div className="p-2">
+        <div className="p-3">
           <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
             <span className="tk-text-blue font-medium text-xl p-3">
               General Info
