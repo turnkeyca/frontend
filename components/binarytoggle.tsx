@@ -22,17 +22,9 @@ export const Toggle = ({
   let [value, setState] = useState(initialValue ? initialValue : false);
   const toggleValue = (incomingValue: boolean) => {
     if (value) {
-      if (incomingValue) {
-        setState(false);
-      } else {
-        setState(true);
-      }
+      setState(!incomingValue);
     } else {
-      if (incomingValue) {
-        setState(true);
-      } else {
-        setState(false);
-      }
+      setState(incomingValue);
     }
   };
   return (
