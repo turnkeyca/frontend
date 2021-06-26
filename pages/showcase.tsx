@@ -25,21 +25,21 @@ export default function Showcase() {
       ></Header>
       <div className="flex flex-col m-8">
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Buttons
           </span>
           <div className="flex flex-col justify-center items-center m-4">
             <Button
               handleClick={() => alert("primary!")}
               variant="primary"
-              className="mb-2"
+              className="mb-3"
             >
               Primary button
             </Button>
             <Button
               handleClick={() => alert("secondary!")}
               variant="secondary"
-              className="mb-2"
+              className="mb-3"
             >
               Secondary button
             </Button>
@@ -49,7 +49,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Label
           </span>
           <div className="flex justify-center items-center m-4">
@@ -57,7 +57,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Shareable link
           </span>
           <div className="flex justify-center items-center m-4">
@@ -65,7 +65,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Text
           </span>
           <div className="flex justify-center items-center m-4">
@@ -73,7 +73,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Currency
           </span>
           <div className="flex justify-center items-center m-4">
@@ -81,7 +81,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Phone number
           </span>
           <div className="flex justify-center items-center m-4">
@@ -89,7 +89,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Textarea
           </span>
           <div className="flex justify-center items-center m-4">
@@ -97,7 +97,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Select
           </span>
           <div className="flex justify-center items-center m-4">
@@ -107,7 +107,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Binary Toggle
           </span>
           <div className="flex justify-center items-center m-4">
@@ -115,7 +115,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             N-Toggle
           </span>
           <div className="flex justify-center items-center m-4">
@@ -131,7 +131,7 @@ export default function Showcase() {
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-gray-400">
-          <span className="text-sm font-light tracking-wide m-2 tk-text-blue">
+          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
             Spinner
           </span>
           <div className="flex justify-center items-center m-4">
@@ -139,25 +139,25 @@ export default function Showcase() {
           </div>
         </div>
         {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-2 tk-text-blue">Calendar</span>
+        <span className="text-sm font-light tracking-wide m-3 tk-text-blue">Calendar</span>
         <div className="flex justify-center items-center">
           <Calendar />
         </div>
       </div> */}
         {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-2 tk-text-blue">Duration</span>
+        <span className="text-sm font-light tracking-wide m-3 tk-text-blue">Duration</span>
         <div className="flex justify-center items-center">
           <Duration />
         </div>
       </div> */}
         {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-2 tk-text-blue">Picture</span>
+        <span className="text-sm font-light tracking-wide m-3 tk-text-blue">Picture</span>
         <div className="flex justify-center items-center">
           <PictureUpload />
         </div>
       </div> */}
         {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-2 tk-text-blue">Progress bar</span>
+        <span className="text-sm font-light tracking-wide m-3 tk-text-blue">Progress bar</span>
         <div className="flex justify-center items-center">
           <ProgressBar />
         </div>

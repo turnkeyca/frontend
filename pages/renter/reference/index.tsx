@@ -23,7 +23,7 @@ export default class Reference extends React.Component {
           </div>
           <div className="grid grid-cols-1 gap-1 mb-3">
             <div className="border rounded p-3 shadow">
-              <div className="grid grid-cols-3 gap-2 mb-2 tracking-wide">
+              <div className="grid grid-cols-3 gap-2 mb-3 tracking-wide">
                 <div className="flex flex-col items-center mr-1">
                   <Picture
                     alt="profile picture"

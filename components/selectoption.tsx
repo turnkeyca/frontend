@@ -14,7 +14,7 @@ export const SelectOption = ({
   return (
     <option
       onClick={handleClick}
-      className={"p-2 text-sm tracking-wide border rounded-sm tk-text-blue ".concat(
+      className={"p-3 text-sm tracking-wide border rounded-sm tk-text-blue ".concat(
         className
       )}
     >

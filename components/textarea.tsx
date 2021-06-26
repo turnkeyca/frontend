@@ -9,7 +9,7 @@ export const Textarea = ({ className, placeholder, ...rest }: ITextarea) => {
   return (
     <textarea
       placeholder={placeholder}
-      className={"p-2 text-sm tracking-wide border rounded-sm tk-text-blue ".concat(
+      className={"p-3 text-sm tracking-wide border rounded-sm tk-text-blue ".concat(
         className
       )}
     ></textarea>
