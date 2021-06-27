@@ -10,7 +10,7 @@ export interface IFooter extends HTMLAttributes<HTMLElement> {
 export const Footer = ({ showProfile, showConnections, ...rest }: IFooter) => {
   const router = useRouter();
   return (
-    <div className="w-full absolute bottom-0 bg-white border border-r-0 border-l-0 border-b-0 flex justify-around items-center">
+    <div className="w-full fixed bottom-0 bg-white border border-r-0 border-l-0 border-b-0 flex justify-around items-center">
       <div>
         {showProfile && (
           <div
