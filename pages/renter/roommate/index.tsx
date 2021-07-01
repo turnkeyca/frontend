@@ -2,7 +2,7 @@ import React from "react";
 import { Footer } from "../../../components/footer";
 import { Header } from "../../../components/header";
 
-export default class Pet extends React.Component {
+export default class Roommate extends React.Component {
   render(): any {
     return (
       <div>
