@@ -1,9 +1,21 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js", { scope: "./" })
+        .then((reg) => {
+          console.log("Registration succeeded. Scope is " + reg.scope);
+        })
+        .catch((error) => {
+          console.log("Registration failed with " + error);
+        });
+    }
+  }, []);
   return (
     <div>
       <Head>
