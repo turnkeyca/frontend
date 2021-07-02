@@ -8,6 +8,7 @@ export interface IIcon extends HTMLAttributes<HTMLElement> {
     | "chevron_right"
     | "edit"
     | "error_outline"
+    | "schedule"
     | "list"
     | "logout";
   handleClick?: () => any;
