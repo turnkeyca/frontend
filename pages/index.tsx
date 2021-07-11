@@ -1,2 +1,3 @@
-const Index = () => <div />;
-export default Index;
+export function Index() {
+  return <div />;
+}

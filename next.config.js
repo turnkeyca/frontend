@@ -6,6 +6,11 @@ module.exports = {
         destination: "/login",
         permanent: false,
       },
+      {
+        source: "/renter/contact",
+        destination: "/renter/contact/edit",
+        permanent: false,
+      },
     ];
   },
   async rewrites() {
