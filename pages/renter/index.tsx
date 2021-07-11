@@ -1,23 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { Icon } from "../../components/icon";
 import { Picture } from "../../components/image";
+import { Error } from "../../components/error";
 import { UserApi, UserDto } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 
 export default function Renter() {
-  let user: UserDto;
-  let error: Error;
   const userApi = new UserApi();
   const router = useRouter();
+  let [[error, user], setState] = useState([undefined, undefined]);
   const userId = router.query.userId as string;
-  console.log(userId);
   if (userId) {
     userApi.getUser({ id: userId }).subscribe({
-      next: (u) => (user = u),
-      error: (e) => (error = e),
+      next: (u) => setState([undefined, u]),
+      error: (e) => setState([e, undefined]),
     });
   }
   return (
@@ -29,11 +28,7 @@ export default function Renter() {
         showLogout={true}
       />
       <div className="p-3">
-        {/* {!!error || (
-          <div className="bg-red-200 rounded border border-red-600">
-            {error.message}
-          </div>
-        )} */}
+        {!!error && <Error error={error} />}
         <div className="grid grid-cols-3 gap-3 mb-3 tracking-wide">
           <div className="flex flex-col items-center">
             <Picture alt="profile picture" src="/favicon-32x32.png" />
