@@ -45,42 +45,66 @@ export default function Renter() {
           </div>
         </div>
         <div className="tk-text-blue tracking-wide">
-          <Link href="/renter/general">
-            <div className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3">
-              <div className="flex items-center">
-                <span className="mr-1">General information</span>
-                <Icon name="error_outline" small={true} />
-              </div>
-              <Icon name="chevron_right" />
+          <div
+            onClick={() =>
+              router.push({
+                pathname: "/renter/general",
+                query: { userId },
+              })
+            }
+            className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
+          >
+            <div className="flex items-center">
+              <span className="mr-1">General information</span>
+              <Icon name="error_outline" small={true} />
             </div>
-          </Link>
-          <Link href="/renter/lease">
-            <div className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3">
-              <div className="flex items-center">
-                <span className="mr-1">Lease information</span>
-                <Icon name="error_outline" small={true} />
-              </div>
-              <Icon name="chevron_right" />
+            <Icon name="chevron_right" />
+          </div>
+          <div
+            onClick={() =>
+              router.push({
+                pathname: "/renter/lease",
+                query: { userId },
+              })
+            }
+            className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
+          >
+            <div className="flex items-center">
+              <span className="mr-1">Lease information</span>
+              <Icon name="error_outline" small={true} />
             </div>
-          </Link>
-          <Link href="/renter/employment">
-            <div className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3">
-              <div className="flex items-center">
-                <span className="mr-1">Employment information</span>
-                <Icon name="error_outline" small={true} />
-              </div>
-              <Icon name="chevron_right" />
+            <Icon name="chevron_right" />
+          </div>
+          <div
+            onClick={() =>
+              router.push({
+                pathname: "/renter/employment",
+                query: { userId },
+              })
+            }
+            className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
+          >
+            <div className="flex items-center">
+              <span className="mr-1">Employment information</span>
+              <Icon name="error_outline" small={true} />
             </div>
-          </Link>
-          <Link href="/renter/reference">
-            <div className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 p-3">
-              <div className="flex items-center">
-                <span className="mr-1">Reference information</span>
-                <Icon name="error_outline" small={true} />
-              </div>
-              <Icon name="chevron_right" />
+            <Icon name="chevron_right" />
+          </div>
+          <div
+            onClick={() =>
+              router.push({
+                pathname: "/renter/reference",
+                query: { userId },
+              })
+            }
+            className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 p-3"
+          >
+            <div className="flex items-center">
+              <span className="mr-1">Reference information</span>
+              <Icon name="error_outline" small={true} />
             </div>
-          </Link>
+            <Icon name="chevron_right" />
+          </div>
         </div>
       </div>
       <Footer showProfile={true} showConnections={true} />
