@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { Icon } from "../../components/icon";
 import { Picture } from "../../components/image";
 import { Error } from "../../components/error";
-import { UserApi, UserDto } from "../../generated-src/openapi";
+import { UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 
 export default function Renter() {
