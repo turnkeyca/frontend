@@ -4,16 +4,16 @@ import { Header } from "../../components/header";
 import { Icon } from "../../components/icon";
 import { Picture } from "../../components/image";
 import { Error } from "../../components/error";
-import { UserApi } from "../../generated-src/openapi";
+import { EmploymentApi, UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 
 export default function Renter() {
-  const userApi = new UserApi();
+  const employmentApi = new EmploymentApi();
   const router = useRouter();
   let [[error, user], setState] = useState([undefined, undefined]);
   const userId = router.query.userId as string;
   if (userId) {
-    userApi.getUser({ id: userId }).subscribe({
+    employmentApi.getEmployment({ id: userId }).subscribe({
       next: (u) => setState([undefined, u]),
       error: (e) => setState([e, undefined]),
     });
@@ -77,7 +77,7 @@ export default function Renter() {
           <div
             onClick={() =>
               router.push({
-                pathname: "/renter/employment",
+                pathname: "/renter/employment/all",
                 query: { userId },
               })
             }
@@ -92,7 +92,7 @@ export default function Renter() {
           <div
             onClick={() =>
               router.push({
-                pathname: "/renter/reference",
+                pathname: "/renter/reference/all",
                 query: { userId },
               })
             }
