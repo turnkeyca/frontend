@@ -27,12 +27,13 @@ export const Header = ({
         {showBack && (
           <Icon
             handleClick={() =>
-              router.push(
-                router.pathname.substring(
+              router.push({
+                pathname: router.pathname.substring(
                   0,
                   router.pathname.lastIndexOf("/") + 1
-                )
-              )
+                ),
+                query: router.query,
+              })
             }
             name="arrow_back"
           />
