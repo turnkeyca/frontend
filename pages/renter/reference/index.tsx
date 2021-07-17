@@ -37,10 +37,10 @@ export default function Reference() {
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
+        {references !== undefined && references.length === 0 && (
+          <Warning>No reference records found</Warning>
+        )}
         <div className="grid grid-cols-1 gap-3">
-          {references !== undefined && references.length === 0 && (
-            <Warning>No reference records found</Warning>
-          )}
           {references?.map((reference) => {
             <div
               className="p-3 border shadow"
