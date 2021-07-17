@@ -41,6 +41,9 @@ export default function Employment() {
       <div className="p-3">
         {!!error && <Error error={error} />}
         <div className="grid grid-cols-1 gap-3">
+          {employments !== undefined && employments.length === 0 && (
+            <Warning>No employment records found</Warning>
+          )}
           {employments?.map((employment) => {
             <div className="p-3 border shadow">
               <div className="tk-text-blue text-lg font-medium">
@@ -50,9 +53,6 @@ export default function Employment() {
               <div className="text-gray-600 text-sm">{employment.duration}</div>
             </div>;
           })}
-          {employments !== undefined && employments.length === 0 && (
-            <Warning>No employment records found</Warning>
-          )}
         </div>
       </div>
     </div>
