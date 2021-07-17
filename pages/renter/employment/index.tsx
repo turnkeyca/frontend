@@ -1,20 +1,35 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Error } from "../../../components/error";
 import { Header } from "../../../components/header";
+import { Warning } from "../../../components/warning";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
-  const employmentApi = new EmploymentApi();
   const router = useRouter();
-  let [[error, employments], setState] = useState([undefined, undefined]);
-  const userId = router.query.userId as string;
-  if (userId) {
-    employmentApi.getEmploymentsByUserId({ userId }).subscribe({
-      next: (e) => setState([undefined, e]),
-      error: (e) => setState([e, undefined]),
-    });
-  }
+  let [[error, employments, userId], setState] = useState([
+    undefined,
+    undefined,
+    undefined,
+  ]);
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    let _userId = router.query.userId as string;
+    setState([undefined, undefined, _userId]);
+    const employmentApi = new EmploymentApi();
+    let sub = employmentApi
+      .getEmploymentsByUserId({ userId: _userId })
+      .subscribe({
+        next: (e) => {
+          setState([undefined, e, _userId]);
+          console.log(e);
+        },
+        error: (e) => setState([e, undefined, _userId]),
+      });
+    return () => sub.unsubscribe();
+  }, [router.isReady]);
   return (
     <div>
       <Header
@@ -35,6 +50,9 @@ export default function Employment() {
               <div className="text-gray-600 text-sm">{employment.duration}</div>
             </div>;
           })}
+          {employments !== undefined && employments.length === 0 && (
+            <Warning>No employment records found</Warning>
+          )}
         </div>
       </div>
     </div>
