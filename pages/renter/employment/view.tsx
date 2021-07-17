@@ -1,21 +1,25 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../../../components/footer";
 import { Header } from "../../../components/header";
 import { Error } from "../../../components/error";
-import { EmploymentApi, UserApi } from "../../../generated-src/openapi";
+import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
-  const employmentApi = new EmploymentApi();
   const router = useRouter();
   let [[error, employment], setState] = useState([undefined, undefined]);
-  const employmentId = router.query.employmentId as string;
-  if (employmentId) {
-    employmentApi.getEmployment({ id: employmentId }).subscribe({
-      next: (e) => setState([undefined, e]),
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    let _employmentId = router.query.employmentId as string;
+    const employmentApi = new EmploymentApi();
+    const sub = employmentApi.getEmployment({ id: _employmentId }).subscribe({
+      next: (u) => setState([undefined, u]),
       error: (e) => setState([e, undefined]),
     });
-  }
+    return () => sub.unsubscribe();
+  }, [router.isReady]);
   return (
     <div>
       <Header
@@ -43,7 +47,7 @@ export default function Employment() {
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">Occupation</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {employment?.employer}
+              {employment?.occupation}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -51,13 +55,13 @@ export default function Employment() {
               Length of current employment
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {employment?.employer}
+              {employment?.duration}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">Annual salary</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {employment?.employer}
+              {employment?.annualSalary}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -65,7 +69,7 @@ export default function Employment() {
               Additional information
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {employment?.employer}
+              {employment?.additionalDetails}
             </span>
           </div>
         </div>
