@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { Icon } from "../../components/icon";
@@ -8,16 +8,25 @@ import { UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 
 export default function Renter() {
-  const userApi = new UserApi();
   const router = useRouter();
-  let [[error, user], setState] = useState([undefined, undefined]);
-  const userId = router.query.userId as string;
-  if (userId) {
-    userApi.getUser({ id: userId }).subscribe({
-      next: (u) => setState([undefined, u]),
-      error: (e) => setState([e, undefined]),
+  let [[error, user, userId], setState] = useState([
+    undefined,
+    undefined,
+    undefined,
+  ]);
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    let _userId = router.query.userId as string;
+    setState([undefined, undefined, _userId]);
+    const userApi = new UserApi();
+    const sub = userApi.getUser({ id: _userId }).subscribe({
+      next: (u) => setState([undefined, u, _userId]),
+      error: (e) => setState([e, undefined, _userId]),
     });
-  }
+    return () => sub.unsubscribe();
+  }, [router.isReady]);
   return (
     <div>
       <Header
