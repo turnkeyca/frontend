@@ -1,5 +1,5 @@
 import React from "react";
-import { TextInput } from "../components/text";
+import { TextInput } from "../components";
 
 export default function Login() {
   return (

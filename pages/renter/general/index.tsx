@@ -1,9 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button } from "../../../components/button";
-import { Footer } from "../../../components/footer";
-import { Header } from "../../../components/header";
-import { Error } from "../../../components/error";
+import { Button, Error, Footer, Header } from "../../../components";
 import { UserApi } from "../../../generated-src/openapi";
 
 export default function General() {

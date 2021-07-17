@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Footer } from "../../components/footer";
-import { Header } from "../../components/header";
-import { Icon } from "../../components/icon";
-import { Picture } from "../../components/image";
-import { Error } from "../../components/error";
 import { UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
+import { Error, Footer, Header, Icon, Picture } from "../../components";
 
 export default function Renter() {
   const router = useRouter();
