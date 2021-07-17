@@ -22,10 +22,7 @@ export default function Employment() {
     let sub = employmentApi
       .getEmploymentsByUserId({ userId: _userId })
       .subscribe({
-        next: (e) => {
-          setState([undefined, e, _userId]);
-          console.log(e);
-        },
+        next: (e) => setState([undefined, e, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
@@ -45,7 +42,15 @@ export default function Employment() {
             <Warning>No employment records found</Warning>
           )}
           {employments?.map((employment) => {
-            <div className="p-3 border shadow">
+            <div
+              className="p-3 border rounded shadow"
+              onClick={() =>
+                router.push({
+                  pathname: "/renter/employment/view",
+                  query: { userId, employmentId: employment.id },
+                })
+              }
+            >
               <div className="tk-text-blue text-lg font-medium">
                 {employment.employer}
               </div>
