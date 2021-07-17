@@ -1,20 +1,32 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Error } from "../../../components/error";
 import { Header } from "../../../components/header";
+import { Warning } from "../../../components/warning";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
-  const referenceApi = new ReferenceApi();
   const router = useRouter();
-  let [[error, references], setState] = useState([undefined, undefined]);
-  const userId = router.query.userId as string;
-  if (userId) {
-    referenceApi.getReferencesByUserId({ userId }).subscribe({
-      next: (r) => setState([undefined, r]),
-      error: (e) => setState([e, undefined]),
-    });
-  }
+  let [[error, references, userId], setState] = useState([
+    undefined,
+    undefined,
+    undefined,
+  ]);
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    let _userId = router.query.userId as string;
+    setState([undefined, undefined, _userId]);
+    const referenceApi = new ReferenceApi();
+    let sub = referenceApi
+      .getReferencesByUserId({ userId: _userId })
+      .subscribe({
+        next: (r) => setState([undefined, r, _userId]),
+        error: (e) => setState([e, undefined, _userId]),
+      });
+    return () => sub.unsubscribe();
+  }, [router.isReady]);
   return (
     <div>
       <Header
@@ -26,8 +38,19 @@ export default function Reference() {
       <div className="p-3">
         {!!error && <Error error={error} />}
         <div className="grid grid-cols-1 gap-3">
+          {references !== undefined && references.length === 0 && (
+            <Warning>No reference records found</Warning>
+          )}
           {references?.map((reference) => {
-            <div className="p-3 border shadow">
+            <div
+              className="p-3 border shadow"
+              onClick={() =>
+                router.push({
+                  pathname: "/renter/reference/view",
+                  query: { userId, referenceId: reference.id },
+                })
+              }
+            >
               <div className="tk-text-blue text-lg font-medium">
                 {reference.breed}
               </div>
