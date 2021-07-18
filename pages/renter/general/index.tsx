@@ -17,10 +17,7 @@ export default function General() {
     const _userId = router.query.userId as string;
     const userApi = new UserApi();
     const sub = userApi.getUser({ id: _userId }).subscribe({
-      next: (u) => {
-        setState([undefined, u, _userId]);
-        console.log(u);
-      },
+      next: (u) => setState([undefined, u, _userId]),
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
