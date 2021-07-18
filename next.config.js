@@ -15,7 +15,12 @@ module.exports = {
   },
   async rewrites() {
     return process.env.NODE_ENV === "production"
-      ? []
+      ? [
+          {
+            source: `/:path*`,
+            destination: `https://api.turnkeyapp.ca/:path*`,
+          },
+        ]
       : [
           {
             source: `/:path*`,
