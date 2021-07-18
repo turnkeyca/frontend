@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Footer } from "../../../components/footer";
-import { Header } from "../../../components/header";
-import { Error } from "../../../components/error";
+import { Error, Footer, Header } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {

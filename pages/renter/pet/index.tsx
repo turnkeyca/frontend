@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Error } from "../../../components/error";
-import { Header } from "../../../components/header";
-import { Warning } from "../../../components/warning";
+import { Error, Header, Warning } from "../../../components";
 import { PetApi } from "../../../generated-src/openapi";
 
 export default function Pet() {
