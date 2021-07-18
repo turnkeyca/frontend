@@ -1,11 +1,13 @@
 import router from "next/router";
 import React from "react";
-import { Toggle } from "../../../components/binarytoggle";
-import { Button } from "../../../components/button";
-import { Footer } from "../../../components/footer";
-import { Header } from "../../../components/header";
-import { Icon } from "../../../components/icon";
-import { Textarea } from "../../../components/textarea";
+import {
+  Button,
+  Footer,
+  Header,
+  Icon,
+  Textarea,
+  Toggle,
+} from "../../../components";
 
 export default function EditGeneral() {
   return (

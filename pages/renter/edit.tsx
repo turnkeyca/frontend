@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Button } from "../../components/button";
-import { Footer } from "../../components/footer";
-import { Header } from "../../components/header";
+import { Button, Footer, Header } from "../../components";
 
 export default function EditRenter() {
   const router = useRouter();

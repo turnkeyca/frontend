@@ -1,24 +1,20 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Error, Footer, Header } from "../../../components";
-import { UserApi } from "../../../generated-src/openapi";
+import { Error, Footer, Header } from "../../../components";
+import { ReferenceApi } from "../../../generated-src/openapi";
 
-export default function General() {
+export default function Reference() {
   const router = useRouter();
-  let [[error, user, userId], setState] = useState([
-    undefined,
-    undefined,
-    undefined,
-  ]);
+  let [[error, reference], setState] = useState([undefined, undefined]);
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
-    let _userId = router.query.userId as string;
-    const userApi = new UserApi();
-    const sub = userApi.getUser({ id: _userId }).subscribe({
-      next: (u) => setState([undefined, u, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
+    let _referenceId = router.query.referenceId as string;
+    const referenceApi = new ReferenceApi();
+    const sub = referenceApi.getReference({ id: _referenceId }).subscribe({
+      next: (r) => setState([undefined, r]),
+      error: (e) => setState([e, undefined]),
     });
     return () => sub.unsubscribe();
   }, [router.isReady]);
@@ -34,64 +30,40 @@ export default function General() {
         {!!error && <Error error={error} />}
         <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
-            General Info
+            Employment Info
           </span>
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Do you smoke?</span>
+            <span className="tk-text-blue tracking-wide">Full name</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.smoker}
+              {reference?.fullName}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Have you ever been party to a lawsuit?
-            </span>
+            <span className="tk-text-blue tracking-wide">Email</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.lawsuit}
+              {reference?.email}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Have you ever been evicted?
-            </span>
+            <span className="tk-text-blue tracking-wide">Phone number</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.evicted}
+              {reference?.phoneNumber}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Would you be willing to do a credit check?
-            </span>
+            <span className="tk-text-blue tracking-wide">Relationship</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.creditCheck}
+              {reference?.relationship}
             </span>
-          </div>
-          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Do you have any pets?
-            </span>
-            <span className="text-gray-600 text-sm tracking-wide mb-1">
-              {user?.pets}
-            </span>
-            <div>
-              <Button
-                handleClick={() =>
-                  router.push({ pathname: "/renter/pet", query: { userId } })
-                }
-                variant="secondary"
-              >
-                View pet info
-              </Button>
-            </div>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">
               Additional information
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.additionalDetails}
+              {reference?.additionalDetails}
             </span>
           </div>
         </div>

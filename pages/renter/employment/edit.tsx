@@ -1,11 +1,12 @@
 import router from "next/router";
 import React from "react";
-import { Button } from "../../../components/button";
-import { Footer } from "../../../components/footer";
-import { Header } from "../../../components/header";
-import { TextInput } from "../../../components/text";
-import { Textarea } from "../../../components/textarea";
-
+import {
+  Button,
+  Footer,
+  Header,
+  Textarea,
+  TextInput,
+} from "../../../components";
 export default function EditEmployment() {
   return (
     <div>

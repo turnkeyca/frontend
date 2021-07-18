@@ -1,18 +1,20 @@
 import React from "react";
-import { Button } from "../components/button";
-import { Label } from "../components/label";
-import { Select } from "../components/select";
-import { SelectOption } from "../components/selectoption";
-import { ShareableLink } from "../components/shareablelink";
-import { Spinner } from "../components/spinner";
-import { TextInput } from "../components/text";
-import { Textarea } from "../components/textarea";
-import { Toggle } from "../components/binarytoggle";
-import { NToggle } from "../components/ntoggle";
-import { Header } from "../components/header";
-import { Footer } from "../components/footer";
-import { CurrencyInput } from "../components/currency";
-import { PhoneNumberInput } from "../components/phonenumber";
+import {
+  Button,
+  CurrencyInput,
+  Footer,
+  Header,
+  Label,
+  NToggle,
+  PhoneNumberInput,
+  Select,
+  SelectOption,
+  ShareableLink,
+  Spinner,
+  Textarea,
+  TextInput,
+  Toggle,
+} from "../components";
 
 export default function Showcase() {
   return (
@@ -163,10 +165,7 @@ export default function Showcase() {
         </div>
       </div> */}
       </div>
-      <Footer
-        showProfile={true}
-        showConnections={true}
-      ></Footer>
+      <Footer showProfile={true} showConnections={true}></Footer>
     </div>
   );
 }
