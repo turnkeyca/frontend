@@ -20,3 +20,4 @@ export * from "./spinner";
 export * from "./text";
 export * from "./textarea";
 export * from "./warning";
+export * from "./yesno";

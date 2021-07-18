@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Error, Footer, Header } from "../../../components";
+import { Button, Error, Footer, Header, YesNo } from "../../../components";
 import { UserApi } from "../../../generated-src/openapi";
 
 export default function General() {
@@ -48,18 +48,10 @@ export default function General() {
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">
-              Have you ever been party to a lawsuit?
-            </span>
-            <span className="text-gray-600 text-sm tracking-wide">
-              {user?.lawsuit}
-            </span>
-          </div>
-          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
               Will you be living with anyone?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.roommates}
+              <YesNo val={user?.roommates} />
             </span>
             <div>
               <Button
@@ -74,22 +66,6 @@ export default function General() {
                 View roommate info
               </Button>
             </div>
-          </div>
-          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Would you be willing to do a credit check?
-            </span>
-            <span className="text-gray-600 text-sm tracking-wide">
-              {user?.creditCheck}
-            </span>
-          </div>
-          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Will you be able to pay the security deposit?
-            </span>
-            <span className="text-gray-600 text-sm tracking-wide mb-1">
-              {user?.securityDeposit}
-            </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Error, Footer, Header } from "../../../components";
+import { Button, Error, Footer, Header, YesNo } from "../../../components";
 import { UserApi } from "../../../generated-src/openapi";
 
 export default function General() {
@@ -14,10 +14,13 @@ export default function General() {
     if (!router.isReady) {
       return;
     }
-    let _userId = router.query.userId as string;
+    const _userId = router.query.userId as string;
     const userApi = new UserApi();
     const sub = userApi.getUser({ id: _userId }).subscribe({
-      next: (u) => setState([undefined, u, _userId]),
+      next: (u) => {
+        setState([undefined, u, _userId]);
+        console.log(u);
+      },
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
@@ -41,7 +44,7 @@ export default function General() {
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">Do you smoke?</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.smoker}
+              <YesNo val={user?.smoker} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -49,7 +52,7 @@ export default function General() {
               Have you ever been party to a lawsuit?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.lawsuit}
+              <YesNo val={user?.lawsuit} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -57,7 +60,7 @@ export default function General() {
               Have you ever been evicted?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.evicted}
+              <YesNo val={user?.evicted} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -65,7 +68,7 @@ export default function General() {
               Would you be willing to do a credit check?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.creditCheck}
+              <YesNo val={user?.creditCheck} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -73,7 +76,7 @@ export default function General() {
               Do you have any pets?
             </span>
             <span className="text-gray-600 text-sm tracking-wide mb-1">
-              {user?.pets}
+              <YesNo val={user?.pets} />
             </span>
             <div>
               <Button
