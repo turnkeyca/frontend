@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Button,
   Error,
   Footer,
   Header,
+  Label,
   TextInput,
   Toggle,
 } from "../../../components";
@@ -99,7 +100,7 @@ export default function General() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Do you smoke?</span>
+            <Label>Do you smoke?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <Toggle
                 labelFalse="No"
@@ -110,9 +111,7 @@ export default function General() {
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Have you ever been party to a lawsuit?
-            </span>
+            <Label>Have you ever been party to a lawsuit?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <Toggle
                 labelFalse="No"
@@ -123,9 +122,7 @@ export default function General() {
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Have you ever been evicted?
-            </span>
+            <Label>Have you ever been evicted?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <Toggle
                 labelFalse="No"
@@ -136,9 +133,7 @@ export default function General() {
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Would you be willing to do a credit check?
-            </span>
+            <Label>Would you be willing to do a credit check?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <Toggle
                 labelFalse="No"
@@ -149,9 +144,7 @@ export default function General() {
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Do you have any pets?
-            </span>
+            <Label>Do you have any pets?</Label>
             <span className="text-gray-600 text-sm tracking-wide mb-1">
               <Toggle
                 labelFalse="No"
@@ -172,9 +165,7 @@ export default function General() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Anything else you'd like to add?
-            </span>
+            <Label>Anything else you'd like to add?</Label>
             <textarea
               className={TextInput}
               onChange={($event) => handleChange($event)}

@@ -9,6 +9,7 @@ import {
   Error,
   Toggle,
   TextInput,
+  Label,
 } from "../../../components";
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 
@@ -99,9 +100,7 @@ export default function EditLease() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Why are you looking for a place to live?
-            </span>
+            <Label>Why are you looking for a place to live?</Label>
             <textarea
               onChange={($event) => handleChange($event)}
               value={user.movingReason}
@@ -109,9 +108,7 @@ export default function EditLease() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Will you be living with anyone?
-            </span>
+            <Label>Will you be living with anyone?</Label>
             <Toggle
               labelFalse="No"
               labelTrue="Yes"
@@ -133,9 +130,7 @@ export default function EditLease() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Additional information
-            </span>
+            <Label>Additional information</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {user.additionalDetailsLease}
             </span>

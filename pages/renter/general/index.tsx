@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Error, Footer, Header, YesNo } from "../../../components";
+import { Button, Error, Footer, Header, Label, YesNo } from "../../../components";
 import { UserApi } from "../../../generated-src/openapi";
 
 export default function General() {
@@ -39,39 +39,31 @@ export default function General() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Do you smoke?</span>
+            <Label>Do you smoke?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <YesNo value={user?.smoker} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Have you ever been party to a lawsuit?
-            </span>
+            <Label>Have you ever been party to a lawsuit?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <YesNo value={user?.lawsuit} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Have you ever been evicted?
-            </span>
+            <Label>Have you ever been evicted?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <YesNo value={user?.evicted} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Would you be willing to do a credit check?
-            </span>
+            <Label>Would you be willing to do a credit check?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               <YesNo value={user?.creditCheck} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Do you have any pets?
-            </span>
+            <Label>Do you have any pets?</Label>
             <span className="text-gray-600 text-sm tracking-wide mb-1">
               <YesNo value={user?.pets} />
             </span>
@@ -87,9 +79,7 @@ export default function General() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Additional information
-            </span>
+            <Label>Additional information</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {user?.additionalDetails}
             </span>

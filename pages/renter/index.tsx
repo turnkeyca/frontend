@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UserApi } from "../../generated-src/openapi";
+import { UserApi, UserDto } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Icon, Picture } from "../../components";
 
@@ -7,7 +7,34 @@ export default function Renter() {
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
-    undefined,
+    {
+      additionalDetails: "",
+      additionalDetailsLease: "",
+      bio: "",
+      city: "",
+      creditCheck: false,
+      email: "",
+      evicted: false,
+      fullName: "",
+      id: "",
+      lawsuit: false,
+      monthlyBudgetMax: 0,
+      monthlyBudgetMin: 0,
+      moveInDate: "",
+      moveOutDate: "",
+      movingReason: "",
+      nickname: "",
+      password: "",
+      pets: false,
+      phoneNumber: "",
+      propertyManagementCompany: "",
+      province: "",
+      roommates: false,
+      securityDeposit: false,
+      sendNotifications: false,
+      smoker: false,
+      userType: "",
+    } as UserDto,
     undefined,
   ]);
   useEffect(() => {

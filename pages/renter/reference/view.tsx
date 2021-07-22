@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Error, Footer, Header } from "../../../components";
+import { Error, Footer, Header, Label } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
@@ -35,33 +35,31 @@ export default function Reference() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Full name</span>
+            <Label>Full name</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {reference?.fullName}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Email</span>
+            <Label>Email</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {reference?.email}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Phone number</span>
+            <Label>Phone number</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {reference?.phoneNumber}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Relationship</span>
+            <Label>Relationship</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {reference?.relationship}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Additional information
-            </span>
+            <Label>Additional information</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {reference?.additionalDetails}
             </span>

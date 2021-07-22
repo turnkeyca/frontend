@@ -1,6 +1,13 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Error, Footer, Header, YesNo } from "../../../components";
+import {
+  Button,
+  Error,
+  Footer,
+  Header,
+  Label,
+  YesNo,
+} from "../../../components";
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 
 export default function General() {
@@ -67,17 +74,13 @@ export default function General() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Why are you looking for a place to live?
-            </span>
+            <Label>Why are you looking for a place to live?</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {user?.movingReason}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Will you be living with anyone?
-            </span>
+            <Label>Will you be living with anyone?</Label>
             <YesNo value={user?.roommates} />
             <div>
               <Button
@@ -94,9 +97,7 @@ export default function General() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Additional information
-            </span>
+            <Label>Additional information</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {user?.additionalDetailsLease}
             </span>

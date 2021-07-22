@@ -1,7 +1,14 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Error, Footer, Header, TextInput } from "../../../components";
+import {
+  Button,
+  Error,
+  Footer,
+  Header,
+  Label,
+  TextInput,
+} from "../../../components";
 import { ReferenceApi, ReferenceDto } from "../../../generated-src/openapi";
 
 export default function Reference() {
@@ -72,7 +79,7 @@ export default function Reference() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Full name</span>
+            <Label>Full name</Label>
             <input
               type="text"
               className={TextInput}
@@ -81,7 +88,7 @@ export default function Reference() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Email</span>
+            <Label>Email</Label>
             <input
               type="text"
               className={TextInput}
@@ -90,7 +97,7 @@ export default function Reference() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Phone number</span>
+            <Label>Phone number</Label>
             <input
               type="text"
               className={TextInput}
@@ -99,7 +106,7 @@ export default function Reference() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Relationship</span>
+            <Label>Relationship</Label>
             <input
               type="text"
               className={TextInput}
@@ -108,9 +115,7 @@ export default function Reference() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Anything else you'd like to add?
-            </span>
+            <Label>Anything else you'd like to add?</Label>
             <textarea
               className={TextInput}
               onChange={($event) => handleChange($event)}

@@ -21,7 +21,7 @@ export default function EditRenter() {
             Contact information
           </Button>
           <Button
-            handleClick={() => router.push("/renter/employment/edit")}
+            handleClick={() => router.push("/renter/employment")}
             variant="tertiary"
           >
             Employment information
@@ -39,7 +39,7 @@ export default function EditRenter() {
             General information
           </Button>
           <Button
-            handleClick={() => router.push("/renter/reference/edit")}
+            handleClick={() => router.push("/renter/reference")}
             variant="tertiary"
           >
             Reference information

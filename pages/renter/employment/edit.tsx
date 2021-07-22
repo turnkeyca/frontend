@@ -1,7 +1,14 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Error, Footer, Header, TextInput } from "../../../components";
+import {
+  Button,
+  Error,
+  Footer,
+  Header,
+  Label,
+  TextInput,
+} from "../../../components";
 import { EmploymentApi, EmploymentDto } from "../../../generated-src/openapi";
 
 export default function Employment() {
@@ -78,9 +85,7 @@ export default function Employment() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Current employment
-            </span>
+            <Label>Current employment</Label>
             <input
               type="text"
               className={TextInput}
@@ -90,7 +95,7 @@ export default function Employment() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Occupation</span>
+            <Label>Occupation</Label>
             <input
               type="text"
               className={TextInput}
@@ -100,9 +105,7 @@ export default function Employment() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Length of current employment
-            </span>
+            <Label>Length of current employment</Label>
             <input
               type="text"
               className={TextInput}
@@ -112,7 +115,7 @@ export default function Employment() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Annual salary</span>
+            <Label>Annual salary</Label>
             <input
               type="number"
               className={TextInput}
@@ -122,9 +125,7 @@ export default function Employment() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Anything else you'd like to add?
-            </span>
+            <Label>Anything else you'd like to add?</Label>
             <textarea
               className={TextInput}
               onChange={($event) => handleChange($event)}

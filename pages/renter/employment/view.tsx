@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Error, Footer, Header } from "../../../components";
+import { Error, Footer, Header, Label } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
@@ -35,37 +35,31 @@ export default function Employment() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Current employment
-            </span>
+            <Label>Current employment</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {employment?.employer}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Occupation</span>
+            <Label>Occupation</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {employment?.occupation}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Length of current employment
-            </span>
+            <Label>Length of current employment</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {employment?.duration}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Annual salary</span>
+            <Label>Annual salary</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {employment?.annualSalary}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Additional information
-            </span>
+            <Label>Additional information</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {employment?.additionalDetails}
             </span>
