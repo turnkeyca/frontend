@@ -55,7 +55,7 @@ export default function Employment() {
     }
     obs.subscribe(() =>
       router.push({
-        pathname: "/renter/employment",
+        pathname: "/renter/employment/view",
         query: router.query,
       })
     );
