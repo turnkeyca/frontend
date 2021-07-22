@@ -41,7 +41,7 @@ export default function General() {
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">Do you smoke?</span>
             <span className="text-gray-600 text-sm tracking-wide">
-              <YesNo val={user?.smoker} />
+              <YesNo value={user?.smoker} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -49,7 +49,7 @@ export default function General() {
               Have you ever been party to a lawsuit?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              <YesNo val={user?.lawsuit} />
+              <YesNo value={user?.lawsuit} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -57,7 +57,7 @@ export default function General() {
               Have you ever been evicted?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              <YesNo val={user?.evicted} />
+              <YesNo value={user?.evicted} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -65,7 +65,7 @@ export default function General() {
               Would you be willing to do a credit check?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              <YesNo val={user?.creditCheck} />
+              <YesNo value={user?.creditCheck} />
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -73,7 +73,7 @@ export default function General() {
               Do you have any pets?
             </span>
             <span className="text-gray-600 text-sm tracking-wide mb-1">
-              <YesNo val={user?.pets} />
+              <YesNo value={user?.pets} />
             </span>
             <div>
               <Button

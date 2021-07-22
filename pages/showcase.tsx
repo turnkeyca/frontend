@@ -1,17 +1,13 @@
 import React from "react";
 import {
   Button,
-  CurrencyInput,
   Footer,
   Header,
   Label,
   NToggle,
-  PhoneNumberInput,
   Select,
-  SelectOption,
   ShareableLink,
   Spinner,
-  Textarea,
   TextInput,
   Toggle,
 } from "../components";
@@ -71,23 +67,11 @@ export default function Showcase() {
             Text
           </span>
           <div className="flex justify-center items-center m-4">
-            <TextInput placeholder="Placeholder" className="w-64" />
-          </div>
-        </div>
-        <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
-            Currency
-          </span>
-          <div className="flex justify-center items-center m-4">
-            <CurrencyInput placeholder="$2,000.00" className="w-64" />
-          </div>
-        </div>
-        <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
-          <span className="text-sm font-light tracking-wide m-3 tk-text-blue">
-            Phone number
-          </span>
-          <div className="flex justify-center items-center m-4">
-            <PhoneNumberInput placeholder="123-456-7890" className="w-64" />
+            <input
+              type="text"
+              placeholder="Placeholder"
+              className={"w-64 ".concat(TextInput)}
+            />
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
@@ -95,7 +79,10 @@ export default function Showcase() {
             Textarea
           </span>
           <div className="flex justify-center items-center m-4">
-            <Textarea placeholder="Placeholder" className="w-64" />
+            <textarea
+              placeholder="Placeholder"
+              className={"w-64 ".concat(TextInput)}
+            />
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
@@ -103,9 +90,11 @@ export default function Showcase() {
             Select
           </span>
           <div className="flex justify-center items-center m-4">
-            <Select className="w-64">
-              <SelectOption>This is an option</SelectOption>
-            </Select>
+            <select className={"w-64 ".concat(Select)}>
+              <option>This is an option</option>
+              <option>This is another option</option>
+              <option>This is a third option</option>
+            </select>
           </div>
         </div>
         <div className="flex flex-col tk-bg-grey border border-b-0 border-gray-400">
@@ -140,18 +129,6 @@ export default function Showcase() {
             <Spinner />
           </div>
         </div>
-        {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-3 tk-text-blue">Calendar</span>
-        <div className="flex justify-center items-center">
-          <Calendar />
-        </div>
-      </div> */}
-        {/* <div className="flex flex-col">
-        <span className="text-sm font-light tracking-wide m-3 tk-text-blue">Duration</span>
-        <div className="flex justify-center items-center">
-          <Duration />
-        </div>
-      </div> */}
         {/* <div className="flex flex-col">
         <span className="text-sm font-light tracking-wide m-3 tk-text-blue">Picture</span>
         <div className="flex justify-center items-center">

@@ -1,10 +1,20 @@
-import React, { HTMLAttributes, useState } from "react";
+import React, { ChangeEvent, HTMLAttributes, useState } from "react";
 
-export interface IToggle extends HTMLAttributes<HTMLElement> {
-  className?: string;
+export interface IToggle extends HTMLAttributes<HTMLInputElement> {
   labelTrue: string;
   labelFalse: string;
-  initialValue?: boolean;
+  handleChange?: ($event: ToggleEvent) => any;
+  name?: string;
+  value?: boolean;
+}
+
+export interface ToggleEvent extends ChangeEvent<HTMLInputElement> {
+  target: ToggleTarget;
+}
+
+export interface ToggleTarget extends HTMLInputElement {
+  name: string;
+  value: string;
 }
 
 let TRUE_CLASSES_TRUE = "tk-bg-teal text-white";
@@ -16,15 +26,25 @@ export const Toggle = ({
   className,
   labelTrue,
   labelFalse,
-  initialValue,
+  handleChange,
+  name,
+  value,
   ...rest
 }: IToggle) => {
-  let [value, setState] = useState(initialValue ? initialValue : false);
+  let [_value, setState] = useState(value);
   const toggleValue = (incomingValue: boolean) => {
-    if (value) {
+    if (_value) {
       setState(!incomingValue);
+      value = _value;
+      handleChange({
+        target: { name, value: `${value}` } as ToggleTarget,
+      } as ToggleEvent);
     } else {
       setState(incomingValue);
+      value = _value;
+      handleChange({
+        target: { name, value: `${value}` } as ToggleTarget,
+      } as ToggleEvent);
     }
   };
   return (
@@ -33,7 +53,7 @@ export const Toggle = ({
         id="true"
         onClick={() => toggleValue(true)}
         className={"flex justify-center items-center w-full cursor-pointer border tk-border-teal rounded p-3 mr-1 ".concat(
-          value ? TRUE_CLASSES_TRUE : TRUE_CLASSES_FALSE
+          _value ? TRUE_CLASSES_TRUE : TRUE_CLASSES_FALSE
         )}
       >
         <span className="tracking-wide font-medium text-sm">{labelTrue}</span>
@@ -42,7 +62,7 @@ export const Toggle = ({
         id="false"
         onClick={() => toggleValue(true)}
         className={"flex justify-center items-center w-full cursor-pointer border tk-border-amber rounded p-3 ".concat(
-          value ? FALSE_CLASSES_TRUE : FALSE_CLASSES_FALSE
+          _value ? FALSE_CLASSES_TRUE : FALSE_CLASSES_FALSE
         )}
       >
         <span className="tracking-wide font-medium text-sm">{labelFalse}</span>

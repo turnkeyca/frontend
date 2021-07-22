@@ -51,7 +51,7 @@ export default function General() {
               Will you be living with anyone?
             </span>
             <span className="text-gray-600 text-sm tracking-wide">
-              <YesNo val={user?.roommates} />
+              <YesNo value={user?.roommates} />
             </span>
             <div>
               <Button

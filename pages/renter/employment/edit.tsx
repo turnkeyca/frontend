@@ -28,7 +28,7 @@ export default function Employment() {
     }
     const sub = employmentApi.getEmployment({ id: _employmentId }).subscribe({
       next: (u) => setState([undefined, u, _employmentId]),
-      error: (e) => setState([e, undefined, _employmentId]),
+      error: (e) => setState([e, employment, _employmentId]),
     });
     return () => sub.unsubscribe();
   }, [router.isReady]);
@@ -45,7 +45,6 @@ export default function Employment() {
 
   function save() {
     let obs: Observable<void>;
-    console.log(employment);
     if (employmentId) {
       obs = employmentApi.updateEmployment({
         id: employmentId,
@@ -54,7 +53,12 @@ export default function Employment() {
     } else {
       obs = employmentApi.createEmployment({ body: employment });
     }
-    obs.subscribe(() => console.log("save"));
+    obs.subscribe(() =>
+      router.push({
+        pathname: "/renter/employment",
+        query: router.query,
+      })
+    );
   }
 
   return (
@@ -119,7 +123,7 @@ export default function Employment() {
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <span className="tk-text-blue tracking-wide">
-              Additional information
+              Anything else you'd like to add?
             </span>
             <textarea
               className={TextInput}
