@@ -1,63 +1,135 @@
-import router from "next/router";
-import React from "react";
-import {
-  Button,
-  Footer,
-  Header,
-  Textarea,
-  TextInput,
-} from "../../../components";
-export default function EditEmployment() {
+import { useRouter } from "next/router";
+import { Observable } from "rxjs";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { Button, Error, Footer, Header, TextInput } from "../../../components";
+import { EmploymentApi, EmploymentDto } from "../../../generated-src/openapi";
+
+export default function Employment() {
+  const router = useRouter();
+  let [[error, employment, employmentId], setState] = useState([
+    undefined,
+    {
+      employer: "",
+      occupation: "",
+      duration: "",
+      annualSalary: 0.0,
+      additionalDetails: "",
+    } as EmploymentDto,
+    undefined,
+  ]);
+  const employmentApi = new EmploymentApi();
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    let _employmentId = router.query.employmentId as string;
+    if (!_employmentId) {
+      return;
+    }
+    const sub = employmentApi.getEmployment({ id: _employmentId }).subscribe({
+      next: (u) => setState([undefined, u, _employmentId]),
+      error: (e) => setState([e, undefined, _employmentId]),
+    });
+    return () => sub.unsubscribe();
+  }, [router.isReady]);
+
+  function handleChange(
+    $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ): void {
+    if ($event) {
+      $event.preventDefault();
+    }
+    employment[$event.target.name] = $event.target.value;
+    setState([error, employment, employmentId]);
+  }
+
+  function save() {
+    let obs: Observable<void>;
+    console.log(employment);
+    if (employmentId) {
+      obs = employmentApi.updateEmployment({
+        id: employmentId,
+        body: employment,
+      });
+    } else {
+      obs = employmentApi.createEmployment({ body: employment });
+    }
+    obs.subscribe(() => console.log("save"));
+  }
+
   return (
     <div>
       <Header
+        title="My Profile"
+        showEdit={true}
         showBack={true}
-        showEdit={false}
         showLogout={false}
-        title="Edit"
       />
       <div className="p-3">
-        <div className="flex items-center justify-center">
+        {!!error && <Error error={error} />}
+        <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
             Employment Info
           </span>
         </div>
-        <div className="grid grid-cols-1 gap-3">
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              What is your annual salary?
+        <div className="grid grid-cols-1">
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">
+              Current employment
             </span>
-            <TextInput />
+            <input
+              type="text"
+              className={TextInput}
+              onChange={($event) => handleChange($event)}
+              name="employer"
+              value={employment.employer}
+            />
           </div>
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              Where are you currently employed?
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">Occupation</span>
+            <input
+              type="text"
+              className={TextInput}
+              onChange={($event) => handleChange($event)}
+              name="occupation"
+              value={employment.occupation}
+            />
+          </div>
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">
+              Length of current employment
             </span>
-            <TextInput />
+            <input
+              type="text"
+              className={TextInput}
+              onChange={($event) => handleChange($event)}
+              name="duration"
+              value={employment.duration}
+            />
           </div>
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              What is your occupation?
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">Annual salary</span>
+            <input
+              type="number"
+              className={TextInput}
+              onChange={($event) => handleChange($event)}
+              name="annualSalary"
+              value={employment.annualSalary}
+            />
+          </div>
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">
+              Additional information
             </span>
-            <TextInput />
+            <textarea
+              className={TextInput}
+              onChange={($event) => handleChange($event)}
+              name="additionalDetails"
+              value={employment.additionalDetails}
+            />
           </div>
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              How long have you been employed there?
-            </span>
-            <TextInput />
-          </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-gray-700 text-sm tracking-wide">
-              Anything else you'd like to add?
-            </span>
-            <Textarea />
-          </div>
-          <Button
-            variant="secondary"
-            handleClick={() => router.push("/renter/edit")}
-          >
-            Update my profile
+          <Button variant="secondary" handleClick={() => save()}>
+            NEXT
           </Button>
         </div>
       </div>

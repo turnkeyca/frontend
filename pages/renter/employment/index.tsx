@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Error, Header, Warning } from "../../../components";
+import { Button, Error, Header, Icon, Warning } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
@@ -56,6 +56,17 @@ export default function Employment() {
               <div className="text-gray-600 text-sm">{employment.duration}</div>
             </div>;
           })}
+          <Button
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/employment/edit",
+                query: router.query,
+              })
+            }
+            variant="primary"
+          >
+            <Icon name="add"></Icon> ADD EMPLOYMENT
+          </Button>
         </div>
       </div>
     </div>
