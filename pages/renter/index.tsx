@@ -67,12 +67,12 @@ export default function Renter() {
           </div>
           <div className="col-span-2 w-full">
             <div className="tk-text-blue text-lg font-medium">
-              Hi, I'm {user?.nickname}
+              Hi, I'm {user.nickname}
             </div>
-            <div className="tk-text-blue">{user?.fullName}</div>
-            <div className="tk-text-blue">{user?.email}</div>
-            <div className="tk-text-blue">{user?.phoneNumber}</div>
-            <div className="text-gray-600 text-sm">{user?.bio}</div>
+            <div className="tk-text-blue">{user.fullName}</div>
+            <div className="tk-text-blue">{user.email}</div>
+            <div className="tk-text-blue">{user.phoneNumber}</div>
+            <div className="text-gray-600 text-sm">{user.bio}</div>
           </div>
         </div>
         <div className="tk-text-blue tracking-wide">
