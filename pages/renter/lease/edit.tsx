@@ -1,77 +1,155 @@
-import router from "next/router";
-import React from "react";
+import { useRouter } from "next/router";
+import { Observable } from "rxjs";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { UrlObject } from "url";
 import {
   Button,
   Footer,
   Header,
-  Icon,
-  Textarea,
-  TextInput,
+  Error,
   Toggle,
+  TextInput,
 } from "../../../components";
+import { UserApi, UserDto } from "../../../generated-src/openapi";
 
 export default function EditLease() {
+  const router = useRouter();
+  let [[error, user, userId], setState] = useState([
+    undefined,
+    {
+      additionalDetails: "",
+      additionalDetailsLease: "",
+      bio: "",
+      city: "",
+      creditCheck: false,
+      email: "",
+      evicted: false,
+      fullName: "",
+      id: "",
+      lawsuit: false,
+      monthlyBudgetMax: 0,
+      monthlyBudgetMin: 0,
+      moveInDate: "",
+      moveOutDate: "",
+      movingReason: "",
+      nickname: "",
+      password: "",
+      pets: false,
+      phoneNumber: "",
+      propertyManagementCompany: "",
+      province: "",
+      roommates: false,
+      securityDeposit: false,
+      sendNotifications: false,
+      smoker: false,
+      userType: "",
+    } as UserDto,
+    undefined,
+  ]);
+  const userApi = new UserApi();
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    const _userId = router.query.userId as string;
+    const sub = userApi.getUser({ id: _userId }).subscribe({
+      next: (u) => setState([undefined, u, _userId]),
+      error: (e) => setState([e, user, _userId]),
+    });
+    return () => sub.unsubscribe();
+  }, [router.isReady]);
+
+  function handleChange(
+    $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ): void {
+    if ($event) {
+      $event.preventDefault();
+    }
+    user[$event.target.name] = $event.target.value;
+    setState([error, user, userId]);
+  }
+
+  function save(next: UrlObject) {
+    let obs: Observable<void>;
+    if (userId) {
+      obs = userApi.updateUser({
+        id: userId,
+        body: user,
+      });
+    } else {
+      obs = userApi.createUser({ body: user });
+    }
+    obs.subscribe(() => router.push(next));
+  }
+
   return (
     <div>
       <Header
+        title="My Profile"
+        showEdit={true}
         showBack={true}
-        showEdit={false}
         showLogout={false}
-        title="Edit"
       />
       <div className="p-3">
-        <div className="flex items-center justify-center">
+        {!!error && <Error error={error} />}
+        <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
             Lease Info
           </span>
         </div>
-        <div className="grid grid-cols-1 gap-3">
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              Are you able to pay a security deposit with your first months
-              rent?
-            </span>
-            <Toggle labelTrue="Yes" labelFalse="No" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              Will you be living with roommates?
-            </span>
-            <Toggle className="mb-1" labelTrue="Yes" labelFalse="No" />
-            <Button variant="tertiary">
-              <Icon name="add" />
-              Add roommate
-            </Button>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
+        <div className="grid grid-cols-1">
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">
               Why are you looking for a place to live?
             </span>
-            <Textarea />
+            <textarea
+              onChange={($event) => handleChange($event)}
+              value={user.movingReason}
+              className={TextInput}
+            />
           </div>
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              When are you planning to move?
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">
+              Will you be living with anyone?
             </span>
-            <TextInput />
+            <Toggle
+              labelFalse="No"
+              labelTrue="Yes"
+              handleChange={($event) => handleChange($event)}
+              value={user.roommates}
+            />
+            <div>
+              <Button
+                handleClick={() =>
+                  save({
+                    pathname: "/renter/roommate",
+                    query: { userId },
+                  })
+                }
+                variant="secondary"
+              >
+                View roommate info
+              </Button>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-gray-700 text-sm tracking-wide">
-              How long would you be planning to rent for?
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <span className="tk-text-blue tracking-wide">
+              Additional information
             </span>
-            <TextInput />
-          </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-gray-700 text-sm tracking-wide">
-              Anything else you'd like to add?
+            <span className="text-gray-600 text-sm tracking-wide">
+              {user.additionalDetailsLease}
             </span>
-            <Textarea />
           </div>
           <Button
             variant="secondary"
-            handleClick={() => router.push("/renter/edit")}
+            handleClick={() =>
+              save({
+                pathname: "/renter/lease",
+                query: router.query,
+              })
+            }
           >
-            Update my profile
+            NEXT
           </Button>
         </div>
       </div>

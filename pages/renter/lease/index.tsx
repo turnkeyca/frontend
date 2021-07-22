@@ -1,27 +1,55 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Button, Error, Footer, Header, YesNo } from "../../../components";
-import { UserApi } from "../../../generated-src/openapi";
+import { UserApi, UserDto } from "../../../generated-src/openapi";
 
 export default function General() {
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
-    undefined,
+    {
+      additionalDetails: "",
+      additionalDetailsLease: "",
+      bio: "",
+      city: "",
+      creditCheck: false,
+      email: "",
+      evicted: false,
+      fullName: "",
+      id: "",
+      lawsuit: false,
+      monthlyBudgetMax: 0,
+      monthlyBudgetMin: 0,
+      moveInDate: "",
+      moveOutDate: "",
+      movingReason: "",
+      nickname: "",
+      password: "",
+      pets: false,
+      phoneNumber: "",
+      propertyManagementCompany: "",
+      province: "",
+      roommates: false,
+      securityDeposit: false,
+      sendNotifications: false,
+      smoker: false,
+      userType: "",
+    } as UserDto,
     undefined,
   ]);
+  const userApi = new UserApi();
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
-    let _userId = router.query.userId as string;
-    const userApi = new UserApi();
+    const _userId = router.query.userId as string;
     const sub = userApi.getUser({ id: _userId }).subscribe({
       next: (u) => setState([undefined, u, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
+      error: (e) => setState([e, user, _userId]),
     });
     return () => sub.unsubscribe();
   }, [router.isReady]);
+
   return (
     <div>
       <Header
@@ -50,9 +78,7 @@ export default function General() {
             <span className="tk-text-blue tracking-wide">
               Will you be living with anyone?
             </span>
-            <span className="text-gray-600 text-sm tracking-wide">
-              <YesNo value={user?.roommates} />
-            </span>
+            <YesNo value={user?.roommates} />
             <div>
               <Button
                 handleClick={() =>
