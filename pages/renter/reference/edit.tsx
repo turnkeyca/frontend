@@ -8,7 +8,13 @@ export default function Reference() {
   const router = useRouter();
   let [[error, reference, referenceId], setState] = useState([
     undefined,
-    {} as ReferenceDto,
+    {
+      additionalDetails: "",
+      email: "",
+      fullName: "",
+      phoneNumber: "",
+      relationship: "",
+    } as ReferenceDto,
     undefined,
   ]);
   const referenceApi = new ReferenceApi();
