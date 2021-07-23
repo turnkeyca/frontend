@@ -18,18 +18,15 @@ export default function General() {
   let [[error, user, userId], setState] = useState([
     undefined,
     {
-      additionalDetails: "",
+      additionalDetailsGeneral: "",
       additionalDetailsLease: "",
       bio: "",
-      city: "",
       creditCheck: false,
       email: "",
       evicted: false,
       fullName: "",
       id: "",
       lawsuit: false,
-      monthlyBudgetMax: 0,
-      monthlyBudgetMin: 0,
       moveInDate: "",
       moveOutDate: "",
       movingReason: "",
@@ -37,13 +34,12 @@ export default function General() {
       password: "",
       pets: false,
       phoneNumber: "",
-      propertyManagementCompany: "",
-      province: "",
       roommates: false,
       securityDeposit: false,
       sendNotifications: false,
       smoker: false,
       userType: "",
+      userStatusType: "",
     } as UserDto,
     undefined,
   ]);
@@ -71,6 +67,7 @@ export default function General() {
   }
 
   function save(next: UrlObject) {
+    user.userStatusType = "active";
     let obs: Observable<void>;
     if (userId) {
       obs = userApi.updateUser({
@@ -170,7 +167,7 @@ export default function General() {
               className={TextInput}
               onChange={($event) => handleChange($event)}
               name="additionalDetails"
-              value={user.additionalDetails}
+              value={user.additionalDetailsGeneral}
             />
           </div>
           <Button
