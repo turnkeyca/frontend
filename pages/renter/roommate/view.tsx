@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Error, Footer, Header } from "../../../components";
+import { Error, Footer, Header, Label } from "../../../components";
 import { RoommateApi } from "../../../generated-src/openapi";
 
 export default function Roommate() {
@@ -17,7 +17,7 @@ export default function Roommate() {
       error: (e) => setState([e, undefined]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.roommateId]);
   return (
     <div>
       <Header
@@ -35,21 +35,19 @@ export default function Roommate() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Full name</span>
+            <Label>Full name</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {roommate?.fullName}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">Email</span>
+            <Label>Email</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {roommate?.email}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <span className="tk-text-blue tracking-wide">
-              Additional information
-            </span>
+            <Label>Additional information</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {roommate?.additionalDetails}
             </span>

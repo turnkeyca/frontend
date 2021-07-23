@@ -1,14 +1,27 @@
 import React, { HTMLAttributes } from "react";
+import Image from "next/image";
 
 export interface IPicture extends HTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
 }
 
-export const Picture = ({ src, alt, ...rest }: IPicture) => {
+const loader = ({ src, ...rest }) => {
+  return `${process.env.IMAGE_URL}/find?src=${src}`;
+};
+
+export const Picture = ({ src, alt, width, height, ...rest }: IPicture) => {
   return (
     <div className="rounded-full h-36 w-36 flex items-center justify-center">
-      <img src={src} alt={alt} />
+      <Image
+        loader={loader}
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+      />
     </div>
   );
 };

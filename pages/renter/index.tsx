@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UserApi } from "../../generated-src/openapi";
+import { UserApi, UserDto } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Icon, Picture } from "../../components";
 
@@ -7,7 +7,30 @@ export default function Renter() {
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
-    undefined,
+    {
+      additionalDetailsGeneral: "",
+      additionalDetailsLease: "",
+      bio: "",
+      creditCheck: false,
+      email: "",
+      evicted: false,
+      fullName: "",
+      id: "",
+      lawsuit: false,
+      moveInDate: "",
+      moveOutDate: "",
+      movingReason: "",
+      nickname: "",
+      password: "",
+      pets: false,
+      phoneNumber: "",
+      roommates: false,
+      securityDeposit: false,
+      sendNotifications: false,
+      smoker: false,
+      userType: "",
+      userStatusType: "",
+    } as UserDto,
     undefined,
   ]);
   useEffect(() => {
@@ -22,7 +45,7 @@ export default function Renter() {
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.userId]);
   return (
     <div>
       <Header
@@ -40,12 +63,12 @@ export default function Renter() {
           </div>
           <div className="col-span-2 w-full">
             <div className="tk-text-blue text-lg font-medium">
-              Hi, I'm {user?.nickname}
+              Hi, I&#39;m {user.nickname}
             </div>
-            <div className="tk-text-blue">{user?.fullName}</div>
-            <div className="tk-text-blue">{user?.email}</div>
-            <div className="tk-text-blue">{user?.phoneNumber}</div>
-            <div className="text-gray-600 text-sm">{user?.bio}</div>
+            <div className="tk-text-blue">{user.fullName}</div>
+            <div className="tk-text-blue">{user.email}</div>
+            <div className="tk-text-blue">{user.phoneNumber}</div>
+            <div className="text-gray-600 text-sm">{user.bio}</div>
           </div>
         </div>
         <div className="tk-text-blue tracking-wide">

@@ -1,14 +1,14 @@
 import React, { HTMLAttributes } from "react";
 
 export interface IYesNo extends HTMLAttributes<HTMLElement> {
-  val: boolean;
+  value: boolean;
 }
 
-export const YesNo = ({ val, ...rest }: IYesNo) => {
+export const YesNo = ({ value, ...rest }: IYesNo) => {
   return (
     <div className="tk-text-blue">
-      {val && <span>Yes</span>}
-      {!val && <span>No</span>}
+      {value && <span>Yes</span>}
+      {!value && <span>No</span>}
     </div>
   );
 };
