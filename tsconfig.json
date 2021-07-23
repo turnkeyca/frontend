@@ -16,10 +16,11 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    // FIXME - RH - add back when excluding generated src works
+    // "components/**/*.ts",
+    // "pages/**/*.tsx",
     "next.config.js",
     "public/sw.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "generated-src"]
 }
