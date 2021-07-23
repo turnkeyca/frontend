@@ -22,7 +22,7 @@ export default function Roommate() {
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.userId]);
   return (
     <div>
       <Header

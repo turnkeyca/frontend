@@ -45,7 +45,7 @@ export default function Renter() {
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.userId]);
   return (
     <div>
       <Header
@@ -63,7 +63,7 @@ export default function Renter() {
           </div>
           <div className="col-span-2 w-full">
             <div className="tk-text-blue text-lg font-medium">
-              Hi, I'm {user.nickname}
+              Hi, I&#39;m {user.nickname}
             </div>
             <div className="tk-text-blue">{user.fullName}</div>
             <div className="tk-text-blue">{user.email}</div>

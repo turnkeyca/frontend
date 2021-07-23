@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Error,
@@ -22,7 +22,7 @@ export default function Roommate() {
     } as RoommateDto,
     undefined,
   ]);
-  const roommateApi = new RoommateApi();
+  const roommateApi = useMemo(() => new RoommateApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
@@ -33,7 +33,7 @@ export default function Roommate() {
       error: (e) => setState([e, undefined, _roommateId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.roommateId, roommateApi]);
 
   function handleChange(
     $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -92,14 +92,6 @@ export default function Roommate() {
               className={TextInput}
               onChange={($event) => handleChange($event)}
               value={roommate.email}
-            />
-          </div>
-          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <Label>Additional information</Label>
-            <textarea
-              className={TextInput}
-              onChange={($event) => handleChange($event)}
-              value={roommate.additionalDetails}
             />
           </div>
           <Button variant="secondary" handleClick={() => save()}>

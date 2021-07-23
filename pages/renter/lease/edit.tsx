@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { UrlObject } from "url";
 import {
   Button,
@@ -43,7 +43,7 @@ export default function EditLease() {
     } as UserDto,
     undefined,
   ]);
-  const userApi = new UserApi();
+  const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
@@ -54,7 +54,7 @@ export default function EditLease() {
       error: (e) => setState([e, user, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.userId, user, userApi]);
 
   function handleChange(
     $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>

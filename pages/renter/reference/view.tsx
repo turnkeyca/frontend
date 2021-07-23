@@ -17,7 +17,7 @@ export default function Reference() {
       error: (e) => setState([e, undefined]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.referenceId]);
   return (
     <div>
       <Header

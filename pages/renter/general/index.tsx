@@ -1,6 +1,13 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Error, Footer, Header, Label, YesNo } from "../../../components";
+import {
+  Button,
+  Error,
+  Footer,
+  Header,
+  Label,
+  YesNo,
+} from "../../../components";
 import { UserApi } from "../../../generated-src/openapi";
 
 export default function General() {
@@ -21,7 +28,7 @@ export default function General() {
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.userId]);
   return (
     <div>
       <Header

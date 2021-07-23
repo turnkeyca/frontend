@@ -17,7 +17,7 @@ export default function Employment() {
       error: (e) => setState([e, undefined]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.employmentId]);
   return (
     <div>
       <Header

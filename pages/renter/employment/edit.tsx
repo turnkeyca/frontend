@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Error,
@@ -24,7 +24,7 @@ export default function Employment() {
     } as EmploymentDto,
     undefined,
   ]);
-  const employmentApi = new EmploymentApi();
+  const employmentApi = useMemo(() => new EmploymentApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
@@ -38,7 +38,7 @@ export default function Employment() {
       error: (e) => setState([e, employment, _employmentId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, employment, router.query.employmentId, employmentApi]);
 
   function handleChange(
     $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -125,7 +125,7 @@ export default function Employment() {
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <Label>Anything else you'd like to add?</Label>
+            <Label>Anything else you&#39;d like to add?</Label>
             <textarea
               className={TextInput}
               onChange={($event) => handleChange($event)}
