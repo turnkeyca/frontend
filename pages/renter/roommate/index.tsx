@@ -1,29 +1,27 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { Error, Header, Icon, Warning } from "../../../components";
-import { ReferenceApi } from "../../../generated-src/openapi";
+import { RoommateApi } from "../../../generated-src/openapi";
 
-export default function Reference() {
+export default function Roommate() {
   const router = useRouter();
-  let [[error, references, userId], setState] = useState([
+  let [[error, roommates, userId], setState] = useState([
     undefined,
     undefined,
     undefined,
   ]);
-  const referenceApi = useMemo(() => new ReferenceApi(), []);
+  const roommateApi = useMemo(() => new RoommateApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     let _userId = router.query.userId as string;
-    let sub = referenceApi
-      .getReferencesByUserId({ userId: _userId })
-      .subscribe({
-        next: (r) => setState([undefined, r, _userId]),
-        error: (e) => setState([e, undefined, _userId]),
-      });
+    let sub = roommateApi.getRoommatesByUserId({ userId: _userId }).subscribe({
+      next: (r) => setState([undefined, r, _userId]),
+      error: (e) => setState([e, undefined, _userId]),
+    });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId, referenceApi]);
+  }, [router.isReady, router.query.userId, roommateApi]);
   return (
     <div>
       <Header
@@ -34,26 +32,34 @@ export default function Reference() {
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
-        {references !== undefined && references.length === 0 && (
-          <Warning>No reference records found</Warning>
+        {roommates !== undefined && roommates.length === 0 && (
+          <Warning>No roommate records found</Warning>
         )}
         <div className="grid grid-cols-1 gap-3">
-          {references?.map((reference) => {
-            <div key={reference.id} className="p-3 border shadow">
+          {roommates?.map((roommate) => (
+            <div
+              className="p-3 border shadow"
+              onClick={() =>
+                router.push({
+                  pathname: "/renter/roommate/view",
+                  query: { userId, roommateId: roommate.id },
+                })
+              }
+            >
               <div className="flex justify-between items-center">
                 <div>
                   <div className="tk-text-blue text-lg font-medium">
-                    {reference.breed}
+                    {roommate.fullName}
                   </div>
-                  <div className="tk-text-blue">{reference.weight}</div>
+                  <div className="tk-text-blue">{roommate.email}</div>
                 </div>
                 <div className="flex tk-text-blue">
                   <Icon
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/reference/view",
-                        query: { userId, referenceId: reference.id },
+                        pathname: "/renter/employment/view",
+                        query: { userId, roommateId: roommate.id },
                       })
                     }
                   />
@@ -61,15 +67,15 @@ export default function Reference() {
                     className="mr-2"
                     name="delete"
                     handleClick={() =>
-                      referenceApi
-                        .deleteReference({ id: reference.id })
+                      roommateApi
+                        .deleteRoommate({ id: roommate.id })
                         .subscribe()
                     }
                   />
                 </div>
               </div>
-            </div>;
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>

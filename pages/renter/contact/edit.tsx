@@ -13,7 +13,7 @@ import {
 } from "../../../components";
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 
-export default function EditLease() {
+export default function EditContact() {
   const router = useRouter();
   let [
     [
@@ -173,13 +173,14 @@ export default function EditLease() {
         {!!error && <Error error={error} />}
         <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
-            Lease Info
+            Contact Info
           </span>
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <Label>Why are you looking for a place to live?</Label>
-            <textarea
+            <Label>Email</Label>
+            <input
+              type="text"
               onChange={($event) =>
                 setState([
                   error,
@@ -187,13 +188,13 @@ export default function EditLease() {
                   additionalDetailsLease,
                   bio,
                   creditCheck,
-                  email,
+                  $event.target.value,
                   evicted,
                   fullName,
                   lawsuit,
                   moveInDate,
                   moveOutDate,
-                  $event.target.value,
+                  movingReason,
                   nickname,
                   password,
                   pets,
@@ -206,16 +207,15 @@ export default function EditLease() {
                   userId,
                 ])
               }
-              value={movingReason}
+              value={email}
               className={TextInput}
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <Label>Will you be living with anyone?</Label>
-            <Toggle
-              labelFalse="No"
-              labelTrue="Yes"
-              handleChange={($event) =>
+            <Label>Password</Label>
+            <input
+              type="password"
+              onChange={($event) =>
                 setState([
                   error,
                   additionalDetailsGeneral,
@@ -230,52 +230,7 @@ export default function EditLease() {
                   moveOutDate,
                   movingReason,
                   nickname,
-                  password,
-                  pets,
-                  phoneNumber,
-                  $event.target.value === "true",
-                  securityDeposit,
-                  sendNotifications,
-                  smoker,
-                  userType,
-                  userId,
-                ])
-              }
-              value={roommates}
-            />
-            <div>
-              <Button
-                handleClick={() =>
-                  save({
-                    pathname: "/renter/roommate",
-                    query: { userId },
-                  })
-                }
-                variant="secondary"
-              >
-                View roommate info
-              </Button>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <Label>Anything else you&#39;d like to add?</Label>
-            <textarea
-              onChange={($event) =>
-                setState([
-                  error,
-                  additionalDetailsGeneral,
                   $event.target.value,
-                  bio,
-                  creditCheck,
-                  email,
-                  evicted,
-                  fullName,
-                  lawsuit,
-                  moveInDate,
-                  moveOutDate,
-                  movingReason,
-                  nickname,
-                  password,
                   pets,
                   phoneNumber,
                   roommates,
@@ -286,7 +241,7 @@ export default function EditLease() {
                   userId,
                 ])
               }
-              value={additionalDetailsLease}
+              value={password}
               className={TextInput}
             />
           </div>
@@ -294,7 +249,7 @@ export default function EditLease() {
             variant="secondary"
             handleClick={() =>
               save({
-                pathname: "/renter/lease",
+                pathname: "/renter/contact",
                 query: router.query,
               })
             }

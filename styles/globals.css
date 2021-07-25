@@ -18,6 +18,10 @@
   color: var(--teal);
 }
 
+.tk-text-amber {
+  color: var(--amber);
+}
+
 .tk-bg-grey {
   background-color: var(--grey);
 }
@@ -32,4 +36,19 @@
 
 .tk-border-blue {
   border-color: var(--blue);
+}
+
+.tk-border-teal {
+  border-color: var(--teal);
+}
+
+.tk-border-amber {
+  border-color: var(--amber);
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
 }

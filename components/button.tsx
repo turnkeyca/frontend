@@ -9,6 +9,7 @@ export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = ({
   children,
   variant = "primary",
+  type = "button",
   handleClick,
   className,
   ...rest
@@ -22,14 +23,15 @@ export const Button = ({
     colourClasses = "tk-text-blue bg-white border tk-border-blue";
   }
   return (
-    <div
+    <button
+      type={type}
       onClick={handleClick}
-      className={"flex cursor-pointer rounded tracking-wide font-medium text-sm "
+      className={"flex justify-center items-center cursor-pointer rounded tracking-wide font-medium text-sm p-3 "
         .concat(colourClasses)
         .concat(" ")
         .concat(className)}
     >
-      <span className="p-2">{children}</span>
-    </div>
+      {children}
+    </button>
   );
 };

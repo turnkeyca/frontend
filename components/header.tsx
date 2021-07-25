@@ -1,15 +1,17 @@
 import React, { HTMLAttributes } from "react";
-import { BackArrow } from "./backarrow";
-import { EditPencil } from "./editpencil";
-import { Logout } from "./logout";
+import { Icon } from "./icon";
+import { useRouter } from "next/router";
 
 export interface IHeader extends HTMLAttributes<HTMLElement> {
   title: string;
   showBack: boolean;
   showEdit: boolean;
   showLogout: boolean;
-  onBack?: () => any;
-  onEdit?: () => any;
+  editSamePath?: boolean;
+}
+
+function logout(): void {
+  console.log("logged out");
 }
 
 export const Header = ({
@@ -17,18 +19,52 @@ export const Header = ({
   showBack,
   showEdit,
   showLogout,
-  onBack,
-  onEdit,
+  editSamePath = false,
   ...rest
 }: IHeader) => {
+  const router = useRouter();
   return (
-    <div className="tk-bg-teal flex justify-between items-center pb-2 pt-4">
-      <span>
-        {showBack && <BackArrow handleClick={onBack}></BackArrow>}
-        {showLogout && <Logout></Logout>}
-      </span>
-      <span className="text-white font-medium">{title}</span>
-      <span>{showEdit && <EditPencil handleClick={onEdit}></EditPencil>}</span>
+    <div className="tk-bg-teal text-white flex justify-between items-center p-3">
+      <div>
+        {showBack && (
+          <Icon
+            handleClick={() =>
+              router.push({
+                pathname: router.pathname.substring(
+                  0,
+                  router.pathname.lastIndexOf("/") + 1
+                ),
+                query: router.query,
+              })
+            }
+            name="arrow_back"
+          />
+        )}
+        {showLogout && <Icon name="logout" handleClick={logout} />}
+      </div>
+      <div className="text-white text-lg font-medium">{title}</div>
+      <div>
+        {showEdit && (
+          <Icon
+            handleClick={() => {
+              if (editSamePath) {
+                router.push({
+                  pathname: router.pathname
+                    .substring(0, router.pathname.lastIndexOf("/") + 1)
+                    .concat("edit"),
+                  query: router.query,
+                });
+              } else {
+                router.push({
+                  pathname: router.pathname.concat("/edit"),
+                  query: router.query,
+                });
+              }
+            }}
+            name="edit"
+          />
+        )}
+      </div>
     </div>
   );
 };
