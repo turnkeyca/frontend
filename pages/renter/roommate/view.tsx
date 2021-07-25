@@ -25,12 +25,13 @@ export default function Roommate() {
         showEdit={true}
         showBack={true}
         showLogout={false}
+        editSamePath={true}
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
         <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
-            Employment Info
+            Roommate Info
           </span>
         </div>
         <div className="grid grid-cols-1">
@@ -44,12 +45,6 @@ export default function Roommate() {
             <Label>Email</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {roommate?.email}
-            </span>
-          </div>
-          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <Label>Additional information</Label>
-            <span className="text-gray-600 text-sm tracking-wide">
-              {roommate?.additionalDetails}
             </span>
           </div>
         </div>

@@ -21,7 +21,7 @@ export default function Roommate() {
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, router.query.userId, roommateApi]);
   return (
     <div>
       <Header
@@ -36,7 +36,7 @@ export default function Roommate() {
           <Warning>No roommate records found</Warning>
         )}
         <div className="grid grid-cols-1 gap-3">
-          {roommates?.map((roommate) => {
+          {roommates?.map((roommate) => (
             <div
               className="p-3 border shadow"
               onClick={() =>
@@ -74,8 +74,8 @@ export default function Roommate() {
                   />
                 </div>
               </div>
-            </div>;
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>
