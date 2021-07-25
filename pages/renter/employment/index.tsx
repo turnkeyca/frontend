@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, Error, Header, Icon, Warning } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
@@ -10,7 +10,7 @@ export default function Employment() {
     undefined,
     undefined,
   ]);
-  const employmentApi = new EmploymentApi();
+  const employmentApi = useMemo(() => new EmploymentApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
@@ -23,7 +23,7 @@ export default function Employment() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, router.query.userId, employmentApi]);
   return (
     <div>
       <Header
