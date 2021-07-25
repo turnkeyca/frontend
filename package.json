@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "openapi-generator-cli generate -i https://testapi.turnkeyapp.ca/swagger.yml -g typescript-rxjs -o generated-src/openapi && next build",
     "start": "next start",
     "lint": "next lint",
     "client": "openapi-generator-cli generate -i http://localhost:4202/swagger.yml -g typescript-rxjs -o generated-src/openapi"
