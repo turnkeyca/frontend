@@ -15,7 +15,7 @@ const loader = ({ src, ...rest }) => {
 export const Picture = ({ src, alt, ...rest }: IPicture) => {
   return (
     <div className="rounded-full h-36 w-36 flex items-center justify-center">
-      <Image loader={loader} src={src} alt={alt} layout="fill" />
+      {/* <Image loader={loader} src={src} alt={alt} layout="fill" /> */}
     </div>
   );
 };

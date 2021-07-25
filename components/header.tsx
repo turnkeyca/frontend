@@ -7,6 +7,7 @@ export interface IHeader extends HTMLAttributes<HTMLElement> {
   showBack: boolean;
   showEdit: boolean;
   showLogout: boolean;
+  editSamePath?: boolean;
 }
 
 function logout(): void {
@@ -18,6 +19,7 @@ export const Header = ({
   showBack,
   showEdit,
   showLogout,
+  editSamePath = false,
   ...rest
 }: IHeader) => {
   const router = useRouter();
@@ -44,7 +46,21 @@ export const Header = ({
       <div>
         {showEdit && (
           <Icon
-            handleClick={() => router.push(router.pathname + "/edit")}
+            handleClick={() => {
+              if (editSamePath) {
+                router.push({
+                  pathname: router.pathname
+                    .substring(0, router.pathname.lastIndexOf("/") + 1)
+                    .concat("edit"),
+                  query: router.query,
+                });
+              } else {
+                router.push({
+                  pathname: router.pathname.concat("edit"),
+                  query: router.query,
+                });
+              }
+            }}
             name="edit"
           />
         )}

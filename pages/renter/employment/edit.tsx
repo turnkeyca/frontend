@@ -16,6 +16,7 @@ export default function Employment() {
   let [[error, employment, employmentId], setState] = useState([
     undefined,
     {
+      userId: "",
       employer: "",
       occupation: "",
       duration: "",
@@ -29,6 +30,8 @@ export default function Employment() {
     if (!router.isReady) {
       return;
     }
+    let _userId = router.query.userId as string;
+    employment.userId = _userId;
     let _employmentId = router.query.employmentId as string;
     if (!_employmentId) {
       return;
@@ -40,16 +43,6 @@ export default function Employment() {
     return () => sub.unsubscribe();
   }, [router.isReady, employment, router.query.employmentId, employmentApi]);
 
-  function handleChange(
-    $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ): void {
-    if ($event) {
-      $event.preventDefault();
-    }
-    employment[$event.target.name] = $event.target.value;
-    setState([error, employment, employmentId]);
-  }
-
   function save() {
     let obs: Observable<void>;
     if (employmentId) {
@@ -60,10 +53,11 @@ export default function Employment() {
     } else {
       obs = employmentApi.createEmployment({ body: employment });
     }
+
     obs.subscribe(() =>
       router.push({
-        pathname: "/renter/employment/view",
-        query: router.query,
+        pathname: "/renter/employment",
+        query: { userId: router.query.userId },
       })
     );
   }
@@ -89,7 +83,10 @@ export default function Employment() {
             <input
               type="text"
               className={TextInput}
-              onChange={($event) => handleChange($event)}
+              onChange={($event) => {
+                employment.employer = $event.target.value;
+                setState([error, employment, employmentId]);
+              }}
               name="employer"
               value={employment.employer}
             />
@@ -99,7 +96,10 @@ export default function Employment() {
             <input
               type="text"
               className={TextInput}
-              onChange={($event) => handleChange($event)}
+              onChange={($event) => {
+                employment.occupation = $event.target.value;
+                setState([error, employment, employmentId]);
+              }}
               name="occupation"
               value={employment.occupation}
             />
@@ -109,7 +109,10 @@ export default function Employment() {
             <input
               type="text"
               className={TextInput}
-              onChange={($event) => handleChange($event)}
+              onChange={($event) => {
+                employment.duration = $event.target.value;
+                setState([error, employment, employmentId]);
+              }}
               name="duration"
               value={employment.duration}
             />
@@ -119,7 +122,10 @@ export default function Employment() {
             <input
               type="number"
               className={TextInput}
-              onChange={($event) => handleChange($event)}
+              onChange={($event) => {
+                employment.annualSalary = parseFloat($event.target.value);
+                setState([error, employment, employmentId]);
+              }}
               name="annualSalary"
               value={employment.annualSalary}
             />
@@ -128,7 +134,10 @@ export default function Employment() {
             <Label>Anything else you&#39;d like to add?</Label>
             <textarea
               className={TextInput}
-              onChange={($event) => handleChange($event)}
+              onChange={($event) => {
+                employment.additionalDetails = $event.target.value;
+                setState([error, employment, employmentId]);
+              }}
               name="additionalDetails"
               value={employment.additionalDetails}
             />

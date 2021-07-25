@@ -15,7 +15,6 @@ export default function Employment() {
       return;
     }
     let _userId = router.query.userId as string;
-    setState([undefined, undefined, _userId]);
     const employmentApi = new EmploymentApi();
     let sub = employmentApi
       .getEmploymentsByUserId({ userId: _userId })
@@ -39,9 +38,10 @@ export default function Employment() {
           <Warning>No employment records found</Warning>
         )}
         <div className="grid grid-cols-1 gap-3">
-          {employments?.map((employment) => {
+          {employments?.map((employment) => (
             <div
-              className="p-3 border rounded shadow"
+              key={employment.id}
+              className="p-3 border rounded shadow cursor-pointer"
               onClick={() =>
                 router.push({
                   pathname: "/renter/employment/view",
@@ -54,8 +54,8 @@ export default function Employment() {
               </div>
               <div className="tk-text-blue">{employment.occupation}</div>
               <div className="text-gray-600 text-sm">{employment.duration}</div>
-            </div>;
-          })}
+            </div>
+          ))}
           <Button
             handleClick={() =>
               router.push({
