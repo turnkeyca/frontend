@@ -15,7 +15,12 @@ export const Footer = ({ showProfile, showConnections, ...rest }: IFooter) => {
         {showProfile && (
           <div
             className="cursor-pointer tk-text-teal p-3 flex flex-col items-center justify-center"
-            onClick={() => router.push("/renter")}
+            onClick={() =>
+              router.push({
+                pathname: "/renter",
+                query: { userId: router.query.userId },
+              })
+            }
           >
             <Icon name="account_circle" />
             <span className="text-xs tracking-wide">Profile</span>
@@ -26,7 +31,12 @@ export const Footer = ({ showProfile, showConnections, ...rest }: IFooter) => {
         {showConnections && (
           <div
             className="cursor-pointer tk-text-teal flex flex-col items-center justify-center"
-            onClick={() => router.push("/renter/activity")}
+            onClick={() =>
+              router.push({
+                pathname: "/renter/activity",
+                query: { userId: router.query.userId },
+              })
+            }
           >
             <Icon name="list" />
             <span className="text-xs tracking-wide">Activity</span>
