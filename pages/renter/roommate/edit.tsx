@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
-import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   Error,
@@ -13,47 +13,41 @@ import { RoommateApi, RoommateDto } from "../../../generated-src/openapi";
 
 export default function Roommate() {
   const router = useRouter();
-  let [[error, roommate, roommateId], setState] = useState([
+  let [[error, email, fullName, roommateId], setState] = useState([
     undefined,
-    {
-      additionalDetails: "",
-      email: "",
-      fullName: "",
-    } as RoommateDto,
+    "",
+    "",
     undefined,
   ]);
   const roommateApi = useMemo(() => new RoommateApi(), []);
+  let userId = useRef("");
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
+    userId.current = router.query.userId as string;
     let _roommateId = router.query.roommateId as string;
     const sub = roommateApi.getRoommate({ id: _roommateId }).subscribe({
-      next: (r) => setState([undefined, r, _roommateId]),
-      error: (e) => setState([e, undefined, _roommateId]),
+      next: (r) => setState([undefined, r.email, r.fullName, _roommateId]),
+      error: (e) => setState([e, "", "", _roommateId]),
     });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query.roommateId, roommateApi]);
 
-  function handleChange(
-    $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ): void {
-    if ($event) {
-      $event.preventDefault();
-    }
-    roommate[$event.target.name] = $event.target.value;
-    setState([error, roommate, roommateId]);
-  }
-
   function save() {
     let obs: Observable<void>;
+    let body = {
+      email,
+      fullName,
+      userId: userId.current,
+    } as RoommateDto;
     if (roommateId) {
       obs = roommateApi.updateRoommate({
         id: roommateId,
-        body: roommate,
+        body,
       });
     } else {
-      obs = roommateApi.createRoommate({ body: roommate });
+      obs = roommateApi.createRoommate({ body });
     }
     obs.subscribe(() =>
       router.push({ pathname: "/renter/roommate/view", query: router.query })
@@ -64,7 +58,7 @@ export default function Roommate() {
     <div>
       <Header
         title="My Profile"
-        showEdit={true}
+        showEdit={false}
         showBack={true}
         showLogout={false}
       />
@@ -72,7 +66,7 @@ export default function Roommate() {
         {!!error && <Error error={error} />}
         <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
-            Employment Info
+            Roommate Info
           </span>
         </div>
         <div className="grid grid-cols-1">
@@ -81,8 +75,10 @@ export default function Roommate() {
             <input
               type="text"
               className={TextInput}
-              onChange={($event) => handleChange($event)}
-              value={roommate.fullName}
+              onChange={($event) =>
+                setState([error, email, $event.target.value, roommateId])
+              }
+              value={fullName}
             />
           </div>
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
@@ -90,8 +86,10 @@ export default function Roommate() {
             <input
               type="text"
               className={TextInput}
-              onChange={($event) => handleChange($event)}
-              value={roommate.email}
+              onChange={($event) =>
+                setState([error, $event.target.value, fullName, roommateId])
+              }
+              value={email}
             />
           </div>
           <Button variant="secondary" handleClick={() => save()}>

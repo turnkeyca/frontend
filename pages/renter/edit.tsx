@@ -15,31 +15,56 @@ export default function EditRenter() {
       <div className="p-3">
         <div className="grid grid-cols-1 gap-1">
           <Button
-            handleClick={() => router.push("/renter/contact/edit")}
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/contact/edit",
+                query: router.query,
+              })
+            }
             variant="tertiary"
           >
             Contact information
           </Button>
           <Button
-            handleClick={() => router.push("/renter/employment")}
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/employment",
+                query: router.query,
+              })
+            }
             variant="tertiary"
           >
             Employment information
           </Button>
           <Button
-            handleClick={() => router.push("/renter/lease/edit")}
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/lease/edit",
+                query: router.query,
+              })
+            }
             variant="tertiary"
           >
             Lease information
           </Button>
           <Button
-            handleClick={() => router.push("/renter/general/edit")}
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/general/edit",
+                query: router.query,
+              })
+            }
             variant="tertiary"
           >
             General information
           </Button>
           <Button
-            handleClick={() => router.push("/renter/reference")}
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/reference",
+                query: router.query,
+              })
+            }
             variant="tertiary"
           >
             Reference information

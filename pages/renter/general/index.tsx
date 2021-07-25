@@ -88,7 +88,7 @@ export default function General() {
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
             <Label>Additional information</Label>
             <span className="text-gray-600 text-sm tracking-wide">
-              {user?.additionalDetails}
+              {user?.additionalDetailsGeneral}
             </span>
           </div>
         </div>

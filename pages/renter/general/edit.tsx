@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Observable } from "rxjs";
-import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Button,
   Error,
@@ -15,32 +15,54 @@ import { UrlObject } from "url";
 
 export default function General() {
   const router = useRouter();
-  let [[error, user, userId], setState] = useState([
+  let [
+    [
+      error,
+      additionalDetailsGeneral,
+      additionalDetailsLease,
+      bio,
+      creditCheck,
+      email,
+      evicted,
+      fullName,
+      lawsuit,
+      moveInDate,
+      moveOutDate,
+      movingReason,
+      nickname,
+      password,
+      pets,
+      phoneNumber,
+      roommates,
+      securityDeposit,
+      sendNotifications,
+      smoker,
+      userType,
+      userId,
+    ],
+    setState,
+  ] = useState([
     undefined,
-    {
-      additionalDetailsGeneral: "",
-      additionalDetailsLease: "",
-      bio: "",
-      creditCheck: false,
-      email: "",
-      evicted: false,
-      fullName: "",
-      id: "",
-      lawsuit: false,
-      moveInDate: "",
-      moveOutDate: "",
-      movingReason: "",
-      nickname: "",
-      password: "",
-      pets: false,
-      phoneNumber: "",
-      roommates: false,
-      securityDeposit: false,
-      sendNotifications: false,
-      smoker: false,
-      userType: "",
-      userStatusType: "",
-    } as UserDto,
+    "",
+    "",
+    "",
+    false,
+    "",
+    false,
+    "",
+    false,
+    "",
+    "",
+    "",
+    "",
+    "",
+    false,
+    "",
+    false,
+    false,
+    false,
+    false,
+    "",
     undefined,
   ]);
   const userApi = useMemo(() => new UserApi(), []);
@@ -50,32 +72,92 @@ export default function General() {
     }
     const _userId = router.query.userId as string;
     const sub = userApi.getUser({ id: _userId }).subscribe({
-      next: (u) => setState([undefined, u, _userId]),
-      error: (e) => setState([e, user, _userId]),
+      next: (u) =>
+        setState([
+          undefined,
+          u.additionalDetailsGeneral,
+          u.additionalDetailsLease,
+          u.bio,
+          u.creditCheck,
+          u.email,
+          u.evicted,
+          u.fullName,
+          u.lawsuit,
+          u.moveInDate,
+          u.moveOutDate,
+          u.movingReason,
+          u.nickname,
+          u.password,
+          u.pets,
+          u.phoneNumber,
+          u.roommates,
+          u.securityDeposit,
+          u.sendNotifications,
+          u.smoker,
+          u.userType,
+          _userId,
+        ]),
+      error: (e) =>
+        setState([
+          e,
+          "",
+          "",
+          "",
+          false,
+          "",
+          false,
+          "",
+          false,
+          "",
+          "",
+          "",
+          "",
+          "",
+          false,
+          "",
+          false,
+          false,
+          false,
+          false,
+          "",
+          _userId,
+        ]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId, user, userApi]);
-
-  function handleChange(
-    $event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ): void {
-    if ($event) {
-      $event.preventDefault();
-    }
-    user[$event.target.name] = $event.target.value;
-    setState([error, user, userId]);
-  }
+  }, [router.isReady, router.query.userId, userApi]);
 
   function save(next: UrlObject) {
-    user.userStatusType = "active";
     let obs: Observable<void>;
+    let body = {
+      additionalDetailsGeneral,
+      additionalDetailsLease,
+      bio,
+      creditCheck,
+      email,
+      evicted,
+      fullName,
+      lawsuit,
+      moveInDate,
+      moveOutDate,
+      movingReason,
+      nickname,
+      password,
+      pets,
+      phoneNumber,
+      roommates,
+      securityDeposit,
+      sendNotifications,
+      smoker,
+      userType,
+      userStatusType: "active",
+    } as UserDto;
     if (userId) {
       obs = userApi.updateUser({
         id: userId,
-        body: user,
+        body,
       });
     } else {
-      obs = userApi.createUser({ body: user });
+      obs = userApi.createUser({ body });
     }
     obs.subscribe(() => router.push(next));
   }
@@ -84,7 +166,7 @@ export default function General() {
     <div>
       <Header
         title="My Profile"
-        showEdit={true}
+        showEdit={false}
         showBack={true}
         showLogout={false}
       />
@@ -102,8 +184,33 @@ export default function General() {
               <Toggle
                 labelFalse="No"
                 labelTrue="Yes"
-                handleChange={($event) => handleChange($event)}
-                value={user.smoker}
+                handleChange={($event) =>
+                  setState([
+                    error,
+                    additionalDetailsGeneral,
+                    additionalDetailsLease,
+                    bio,
+                    creditCheck,
+                    email,
+                    evicted,
+                    fullName,
+                    lawsuit,
+                    moveInDate,
+                    moveOutDate,
+                    movingReason,
+                    nickname,
+                    password,
+                    pets,
+                    phoneNumber,
+                    roommates,
+                    securityDeposit,
+                    sendNotifications,
+                    $event.target.value === "true",
+                    userType,
+                    userId,
+                  ])
+                }
+                value={smoker}
               />
             </span>
           </div>
@@ -113,8 +220,33 @@ export default function General() {
               <Toggle
                 labelFalse="No"
                 labelTrue="Yes"
-                handleChange={($event) => handleChange($event)}
-                value={user.lawsuit}
+                handleChange={($event) =>
+                  setState([
+                    error,
+                    additionalDetailsGeneral,
+                    additionalDetailsLease,
+                    bio,
+                    creditCheck,
+                    email,
+                    evicted,
+                    fullName,
+                    $event.target.value === "true",
+                    moveInDate,
+                    moveOutDate,
+                    movingReason,
+                    nickname,
+                    password,
+                    pets,
+                    phoneNumber,
+                    roommates,
+                    securityDeposit,
+                    sendNotifications,
+                    smoker,
+                    userType,
+                    userId,
+                  ])
+                }
+                value={lawsuit}
               />
             </span>
           </div>
@@ -124,8 +256,33 @@ export default function General() {
               <Toggle
                 labelFalse="No"
                 labelTrue="Yes"
-                handleChange={($event) => handleChange($event)}
-                value={user.evicted}
+                handleChange={($event) =>
+                  setState([
+                    error,
+                    additionalDetailsGeneral,
+                    additionalDetailsLease,
+                    bio,
+                    creditCheck,
+                    email,
+                    $event.target.value === "true",
+                    fullName,
+                    lawsuit,
+                    moveInDate,
+                    moveOutDate,
+                    movingReason,
+                    nickname,
+                    password,
+                    pets,
+                    phoneNumber,
+                    roommates,
+                    securityDeposit,
+                    sendNotifications,
+                    smoker,
+                    userType,
+                    userId,
+                  ])
+                }
+                value={evicted}
               />
             </span>
           </div>
@@ -135,8 +292,33 @@ export default function General() {
               <Toggle
                 labelFalse="No"
                 labelTrue="Yes"
-                handleChange={($event) => handleChange($event)}
-                value={user.creditCheck}
+                handleChange={($event) =>
+                  setState([
+                    error,
+                    additionalDetailsGeneral,
+                    additionalDetailsLease,
+                    bio,
+                    $event.target.value === "true",
+                    email,
+                    evicted,
+                    fullName,
+                    lawsuit,
+                    moveInDate,
+                    moveOutDate,
+                    movingReason,
+                    nickname,
+                    password,
+                    pets,
+                    phoneNumber,
+                    roommates,
+                    securityDeposit,
+                    sendNotifications,
+                    smoker,
+                    userType,
+                    userId,
+                  ])
+                }
+                value={creditCheck}
               />
             </span>
           </div>
@@ -146,8 +328,33 @@ export default function General() {
               <Toggle
                 labelFalse="No"
                 labelTrue="Yes"
-                handleChange={($event) => handleChange($event)}
-                value={user.pets}
+                handleChange={($event) =>
+                  setState([
+                    error,
+                    additionalDetailsGeneral,
+                    additionalDetailsLease,
+                    bio,
+                    creditCheck,
+                    email,
+                    evicted,
+                    fullName,
+                    lawsuit,
+                    moveInDate,
+                    moveOutDate,
+                    movingReason,
+                    nickname,
+                    password,
+                    $event.target.value === "true",
+                    phoneNumber,
+                    roommates,
+                    securityDeposit,
+                    sendNotifications,
+                    smoker,
+                    userType,
+                    userId,
+                  ])
+                }
+                value={pets}
               />
             </span>
             <div>
@@ -165,9 +372,33 @@ export default function General() {
             <Label>Anything else you&#39;d like to add?</Label>
             <textarea
               className={TextInput}
-              onChange={($event) => handleChange($event)}
-              name="additionalDetails"
-              value={user.additionalDetailsGeneral}
+              onChange={($event) =>
+                setState([
+                  error,
+                  $event.target.value,
+                  additionalDetailsLease,
+                  bio,
+                  creditCheck,
+                  email,
+                  evicted,
+                  fullName,
+                  lawsuit,
+                  moveInDate,
+                  moveOutDate,
+                  movingReason,
+                  nickname,
+                  password,
+                  pets,
+                  phoneNumber,
+                  roommates,
+                  securityDeposit,
+                  sendNotifications,
+                  smoker,
+                  userType,
+                  userId,
+                ])
+              }
+              value={additionalDetailsGeneral}
             />
           </div>
           <Button

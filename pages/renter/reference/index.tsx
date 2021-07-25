@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { Error, Header, Warning } from "../../../components";
+import React, { useEffect, useMemo, useState } from "react";
+import { Error, Header, Icon, Warning } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
@@ -10,13 +10,12 @@ export default function Reference() {
     undefined,
     undefined,
   ]);
+  const referenceApi = useMemo(() => new ReferenceApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     let _userId = router.query.userId as string;
-    setState([undefined, undefined, _userId]);
-    const referenceApi = new ReferenceApi();
     let sub = referenceApi
       .getReferencesByUserId({ userId: _userId })
       .subscribe({
@@ -24,12 +23,12 @@ export default function Reference() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, router.query.userId, referenceApi]);
   return (
     <div>
       <Header
         title="My Profile"
-        showEdit={true}
+        showEdit={false}
         showBack={true}
         showLogout={false}
       />
@@ -40,19 +39,35 @@ export default function Reference() {
         )}
         <div className="grid grid-cols-1 gap-3">
           {references?.map((reference) => {
-            <div
-              className="p-3 border shadow"
-              onClick={() =>
-                router.push({
-                  pathname: "/renter/reference/view",
-                  query: { userId, referenceId: reference.id },
-                })
-              }
-            >
-              <div className="tk-text-blue text-lg font-medium">
-                {reference.breed}
+            <div key={reference.id} className="p-3 border shadow">
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="tk-text-blue text-lg font-medium">
+                    {reference.breed}
+                  </div>
+                  <div className="tk-text-blue">{reference.weight}</div>
+                </div>
+                <div className="flex tk-text-blue">
+                  <Icon
+                    name="edit"
+                    handleClick={() =>
+                      router.push({
+                        pathname: "/renter/reference/view",
+                        query: { userId, referenceId: reference.id },
+                      })
+                    }
+                  />
+                  <Icon
+                    className="mr-2"
+                    name="delete"
+                    handleClick={() =>
+                      referenceApi
+                        .deleteReference({ id: reference.id })
+                        .subscribe()
+                    }
+                  />
+                </div>
               </div>
-              <div className="tk-text-blue">{reference.weight}</div>
             </div>;
           })}
         </div>

@@ -25,6 +25,7 @@ export default function Employment() {
         showEdit={true}
         showBack={true}
         showLogout={false}
+        editSamePath={true}
       />
       <div className="p-3">
         {!!error && <Error error={error} />}

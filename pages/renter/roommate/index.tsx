@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { Error, Header, Warning } from "../../../components";
+import React, { useEffect, useMemo, useState } from "react";
+import { Error, Header, Icon, Warning } from "../../../components";
 import { RoommateApi } from "../../../generated-src/openapi";
 
 export default function Roommate() {
@@ -10,24 +10,23 @@ export default function Roommate() {
     undefined,
     undefined,
   ]);
+  const roommateApi = useMemo(() => new RoommateApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     let _userId = router.query.userId as string;
-    setState([undefined, undefined, _userId]);
-    const roommateApi = new RoommateApi();
     let sub = roommateApi.getRoommatesByUserId({ userId: _userId }).subscribe({
       next: (r) => setState([undefined, r, _userId]),
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, router.query.userId, roommateApi]);
   return (
     <div>
       <Header
         title="My Profile"
-        showEdit={true}
+        showEdit={false}
         showBack={true}
         showLogout={false}
       />
@@ -37,7 +36,7 @@ export default function Roommate() {
           <Warning>No roommate records found</Warning>
         )}
         <div className="grid grid-cols-1 gap-3">
-          {roommates?.map((roommate) => {
+          {roommates?.map((roommate) => (
             <div
               className="p-3 border shadow"
               onClick={() =>
@@ -47,12 +46,36 @@ export default function Roommate() {
                 })
               }
             >
-              <div className="tk-text-blue text-lg font-medium">
-                {roommate.fullName}
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="tk-text-blue text-lg font-medium">
+                    {roommate.fullName}
+                  </div>
+                  <div className="tk-text-blue">{roommate.email}</div>
+                </div>
+                <div className="flex tk-text-blue">
+                  <Icon
+                    name="edit"
+                    handleClick={() =>
+                      router.push({
+                        pathname: "/renter/employment/view",
+                        query: { userId, roommateId: roommate.id },
+                      })
+                    }
+                  />
+                  <Icon
+                    className="mr-2"
+                    name="delete"
+                    handleClick={() =>
+                      roommateApi
+                        .deleteRoommate({ id: roommate.id })
+                        .subscribe()
+                    }
+                  />
+                </div>
               </div>
-              <div className="tk-text-blue">{roommate.email}</div>
-            </div>;
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>
