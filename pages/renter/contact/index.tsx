@@ -1,13 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  Button,
-  Error,
-  Footer,
-  Header,
-  Label,
-  YesNo,
-} from "../../../components";
+import React, { useEffect, useState } from "react";
+import { Error, Footer, Header, Label } from "../../../components";
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 
 export default function General() {
@@ -18,18 +11,18 @@ export default function General() {
       email: "",
     } as UserDto,
   ]);
-  const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     const _userId = router.query.userId as string;
+    const userApi = new UserApi();
     const sub = userApi.getUser({ id: _userId }).subscribe({
       next: (u) => setState([undefined, u]),
       error: (e) => setState([e, user]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId, userApi]);
+  }, [router.isReady, router.query.userId]);
 
   return (
     <div>
