@@ -6,6 +6,7 @@ export interface IIcon extends HTMLAttributes<HTMLElement> {
     | "add"
     | "arrow_back"
     | "chevron_right"
+    | "delete"
     | "edit"
     | "error_outline"
     | "schedule"

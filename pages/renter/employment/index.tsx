@@ -10,12 +10,12 @@ export default function Employment() {
     undefined,
     undefined,
   ]);
+  const employmentApi = new EmploymentApi();
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     let _userId = router.query.userId as string;
-    const employmentApi = new EmploymentApi();
     let sub = employmentApi
       .getEmploymentsByUserId({ userId: _userId })
       .subscribe({
@@ -28,7 +28,7 @@ export default function Employment() {
     <div>
       <Header
         title="My Profile"
-        showEdit={true}
+        showEdit={false}
         showBack={true}
         showLogout={false}
       />
@@ -42,18 +42,38 @@ export default function Employment() {
             <div
               key={employment.id}
               className="p-3 border rounded shadow cursor-pointer"
-              onClick={() =>
-                router.push({
-                  pathname: "/renter/employment/view",
-                  query: { userId, employmentId: employment.id },
-                })
-              }
             >
-              <div className="tk-text-blue text-lg font-medium">
-                {employment.employer}
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="tk-text-blue text-lg font-medium">
+                    {employment.employer}
+                  </div>
+                  <div className="tk-text-blue">{employment.occupation}</div>
+                  <div className="text-gray-600 text-sm">
+                    {employment.duration}
+                  </div>
+                </div>
+                <div className="flex">
+                  <Icon
+                    name="edit"
+                    handleClick={() =>
+                      router.push({
+                        pathname: "/renter/employment/view",
+                        query: { userId, employmentId: employment.id },
+                      })
+                    }
+                  />
+                  <Icon
+                    className="mr-2"
+                    name="delete"
+                    handleClick={() =>
+                      employmentApi
+                        .deleteEmployment({ id: employment.id })
+                        .subscribe()
+                    }
+                  />
+                </div>
               </div>
-              <div className="tk-text-blue">{employment.occupation}</div>
-              <div className="text-gray-600 text-sm">{employment.duration}</div>
             </div>
           ))}
           <Button
