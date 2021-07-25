@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Error,
@@ -44,18 +44,18 @@ export default function General() {
     } as UserDto,
     undefined,
   ]);
-  const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     const _userId = router.query.userId as string;
+    const userApi = new UserApi();
     const sub = userApi.getUser({ id: _userId }).subscribe({
       next: (u) => setState([undefined, u, _userId]),
       error: (e) => setState([e, user, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId, userApi]);
+  }, [router.isReady, router.query.userId]);
 
   return (
     <div>

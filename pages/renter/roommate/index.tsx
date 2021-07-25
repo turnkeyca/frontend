@@ -38,6 +38,7 @@ export default function Roommate() {
         <div className="grid grid-cols-1 gap-3">
           {roommates?.map((roommate) => (
             <div
+              key={roommate.id}
               className="p-3 border shadow"
               onClick={() =>
                 router.push({

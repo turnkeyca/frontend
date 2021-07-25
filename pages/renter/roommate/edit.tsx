@@ -32,7 +32,12 @@ export default function Roommate() {
       error: (e) => setState([e, "", "", _roommateId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.roommateId, roommateApi]);
+  }, [
+    router.isReady,
+    router.query.roommateId,
+    router.query.userId,
+    roommateApi,
+  ]);
 
   function save() {
     let obs: Observable<void>;
