@@ -53,7 +53,7 @@ export default function Employment() {
                     {employment.duration}
                   </div>
                 </div>
-                <div className="flex">
+                <div className="flex tk-text-blue">
                   <Icon
                     name="edit"
                     handleClick={() =>

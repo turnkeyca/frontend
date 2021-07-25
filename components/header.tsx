@@ -56,7 +56,7 @@ export const Header = ({
                 });
               } else {
                 router.push({
-                  pathname: router.pathname.concat("edit"),
+                  pathname: router.pathname.concat("/edit"),
                   query: router.query,
                 });
               }

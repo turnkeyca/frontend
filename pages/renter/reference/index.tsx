@@ -47,7 +47,7 @@ export default function Reference() {
                   </div>
                   <div className="tk-text-blue">{reference.weight}</div>
                 </div>
-                <div className="flex">
+                <div className="flex tk-text-blue">
                   <Icon
                     name="edit"
                     handleClick={() =>
