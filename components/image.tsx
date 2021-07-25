@@ -12,16 +12,10 @@ const loader = ({ src, ...rest }) => {
   return `${process.env.IMAGE_URL}/find?src=${src}`;
 };
 
-export const Picture = ({ src, alt, width, height, ...rest }: IPicture) => {
+export const Picture = ({ src, alt, ...rest }: IPicture) => {
   return (
     <div className="rounded-full h-36 w-36 flex items-center justify-center">
-      <Image
-        loader={loader}
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-      />
+      <Image loader={loader} src={src} alt={alt} layout="fill" />
     </div>
   );
 };
