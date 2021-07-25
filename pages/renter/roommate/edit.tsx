@@ -58,7 +58,7 @@ export default function Roommate() {
     <div>
       <Header
         title="My Profile"
-        showEdit={true}
+        showEdit={false}
         showBack={true}
         showLogout={false}
       />
@@ -66,7 +66,7 @@ export default function Roommate() {
         {!!error && <Error error={error} />}
         <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
-            Employment Info
+            Roommate Info
           </span>
         </div>
         <div className="grid grid-cols-1">
