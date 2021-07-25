@@ -18,7 +18,7 @@ module.exports = {
       ? [
           {
             source: `/:path*`,
-            destination: `https://api.turnkeyapp.ca/:path*`,
+            destination: `https://testapi.turnkeyapp.ca/:path*`,
           },
         ]
       : [
