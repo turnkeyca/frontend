@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "openapi-generator-cli generate -i https://testapi.turnkeyapp.ca/swagger.yml -g typescript-rxjs -o generated-src/openapi && next build",
+    "build": "npx @openapitools/openapi-generator-cli generate -i https://testapi.turnkeyapp.ca/swagger.yml -g typescript-rxjs -o generated-src/openapi && next build",
     "start": "next start",
     "lint": "next lint",
-    "client": "openapi-generator-cli generate -i http://localhost:4202/swagger.yml -g typescript-rxjs -o generated-src/openapi"
+    "client": "npx @openapitools/openapi-generator-cli generate -i http://localhost:4202/swagger.yml -g typescript-rxjs -o generated-src/openapi"
   },
   "dependencies": {
     "next": "^11.0.1",
@@ -16,7 +16,7 @@
     "tailwindcss": "^2.2.6"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.3.5",
+    "@openapitools/openapi-generator-cli": "^2.3.7",
     "@types/node": "^15.3.0",
     "@types/react": "^17.0.5",
     "autoprefixer": "^10.0.2",
