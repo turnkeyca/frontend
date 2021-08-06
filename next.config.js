@@ -14,18 +14,28 @@ module.exports = {
     ];
   },
   async rewrites() {
-    return process.env.NODE_ENV === "production"
-      ? [
-          {
-            source: `/:path*`,
-            destination: `https://testapi.turnkeyapp.ca/:path*`,
-          },
-        ]
-      : [
-          {
-            source: `/:path*`,
-            destination: `http://localhost:4202/:path*`,
-          },
-        ];
+    // RH - will be changed to https://api.turnkeyapp.ca/:path* eventually
+    if (process.env.NODE_ENV === "production") {
+      return [
+        {
+          source: `/:path*`,
+          destination: `https://testapi.turnkeyapp.ca/:path*`,
+        },
+      ];
+    }
+    if (process.env.NODE_ENV === "test") {
+      return [
+        {
+          source: `/:path*`,
+          destination: `https://testapi.turnkeyapp.ca/:path*`,
+        },
+      ];
+    }
+    return [
+      {
+        source: `/:path*`,
+        destination: `http://localhost:4202/:path*`,
+      },
+    ];
   },
 };
