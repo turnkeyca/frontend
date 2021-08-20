@@ -1,3 +1,4 @@
+export * from './AuthApi';
 export * from './EmploymentApi';
 export * from './PetApi';
 export * from './ReferenceApi';

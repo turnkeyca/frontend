@@ -19,10 +19,6 @@ import {
     ValidationError,
 } from '../models';
 
-export interface CreateUserRequest {
-    body: UserDto;
-}
-
 export interface DeleteUserRequest {
     id: string;
 }
@@ -40,26 +36,6 @@ export interface UpdateUserRequest {
  * no description
  */
 export class UserApi extends BaseAPI {
-
-    /**
-     * create a new user
-     */
-    createUser({ body }: CreateUserRequest): Observable<void>
-    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
-        throwIfNullOrUndefined(body, 'body', 'createUser');
-
-        const headers: HttpHeaders = {
-            'Content-Type': 'application/json',
-        };
-
-        return this.request<void>({
-            url: '/api/user',
-            method: 'POST',
-            headers,
-            body: body,
-        }, opts?.responseOpts);
-    };
 
     /**
      * delete a user

@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev-cloud": "NODE_ENV=test next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "client": "npx @openapitools/openapi-generator-cli generate -i http://localhost:4202/swagger.yml -g typescript-rxjs -o generated-src/openapi"
+    "client": "npx @openapitools/openapi-generator-cli generate -i http://localhost:4202/swagger.yml -g typescript-rxjs -o generated-src/openapi",
+    "client-cloud": "npx @openapitools/openapi-generator-cli generate -i https://testapi.turnkeyapp.ca/swagger.yml -g typescript-rxjs -o generated-src/openapi"
   },
   "dependencies": {
     "next": "^11.0.1",
