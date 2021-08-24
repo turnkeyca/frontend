@@ -1,23 +1,9 @@
-import { AppProps } from "next/app";
+import { Provider } from "next-auth/client"
 import Head from "next/head";
-import React, { useEffect } from "react";
-import "../styles/globals.css";
 
-export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js", { scope: "./" })
-        .then((reg) => {
-          console.log("Registration succeeded. Scope is " + reg.scope);
-        })
-        .catch((error) => {
-          console.log("Registration failed with " + error);
-        });
-    }
-  }, []);
+export default function App ({ Component, pageProps }) {
   return (
-    <div>
+    <>
       <Head>
         <title>Turnkey</title>
         <meta charSet="utf-8" />
@@ -44,7 +30,14 @@ export default function App({ Component, pageProps }: AppProps) {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
       </Head>
-      <Component className="font-sans" {...pageProps} />
-    </div>
-  );
+      <Provider
+        options={{
+          clientMaxAge: 0,
+          keepAlive: 0
+        }}
+        session={pageProps.session} >
+        <Component {...pageProps} />
+      </Provider>
+    </>
+  )
 }

@@ -151,14 +151,10 @@ export default function General() {
       userType,
       userStatusType: "active",
     } as UserDto;
-    if (userId) {
-      obs = userApi.updateUser({
-        id: userId,
-        body,
-      });
-    } else {
-      obs = userApi.createUser({ body });
-    }
+    obs = userApi.updateUser({
+      id: userId,
+      body,
+    });
     obs.subscribe(() => router.push(next));
   }
 

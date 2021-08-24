@@ -1,6 +1,7 @@
 import React, { HTMLAttributes } from "react";
 import { Icon } from "./icon";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/client";
 
 export interface IHeader extends HTMLAttributes<HTMLElement> {
   title: string;
@@ -8,10 +9,6 @@ export interface IHeader extends HTMLAttributes<HTMLElement> {
   showEdit: boolean;
   showLogout: boolean;
   editSamePath?: boolean;
-}
-
-function logout(): void {
-  console.log("logged out");
 }
 
 export const Header = ({
@@ -40,7 +37,10 @@ export const Header = ({
             name="arrow_back"
           />
         )}
-        {showLogout && <Icon name="logout" handleClick={logout} />}
+        {showLogout && <Icon name="logout" handleClick={() => {
+          signOut(); 
+          router.push('');
+        }} />}
       </div>
       <div className="text-white text-lg font-medium">{title}</div>
       <div>

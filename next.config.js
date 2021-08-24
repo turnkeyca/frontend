@@ -9,11 +9,13 @@ module.exports = {
     ];
   },
   async rewrites() {
-    return [
-      {
-        source: `/:path*`,
-        destination: `${process.env.API_URI}/:path*`,
-      },
-    ];
+    return {
+      fallback: [
+        {
+          source: `/:path*`,
+          destination: `${process.env.API_URI}/:path*`,
+        },
+      ]
+    };
   },
 };
