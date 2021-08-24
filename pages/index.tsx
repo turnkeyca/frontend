@@ -1,12 +1,14 @@
 import { useSession, signIn } from "next-auth/client"
 import { useRouter } from "next/dist/client/router";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { Button } from "../components"
 
 export default function Index() {
   const [session, loading] = useSession();
   if (!session) {
-    signIn();
-    return <div />;
+    return <div>
+      <Button variant="primary" handleClick={() => signIn()}>Sign in</Button>
+    </div>;
   }
   const router = useRouter();
   useEffect(() => {
