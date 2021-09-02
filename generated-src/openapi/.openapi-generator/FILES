@@ -8,16 +8,15 @@ apis/ShorturlApi.ts
 apis/UserApi.ts
 apis/index.ts
 index.ts
-models/AuthDto.ts
 models/EmploymentDto.ts
 models/GenericError.ts
 models/PetDto.ts
 models/ReferenceDto.ts
+models/RegisterTokenDto.ts
 models/RoommateDto.ts
 models/ShortUrlDto.ts
 models/Token.ts
 models/UserDto.ts
-models/UserId.ts
 models/ValidationError.ts
 models/index.ts
 runtime.ts

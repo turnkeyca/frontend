@@ -20,7 +20,7 @@ export interface Token {
      * @type {string}
      * @memberof Token
      */
-    email?: string;
+    id?: string;
     /**
      * @type {string}
      * @memberof Token

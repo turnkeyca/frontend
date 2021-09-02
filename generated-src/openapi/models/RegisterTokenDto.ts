@@ -13,12 +13,22 @@
 
 /**
  * @export
- * @interface UserId
+ * @interface RegisterTokenDto
  */
-export interface UserId {
+export interface RegisterTokenDto {
     /**
      * @type {string}
-     * @memberof UserId
+     * @memberof RegisterTokenDto
      */
     id?: string;
+    /**
+     * @type {boolean}
+     * @memberof RegisterTokenDto
+     */
+    newUser?: boolean;
+    /**
+     * @type {string}
+     * @memberof RegisterTokenDto
+     */
+    secret?: string;
 }

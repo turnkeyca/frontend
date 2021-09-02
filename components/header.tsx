@@ -21,12 +21,6 @@ export const Header = ({
   ...rest
 }: IHeader) => {
   const router = useRouter();
-  const [session, loading] = useSession();
-  if (!session) {
-    return <div>
-      <Button variant="primary" handleClick={() => signIn()}>Sign in</Button>
-    </div>;
-  }
   return (
     <div className="tk-bg-teal text-white flex justify-between items-center p-3">
       <div>

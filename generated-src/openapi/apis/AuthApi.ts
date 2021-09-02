@@ -14,13 +14,13 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    AuthDto,
     GenericError,
+    RegisterTokenDto,
     Token,
 } from '../models';
 
-export interface SignInRequest {
-    body: AuthDto;
+export interface RegisterNewTokenRequest {
+    body: RegisterTokenDto;
 }
 
 /**
@@ -29,19 +29,19 @@ export interface SignInRequest {
 export class AuthApi extends BaseAPI {
 
     /**
-     * create a new auth
+     * register token
      */
-    signIn({ body }: SignInRequest): Observable<Token>
-    signIn({ body }: SignInRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Token>>
-    signIn({ body }: SignInRequest, opts?: OperationOpts): Observable<Token | RawAjaxResponse<Token>> {
-        throwIfNullOrUndefined(body, 'body', 'signIn');
+    registerNewToken({ body }: RegisterNewTokenRequest): Observable<Token>
+    registerNewToken({ body }: RegisterNewTokenRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Token>>
+    registerNewToken({ body }: RegisterNewTokenRequest, opts?: OperationOpts): Observable<Token | RawAjaxResponse<Token>> {
+        throwIfNullOrUndefined(body, 'body', 'registerNewToken');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
         };
 
         return this.request<Token>({
-            url: '/api/auth',
+            url: '/api/auth/registertoken',
             method: 'POST',
             headers,
             body: body,
