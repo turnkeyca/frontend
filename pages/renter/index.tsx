@@ -36,23 +36,22 @@ export default function Renter() {
     undefined,
   ]);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
     if (!session) {
-      console.log("not logged in!");
-      router.push({pathname: '/'});
+      router.push({pathname: '/api/auth/signin'});
       return;
     }
-    console.log(session)
-    let _userId = router.query.userId as string;
+    console.log("renter", session)
+    let _userId = session.userId as string;
     const userApi = new UserApi();
-    const sub = userApi.getUser({ id: _userId }).subscribe({
+    const sub = userApi.getUser({ id: _userId, token: session.accessToken as string }).subscribe({
       next: (u) => setState([undefined, u, _userId]),
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, session, loading]);
   return (
     <div>
       <Header

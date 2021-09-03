@@ -7,11 +7,13 @@ export default function Index() {
   const [session, _] = useSession();
   const router = useRouter();
   useEffect(() => {
-    if (!session && !router.isReady) {
+    if (!router.isReady) {
       return;
     }
-    console.log(session);
-    // router.push('renter');
+    if (!session) {
+      router.push('/api/auth/signin');
+    }
+    router.push('/renter');
   }, [router.isReady, session]);
   return (
     <div className="w-full flex items-center justify-center">

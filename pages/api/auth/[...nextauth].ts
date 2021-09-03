@@ -1,7 +1,5 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
-import { firstValueFrom } from "rxjs";
-import { AuthApi, RegisterTokenDto } from "../../../generated-src/openapi";
 
 // For more  on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -52,23 +50,26 @@ export default NextAuth({
       if (!user) {
         return token;
       }
-      console.log("token", token, "user", user, "isNewUser",isNewUser);
-      const authApi = new AuthApi();
       const body = {
-        body: {
-          id: user.id,
-          newUser: isNewUser,
-          secret: process.env.TK_SECRET,
-        } as RegisterTokenDto
+        id: user.id as string,
+        newUser: Boolean(isNewUser),
+        secret: process.env.TK_SECRET as string,
       };
-
-      const observable = authApi.registerNewToken(body);
-      console.log("authApi")
-      let userId = await firstValueFrom(observable);
-      console.log("userId", userId);
-      token.userId = userId
-      console.log("token", token);
+      const rx: Response = await fetch(`${process.env.API_URI}/api/auth/registertoken`, {method:'POST', body: JSON.stringify(body)});
+      if (rx.status !== 200) {
+        return token;
+      }
+      const response = await rx.json();
+      token.userId = response.id;
+      token.accessToken = response.token;
+      console.log("token", token)
       return token;
+    },
+    async session(session, token) {
+      session.accessToken = token.accessToken;
+      session.userId = token.userId;
+      console.log("session", session);
+      return session
     }
   },
 
