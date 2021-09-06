@@ -43,7 +43,6 @@ export default function Renter() {
       router.push({pathname: '/api/auth/signin'});
       return;
     }
-    console.log("renter", session)
     let _userId = session.userId as string;
     const userApi = new UserApi();
     const sub = userApi.getUser({ id: _userId, token: session.accessToken as string }).subscribe({

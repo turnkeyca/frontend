@@ -41,7 +41,7 @@ export class AuthApi extends BaseAPI {
         };
 
         return this.request<Token>({
-            url: '/api/auth/registertoken',
+            url: '/v1/auth/registertoken',
             method: 'POST',
             headers,
             body: body,

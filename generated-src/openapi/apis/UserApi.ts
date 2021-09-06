@@ -54,7 +54,7 @@ export class UserApi extends BaseAPI {
         };
 
         return this.request<void>({
-            url: '/api/user/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/user/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
             headers,
         }, opts?.responseOpts);
@@ -74,7 +74,7 @@ export class UserApi extends BaseAPI {
         };
 
         return this.request<UserDto>({
-            url: '/api/user/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/user/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -96,7 +96,7 @@ export class UserApi extends BaseAPI {
         };
 
         return this.request<void>({
-            url: '/api/user/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/user/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
             body: body,

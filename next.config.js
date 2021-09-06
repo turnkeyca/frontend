@@ -10,10 +10,10 @@ module.exports = {
   },
   async rewrites() {
     return {
-      fallback: [
+      beforeFiles: [
         {
-          source: `/:path*`,
-          destination: `${process.env.API_URI}/:path*`,
+          source: `/v1/:path*`,
+          destination: `${process.env.API_URI}/v1/:path*`,
         },
       ]
     };

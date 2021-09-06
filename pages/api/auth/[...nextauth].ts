@@ -47,7 +47,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
     async jwt(token, user, account, profile, isNewUser) {
-      if (!user) {
+      if (token.userId || token.accessToken) {
         return token;
       }
       const body = {
@@ -55,20 +55,18 @@ export default NextAuth({
         newUser: Boolean(isNewUser),
         secret: process.env.TK_SECRET as string,
       };
-      const rx: Response = await fetch(`${process.env.API_URI}/api/auth/registertoken`, {method:'POST', body: JSON.stringify(body)});
+      const rx: Response = await fetch(`${process.env.API_URI}/v1/auth/registertoken`, {method:'POST', body: JSON.stringify(body)});
       if (rx.status !== 200) {
         return token;
       }
       const response = await rx.json();
       token.userId = response.id;
       token.accessToken = response.token;
-      console.log("token", token)
       return token;
     },
     async session(session, token) {
       session.accessToken = token.accessToken;
       session.userId = token.userId;
-      console.log("session", session);
       return session
     }
   },

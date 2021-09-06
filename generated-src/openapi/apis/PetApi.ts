@@ -20,23 +20,28 @@ import {
 } from '../models';
 
 export interface CreatePetRequest {
+    token: string;
     body: PetDto;
 }
 
 export interface DeletePetRequest {
     id: string;
+    token: string;
 }
 
 export interface GetPetRequest {
     id: string;
+    token: string;
 }
 
 export interface GetPetsByUserIdRequest {
     userId: string;
+    token: string;
 }
 
 export interface UpdatePetRequest {
     id: string;
+    token: string;
     body: PetDto;
 }
 
@@ -48,17 +53,19 @@ export class PetApi extends BaseAPI {
     /**
      * create a new pet
      */
-    createPet({ body }: CreatePetRequest): Observable<void>
-    createPet({ body }: CreatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    createPet({ body }: CreatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    createPet({ token, body }: CreatePetRequest): Observable<void>
+    createPet({ token, body }: CreatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    createPet({ token, body }: CreatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(token, 'token', 'createPet');
         throwIfNullOrUndefined(body, 'body', 'createPet');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(token != null ? { 'Token': String(token) } : undefined),
         };
 
         return this.request<void>({
-            url: '/api/pet',
+            url: '/v1/pet',
             method: 'POST',
             headers,
             body: body,
@@ -68,46 +75,64 @@ export class PetApi extends BaseAPI {
     /**
      * delete a pet
      */
-    deletePet({ id }: DeletePetRequest): Observable<void>
-    deletePet({ id }: DeletePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    deletePet({ id }: DeletePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    deletePet({ id, token }: DeletePetRequest): Observable<void>
+    deletePet({ id, token }: DeletePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    deletePet({ id, token }: DeletePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(id, 'id', 'deletePet');
+        throwIfNullOrUndefined(token, 'token', 'deletePet');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         return this.request<void>({
-            url: '/api/pet/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/pet/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
+            headers,
         }, opts?.responseOpts);
     };
 
     /**
      * return a pet
      */
-    getPet({ id }: GetPetRequest): Observable<PetDto>
-    getPet({ id }: GetPetRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PetDto>>
-    getPet({ id }: GetPetRequest, opts?: OperationOpts): Observable<PetDto | RawAjaxResponse<PetDto>> {
+    getPet({ id, token }: GetPetRequest): Observable<PetDto>
+    getPet({ id, token }: GetPetRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PetDto>>
+    getPet({ id, token }: GetPetRequest, opts?: OperationOpts): Observable<PetDto | RawAjaxResponse<PetDto>> {
         throwIfNullOrUndefined(id, 'id', 'getPet');
+        throwIfNullOrUndefined(token, 'token', 'getPet');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         return this.request<PetDto>({
-            url: '/api/pet/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/pet/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         }, opts?.responseOpts);
     };
 
     /**
      * return all pets ofr a user
      */
-    getPetsByUserId({ userId }: GetPetsByUserIdRequest): Observable<Array<PetDto>>
-    getPetsByUserId({ userId }: GetPetsByUserIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PetDto>>>
-    getPetsByUserId({ userId }: GetPetsByUserIdRequest, opts?: OperationOpts): Observable<Array<PetDto> | RawAjaxResponse<Array<PetDto>>> {
+    getPetsByUserId({ userId, token }: GetPetsByUserIdRequest): Observable<Array<PetDto>>
+    getPetsByUserId({ userId, token }: GetPetsByUserIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PetDto>>>
+    getPetsByUserId({ userId, token }: GetPetsByUserIdRequest, opts?: OperationOpts): Observable<Array<PetDto> | RawAjaxResponse<Array<PetDto>>> {
         throwIfNullOrUndefined(userId, 'userId', 'getPetsByUserId');
+        throwIfNullOrUndefined(token, 'token', 'getPetsByUserId');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'userId': userId,
         };
 
         return this.request<Array<PetDto>>({
-            url: '/api/pet',
+            url: '/v1/pet',
             method: 'GET',
+            headers,
             query,
         }, opts?.responseOpts);
     };
@@ -115,18 +140,20 @@ export class PetApi extends BaseAPI {
     /**
      * update a pet
      */
-    updatePet({ id, body }: UpdatePetRequest): Observable<void>
-    updatePet({ id, body }: UpdatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    updatePet({ id, body }: UpdatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    updatePet({ id, token, body }: UpdatePetRequest): Observable<void>
+    updatePet({ id, token, body }: UpdatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updatePet({ id, token, body }: UpdatePetRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(id, 'id', 'updatePet');
+        throwIfNullOrUndefined(token, 'token', 'updatePet');
         throwIfNullOrUndefined(body, 'body', 'updatePet');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(token != null ? { 'Token': String(token) } : undefined),
         };
 
         return this.request<void>({
-            url: '/api/pet/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/pet/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
             body: body,
