@@ -75,6 +75,11 @@ export interface UserDto {
      * @type {string}
      * @memberof UserDto
      */
+    loginId?: string;
+    /**
+     * @type {string}
+     * @memberof UserDto
+     */
     moveInDate?: string;
     /**
      * @type {string}
@@ -91,11 +96,6 @@ export interface UserDto {
      * @memberof UserDto
      */
     nickname?: string;
-    /**
-     * @type {string}
-     * @memberof UserDto
-     */
-    password?: string;
     /**
      * @type {boolean}
      * @memberof UserDto
