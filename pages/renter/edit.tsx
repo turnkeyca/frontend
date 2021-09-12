@@ -1,9 +1,20 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Footer, Header } from "../../components";
 
 export default function EditRenter() {
+  const [session, loading] = useSession();
   const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady || loading) {
+      return;
+    }
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+  }, [router.isReady, session, loading]);
   return (
     <div>
       <Header

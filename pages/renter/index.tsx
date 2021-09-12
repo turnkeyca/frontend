@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { UserApi, UserDto } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Icon, Picture } from "../../components";
+import { useSession } from "next-auth/client";
 
 export default function Renter() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
@@ -34,21 +36,27 @@ export default function Renter() {
     undefined,
   ]);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    let _userId = router.query.userId as string;
-    setState([undefined, undefined, _userId]);
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    let _userId = session.userId as string;
     const userApi = new UserApi();
-    const sub = userApi.getUser({ id: _userId }).subscribe({
-      next: (u) => setState([undefined, u, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
-    });
+    const sub = userApi
+      .getUser({ id: _userId, token: session.accessToken as string })
+      .subscribe({
+        next: (u) => setState([undefined, u, _userId]),
+        error: (e) => setState([e, undefined, _userId]),
+      });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, session, loading]);
   return (
     <div>
       <Header
+        router={router}
         title="My Turnkey"
         showEdit={true}
         showBack={false}

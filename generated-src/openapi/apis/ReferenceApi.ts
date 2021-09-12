@@ -20,23 +20,28 @@ import {
 } from '../models';
 
 export interface CreateReferenceRequest {
+    token: string;
     body: ReferenceDto;
 }
 
 export interface DeleteReferenceRequest {
     id: string;
+    token: string;
 }
 
 export interface GetReferenceRequest {
     id: string;
+    token: string;
 }
 
 export interface GetReferencesByUserIdRequest {
     userId: string;
+    token: string;
 }
 
 export interface UpdateReferenceRequest {
     id: string;
+    token: string;
     body: ReferenceDto;
 }
 
@@ -48,17 +53,19 @@ export class ReferenceApi extends BaseAPI {
     /**
      * create a new reference
      */
-    createReference({ body }: CreateReferenceRequest): Observable<void>
-    createReference({ body }: CreateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    createReference({ body }: CreateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    createReference({ token, body }: CreateReferenceRequest): Observable<void>
+    createReference({ token, body }: CreateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    createReference({ token, body }: CreateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(token, 'token', 'createReference');
         throwIfNullOrUndefined(body, 'body', 'createReference');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(token != null ? { 'Token': String(token) } : undefined),
         };
 
         return this.request<void>({
-            url: '/api/reference',
+            url: '/v1/reference',
             method: 'POST',
             headers,
             body: body,
@@ -68,46 +75,64 @@ export class ReferenceApi extends BaseAPI {
     /**
      * delete a reference
      */
-    deleteReference({ id }: DeleteReferenceRequest): Observable<void>
-    deleteReference({ id }: DeleteReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    deleteReference({ id }: DeleteReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    deleteReference({ id, token }: DeleteReferenceRequest): Observable<void>
+    deleteReference({ id, token }: DeleteReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    deleteReference({ id, token }: DeleteReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(id, 'id', 'deleteReference');
+        throwIfNullOrUndefined(token, 'token', 'deleteReference');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         return this.request<void>({
-            url: '/api/reference/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/reference/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
+            headers,
         }, opts?.responseOpts);
     };
 
     /**
      * return a reference
      */
-    getReference({ id }: GetReferenceRequest): Observable<ReferenceDto>
-    getReference({ id }: GetReferenceRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ReferenceDto>>
-    getReference({ id }: GetReferenceRequest, opts?: OperationOpts): Observable<ReferenceDto | RawAjaxResponse<ReferenceDto>> {
+    getReference({ id, token }: GetReferenceRequest): Observable<ReferenceDto>
+    getReference({ id, token }: GetReferenceRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ReferenceDto>>
+    getReference({ id, token }: GetReferenceRequest, opts?: OperationOpts): Observable<ReferenceDto | RawAjaxResponse<ReferenceDto>> {
         throwIfNullOrUndefined(id, 'id', 'getReference');
+        throwIfNullOrUndefined(token, 'token', 'getReference');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         return this.request<ReferenceDto>({
-            url: '/api/reference/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/reference/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         }, opts?.responseOpts);
     };
 
     /**
      * return all references ofr a user
      */
-    getReferencesByUserId({ userId }: GetReferencesByUserIdRequest): Observable<Array<ReferenceDto>>
-    getReferencesByUserId({ userId }: GetReferencesByUserIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<ReferenceDto>>>
-    getReferencesByUserId({ userId }: GetReferencesByUserIdRequest, opts?: OperationOpts): Observable<Array<ReferenceDto> | RawAjaxResponse<Array<ReferenceDto>>> {
+    getReferencesByUserId({ userId, token }: GetReferencesByUserIdRequest): Observable<Array<ReferenceDto>>
+    getReferencesByUserId({ userId, token }: GetReferencesByUserIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<ReferenceDto>>>
+    getReferencesByUserId({ userId, token }: GetReferencesByUserIdRequest, opts?: OperationOpts): Observable<Array<ReferenceDto> | RawAjaxResponse<Array<ReferenceDto>>> {
         throwIfNullOrUndefined(userId, 'userId', 'getReferencesByUserId');
+        throwIfNullOrUndefined(token, 'token', 'getReferencesByUserId');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'userId': userId,
         };
 
         return this.request<Array<ReferenceDto>>({
-            url: '/api/reference',
+            url: '/v1/reference',
             method: 'GET',
+            headers,
             query,
         }, opts?.responseOpts);
     };
@@ -115,18 +140,20 @@ export class ReferenceApi extends BaseAPI {
     /**
      * update a reference
      */
-    updateReference({ id, body }: UpdateReferenceRequest): Observable<void>
-    updateReference({ id, body }: UpdateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    updateReference({ id, body }: UpdateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    updateReference({ id, token, body }: UpdateReferenceRequest): Observable<void>
+    updateReference({ id, token, body }: UpdateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updateReference({ id, token, body }: UpdateReferenceRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(id, 'id', 'updateReference');
+        throwIfNullOrUndefined(token, 'token', 'updateReference');
         throwIfNullOrUndefined(body, 'body', 'updateReference');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(token != null ? { 'Token': String(token) } : undefined),
         };
 
         return this.request<void>({
-            url: '/api/reference/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/reference/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
             body: body,

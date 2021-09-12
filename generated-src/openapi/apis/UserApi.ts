@@ -19,20 +19,19 @@ import {
     ValidationError,
 } from '../models';
 
-export interface CreateUserRequest {
-    body: UserDto;
-}
-
 export interface DeleteUserRequest {
     id: string;
+    token: string;
 }
 
 export interface GetUserRequest {
     id: string;
+    token: string;
 }
 
 export interface UpdateUserRequest {
     id: string;
+    token: string;
     body: UserDto;
 }
 
@@ -42,68 +41,62 @@ export interface UpdateUserRequest {
 export class UserApi extends BaseAPI {
 
     /**
-     * create a new user
+     * delete a user
      */
-    createUser({ body }: CreateUserRequest): Observable<void>
-    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
-        throwIfNullOrUndefined(body, 'body', 'createUser');
+    deleteUser({ id, token }: DeleteUserRequest): Observable<void>
+    deleteUser({ id, token }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    deleteUser({ id, token }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(id, 'id', 'deleteUser');
+        throwIfNullOrUndefined(token, 'token', 'deleteUser');
 
         const headers: HttpHeaders = {
-            'Content-Type': 'application/json',
+            ...(token != null ? { 'Token': String(token) } : undefined),
         };
 
         return this.request<void>({
-            url: '/api/user',
-            method: 'POST',
-            headers,
-            body: body,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     * delete a user
-     */
-    deleteUser({ id }: DeleteUserRequest): Observable<void>
-    deleteUser({ id }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    deleteUser({ id }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
-        throwIfNullOrUndefined(id, 'id', 'deleteUser');
-
-        return this.request<void>({
-            url: '/api/user/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/user/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
+            headers,
         }, opts?.responseOpts);
     };
 
     /**
      * return a user
      */
-    getUser({ id }: GetUserRequest): Observable<UserDto>
-    getUser({ id }: GetUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDto>>
-    getUser({ id }: GetUserRequest, opts?: OperationOpts): Observable<UserDto | RawAjaxResponse<UserDto>> {
+    getUser({ id, token }: GetUserRequest): Observable<UserDto>
+    getUser({ id, token }: GetUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDto>>
+    getUser({ id, token }: GetUserRequest, opts?: OperationOpts): Observable<UserDto | RawAjaxResponse<UserDto>> {
         throwIfNullOrUndefined(id, 'id', 'getUser');
+        throwIfNullOrUndefined(token, 'token', 'getUser');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         return this.request<UserDto>({
-            url: '/api/user/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/user/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         }, opts?.responseOpts);
     };
 
     /**
      * update a user
      */
-    updateUser({ id, body }: UpdateUserRequest): Observable<void>
-    updateUser({ id, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    updateUser({ id, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    updateUser({ id, token, body }: UpdateUserRequest): Observable<void>
+    updateUser({ id, token, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updateUser({ id, token, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(id, 'id', 'updateUser');
+        throwIfNullOrUndefined(token, 'token', 'updateUser');
         throwIfNullOrUndefined(body, 'body', 'updateUser');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(token != null ? { 'Token': String(token) } : undefined),
         };
 
         return this.request<void>({
-            url: '/api/user/{id}'.replace('{id}', encodeURI(id)),
+            url: '/v1/user/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
             body: body,

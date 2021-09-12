@@ -1,4 +1,5 @@
 .gitignore
+apis/AuthApi.ts
 apis/EmploymentApi.ts
 apis/PetApi.ts
 apis/ReferenceApi.ts
@@ -11,8 +12,10 @@ models/EmploymentDto.ts
 models/GenericError.ts
 models/PetDto.ts
 models/ReferenceDto.ts
+models/RegisterTokenDto.ts
 models/RoommateDto.ts
 models/ShortUrlDto.ts
+models/Token.ts
 models/UserDto.ts
 models/ValidationError.ts
 models/index.ts

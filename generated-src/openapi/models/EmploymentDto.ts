@@ -60,7 +60,7 @@ export interface EmploymentDto {
      * @type {string}
      * @memberof EmploymentDto
      */
-    rentAfforsability?: string;
+    rentAffordability?: string;
     /**
      * @type {string}
      * @memberof EmploymentDto

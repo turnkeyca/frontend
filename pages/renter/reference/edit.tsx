@@ -10,8 +10,10 @@ import {
   TextInput,
 } from "../../../components";
 import { ReferenceApi, ReferenceDto } from "../../../generated-src/openapi";
+import { useSession } from "next-auth/client";
 
 export default function Reference() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [
     [
@@ -28,29 +30,36 @@ export default function Reference() {
   const referenceApi = useMemo(() => new ReferenceApi(), []);
   let userId = useRef("");
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    userId.current = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    userId.current = session.userId as string;
     let _referenceId = router.query.referenceId as string;
-    const sub = referenceApi.getReference({ id: _referenceId }).subscribe({
-      next: (r) =>
-        setState([
-          undefined,
-          r.additionalDetails,
-          r.email,
-          r.fullName,
-          r.phoneNumber,
-          r.relationship,
-          _referenceId,
-        ]),
-      error: (e) => setState([e, "", "", "", "", "", _referenceId]),
-    });
+    const sub = referenceApi
+      .getReference({ id: _referenceId, token: session.accessToken as string })
+      .subscribe({
+        next: (r) =>
+          setState([
+            undefined,
+            r.additionalDetails,
+            r.email,
+            r.fullName,
+            r.phoneNumber,
+            r.relationship,
+            _referenceId,
+          ]),
+        error: (e) => setState([e, "", "", "", "", "", _referenceId]),
+      });
     return () => sub.unsubscribe();
   }, [
     router.isReady,
     router.query.referenceId,
-    router.query.userId,
+    session,
+    loading,
     referenceApi,
   ]);
 
@@ -68,9 +77,13 @@ export default function Reference() {
       obs = referenceApi.updateReference({
         id: referenceId,
         body,
+        token: session.accessToken as string,
       });
     } else {
-      obs = referenceApi.createReference({ body });
+      obs = referenceApi.createReference({
+        body,
+        token: session.accessToken as string,
+      });
     }
     obs.subscribe(() =>
       router.push({ pathname: "/renter/reference/view", query: router.query })
@@ -80,6 +93,7 @@ export default function Reference() {
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={false}
         showBack={true}

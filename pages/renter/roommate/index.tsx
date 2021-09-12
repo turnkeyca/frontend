@@ -1,9 +1,11 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { Error, Header, Icon, Warning } from "../../../components";
 import { RoommateApi } from "../../../generated-src/openapi";
 
 export default function Roommate() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, roommates, userId], setState] = useState([
     undefined,
@@ -12,19 +14,29 @@ export default function Roommate() {
   ]);
   const roommateApi = useMemo(() => new RoommateApi(), []);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    let _userId = router.query.userId as string;
-    let sub = roommateApi.getRoommatesByUserId({ userId: _userId }).subscribe({
-      next: (r) => setState([undefined, r, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
-    });
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    let _userId = session.userId as string;
+    let sub = roommateApi
+      .getRoommatesByUserId({
+        userId: _userId,
+        token: session.accessToken as string,
+      })
+      .subscribe({
+        next: (r) => setState([undefined, r, _userId]),
+        error: (e) => setState([e, undefined, _userId]),
+      });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query.userId, roommateApi]);
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={false}
         showBack={true}
@@ -69,7 +81,10 @@ export default function Roommate() {
                     name="delete"
                     handleClick={() =>
                       roommateApi
-                        .deleteRoommate({ id: roommate.id })
+                        .deleteRoommate({
+                          id: roommate.id,
+                          token: session.accessToken as string,
+                        })
                         .subscribe()
                     }
                   />

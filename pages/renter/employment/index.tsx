@@ -1,9 +1,11 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { Button, Error, Header, Icon, Warning } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, employments, userId], setState] = useState([
     undefined,
@@ -12,21 +14,29 @@ export default function Employment() {
   ]);
   const employmentApi = useMemo(() => new EmploymentApi(), []);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    let _userId = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    let _userId = session.userId as string;
     let sub = employmentApi
-      .getEmploymentsByUserId({ userId: _userId })
+      .getEmploymentsByUserId({
+        userId: _userId,
+        token: session.accessToken as string,
+      })
       .subscribe({
         next: (e) => setState([undefined, e, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId, employmentApi]);
+  }, [router.isReady, session, loading, employmentApi]);
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={false}
         showBack={true}
@@ -68,7 +78,10 @@ export default function Employment() {
                     name="delete"
                     handleClick={() =>
                       employmentApi
-                        .deleteEmployment({ id: employment.id })
+                        .deleteEmployment({
+                          id: employment.id,
+                          token: session.accessToken as string,
+                        })
                         .subscribe()
                     }
                   />
