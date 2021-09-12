@@ -47,7 +47,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
     async jwt(token, user, account, profile, isNewUser) {
-      if (token.userId || token.accessToken) {
+      if (token.userId || token.accessToken || !user) {
         return token;
       }
       const body = {
@@ -65,6 +65,9 @@ export default NextAuth({
       return token;
     },
     async session(session, token) {
+      if (!token.userId || !token.accessToken) {
+        throw Error("user not logged in");
+      }
       session.accessToken = token.accessToken;
       session.userId = token.userId;
       return session

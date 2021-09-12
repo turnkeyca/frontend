@@ -15,17 +15,19 @@
     "next-auth": "latest",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "rxjs": "^7.3.0",
-    "tailwindcss": "^2.2.7",
-    "postcss": "^8.3.6"
+    "rxjs": "^7.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
     "@openapitools/openapi-generator-cli": "^2.3.10",
+    "@prisma/client": "^2.16.1",
     "@types/node": "^16.7.1",
     "@types/react": "^17.0.19",
-    "autoprefixer": "^10.3.2",
+    "autoprefixer": "^10.3.4",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.0.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.15",
     "typescript": "^4.3.5"
   }
 }
