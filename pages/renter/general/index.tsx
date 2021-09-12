@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import {
@@ -11,6 +12,7 @@ import {
 import { UserApi } from "../../../generated-src/openapi";
 
 export default function General() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
@@ -18,17 +20,21 @@ export default function General() {
     undefined,
   ]);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    const _userId = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    const _userId = session.userId as string;
     const userApi = new UserApi();
-    const sub = userApi.getUser({ id: _userId }).subscribe({
+    const sub = userApi.getUser({ id: _userId, token: session.accessToken as string }).subscribe({
       next: (u) => setState([undefined, u, _userId]),
       error: (e) => setState([e, undefined, _userId]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, session, loading]);
   return (
     <div>
       <Header

@@ -1,9 +1,11 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { Error, Header, Icon, Warning } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, references, userId], setState] = useState([
     undefined,
@@ -12,18 +14,25 @@ export default function Reference() {
   ]);
   const referenceApi = useMemo(() => new ReferenceApi(), []);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    let _userId = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    let _userId = session.userId as string;
     let sub = referenceApi
-      .getReferencesByUserId({ userId: _userId })
+      .getReferencesByUserId({
+        userId: _userId,
+        token: session.accessToken as string,
+      })
       .subscribe({
         next: (r) => setState([undefined, r, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId, referenceApi]);
+  }, [router.isReady, session, loading, referenceApi]);
   return (
     <div>
       <Header
@@ -62,7 +71,10 @@ export default function Reference() {
                     name="delete"
                     handleClick={() =>
                       referenceApi
-                        .deleteReference({ id: reference.id })
+                        .deleteReference({
+                          id: reference.id,
+                          token: session.accessToken as string,
+                        })
                         .subscribe()
                     }
                   />

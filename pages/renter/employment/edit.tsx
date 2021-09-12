@@ -10,8 +10,10 @@ import {
   TextInput,
 } from "../../../components";
 import { EmploymentApi, EmploymentDto } from "../../../generated-src/openapi";
+import { useSession } from "next-auth/client";
 
 export default function Employment() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [
     [
@@ -28,32 +30,42 @@ export default function Employment() {
   const employmentApi = useMemo(() => new EmploymentApi(), []);
   let userId = useRef("");
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    let _userId = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    let _userId = session.userId as string;
     userId.current = _userId;
     let _employmentId = router.query.employmentId as string;
     if (!_employmentId) {
       return;
     }
-    const sub = employmentApi.getEmployment({ id: _employmentId }).subscribe({
-      next: (e) =>
-        setState([
-          undefined,
-          e.employer,
-          e.occupation,
-          e.duration,
-          e.annualSalary,
-          e.additionalDetails,
-          _employmentId,
-        ]),
-      error: (e) => setState([e, "", "", "", 0.0, "", _employmentId]),
-    });
+    const sub = employmentApi
+      .getEmployment({
+        id: _employmentId,
+        token: session.accessToken as string,
+      })
+      .subscribe({
+        next: (e) =>
+          setState([
+            undefined,
+            e.employer,
+            e.occupation,
+            e.duration,
+            e.annualSalary,
+            e.additionalDetails,
+            _employmentId,
+          ]),
+        error: (e) => setState([e, "", "", "", 0.0, "", _employmentId]),
+      });
     return () => sub.unsubscribe();
   }, [
     router.isReady,
-    router.query.userId,
+    session,
+    loading,
     router.query.employmentId,
     employmentApi,
   ]);
@@ -73,9 +85,13 @@ export default function Employment() {
       obs = employmentApi.updateEmployment({
         id: employmentId,
         body,
+        token: session.accessToken as string,
       });
     } else {
-      obs = employmentApi.createEmployment({ body });
+      obs = employmentApi.createEmployment({
+        body,
+        token: session.accessToken as string,
+      });
     }
 
     obs.subscribe(() =>

@@ -1,9 +1,11 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Error, Footer, Header, Label } from "../../../components";
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 
 export default function General() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, user], setState] = useState([
     undefined,
@@ -12,17 +14,23 @@ export default function General() {
     } as UserDto,
   ]);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    const _userId = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    const _userId = session.userId as string;
     const userApi = new UserApi();
-    const sub = userApi.getUser({ id: _userId }).subscribe({
-      next: (u) => setState([undefined, u]),
-      error: (e) => setState([e, user]),
-    });
+    const sub = userApi
+      .getUser({ id: _userId, token: session.accessToken as string })
+      .subscribe({
+        next: (u) => setState([undefined, u]),
+        error: (e) => setState([e, user]),
+      });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, session, loading]);
 
   return (
     <div>
@@ -36,7 +44,7 @@ export default function General() {
         {!!error && <Error error={error} />}
         <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
-            Lease Info
+            Contact Info
           </span>
         </div>
         <div className="grid grid-cols-1">
@@ -44,6 +52,12 @@ export default function General() {
             <Label>Email</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {user?.email}
+            </span>
+          </div>
+          <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
+            <Label>Phone number</Label>
+            <span className="text-gray-600 text-sm tracking-wide">
+              {user?.phoneNumber}
             </span>
           </div>
         </div>

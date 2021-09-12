@@ -1,23 +1,29 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Error, Footer, Header, Label } from "../../../components";
 import { RoommateApi } from "../../../generated-src/openapi";
 
 export default function Roommate() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, roommate], setState] = useState([undefined, undefined]);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
+      return;
+    }
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
       return;
     }
     let _roommateId = router.query.roommateId as string;
     const roommateApi = new RoommateApi();
-    const sub = roommateApi.getRoommate({ id: _roommateId }).subscribe({
+    const sub = roommateApi.getRoommate({ id: _roommateId, token: session.accessToken as string }).subscribe({
       next: (r) => setState([undefined, r]),
       error: (e) => setState([e, undefined]),
     });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.roommateId]);
+  }, [router.isReady, session, loading, router.query.roommateId]);
   return (
     <div>
       <Header

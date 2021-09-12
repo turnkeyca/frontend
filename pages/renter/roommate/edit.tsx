@@ -10,8 +10,10 @@ import {
   TextInput,
 } from "../../../components";
 import { RoommateApi, RoommateDto } from "../../../generated-src/openapi";
+import { useSession } from "next-auth/client";
 
 export default function Roommate() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, email, fullName, roommateId], setState] = useState([
     undefined,
@@ -22,22 +24,23 @@ export default function Roommate() {
   const roommateApi = useMemo(() => new RoommateApi(), []);
   let userId = useRef("");
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    userId.current = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    userId.current = session.userId as string;
     let _roommateId = router.query.roommateId as string;
-    const sub = roommateApi.getRoommate({ id: _roommateId }).subscribe({
-      next: (r) => setState([undefined, r.email, r.fullName, _roommateId]),
-      error: (e) => setState([e, "", "", _roommateId]),
-    });
+    const sub = roommateApi
+      .getRoommate({ id: _roommateId, token: session.accessToken as string })
+      .subscribe({
+        next: (r) => setState([undefined, r.email, r.fullName, _roommateId]),
+        error: (e) => setState([e, "", "", _roommateId]),
+      });
     return () => sub.unsubscribe();
-  }, [
-    router.isReady,
-    router.query.roommateId,
-    router.query.userId,
-    roommateApi,
-  ]);
+  }, [router.isReady, router.query.roommateId, session, loading, roommateApi]);
 
   function save() {
     let obs: Observable<void>;
@@ -50,9 +53,13 @@ export default function Roommate() {
       obs = roommateApi.updateRoommate({
         id: roommateId,
         body,
+        token: session.accessToken as string,
       });
     } else {
-      obs = roommateApi.createRoommate({ body });
+      obs = roommateApi.createRoommate({
+        body,
+        token: session.accessToken as string,
+      });
     }
     obs.subscribe(() =>
       router.push({ pathname: "/renter/roommate/view", query: router.query })

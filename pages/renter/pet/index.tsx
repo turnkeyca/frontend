@@ -1,9 +1,11 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Error, Header, Warning } from "../../../components";
 import { PetApi } from "../../../generated-src/openapi";
 
 export default function Pet() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, pets, userId], setState] = useState([
     undefined,
@@ -11,18 +13,27 @@ export default function Pet() {
     undefined,
   ]);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    let _userId = router.query.userId as string;
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    let _userId = session.userId as string;
     setState([undefined, undefined, _userId]);
     const petApi = new PetApi();
-    let sub = petApi.getPetsByUserId({ userId: _userId }).subscribe({
-      next: (r) => setState([undefined, r, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
-    });
+    let sub = petApi
+      .getPetsByUserId({
+        userId: _userId,
+        token: session.accessToken as string,
+      })
+      .subscribe({
+        next: (r) => setState([undefined, r, _userId]),
+        error: (e) => setState([e, undefined, _userId]),
+      });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId]);
+  }, [router.isReady, session, loading]);
   return (
     <div>
       <Header
