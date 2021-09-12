@@ -1,5 +1,5 @@
-import NextAuth from "next-auth"
-import Providers from "next-auth/providers"
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
 
 // For more  on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -12,7 +12,7 @@ export default NextAuth({
     }),
     Providers.Facebook({
       clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET
+      clientSecret: process.env.FACEBOOK_SECRET,
     }),
     // Providers.Apple({
     //   clientId: process.env.APPLE_ID,
@@ -55,29 +55,35 @@ export default NextAuth({
         newUser: Boolean(isNewUser),
         secret: process.env.TK_SECRET as string,
       };
-      const rx: Response = await fetch(`${process.env.API_URI}/v1/auth/registertoken`, {method:'POST', body: JSON.stringify(body)});
+      const rx: Response = await fetch(
+        `${process.env.API_URI}/v1/auth/registertoken`,
+        { method: "POST", body: JSON.stringify(body) }
+      );
       if (rx.status !== 200) {
         return token;
       }
       const response = await rx.json();
       token.userId = response.id;
       token.accessToken = response.token;
+      token.picture = user.image;
+      console.log(token.picture)
       return token;
     },
     async session(session, token) {
-      if (!token.userId || !token.accessToken) {
+      if (!token.userId || !token.accessToken || !token.picture) {
         throw Error("user not logged in");
       }
       session.accessToken = token.accessToken;
       session.userId = token.userId;
-      return session
-    }
+      session.picture = token.picture;
+      return session;
+    },
   },
 
   // https://next-auth.js.org/configuration/events
   events: {},
 
-  theme: 'auto',
+  theme: "auto",
 
   debug: false,
-})
+});

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { UserApi, UserDto } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Icon, Picture } from "../../components";
+import { Error, Footer, Header, Icon } from "../../components";
 import { useSession } from "next-auth/client";
+import Image from "next/image";
 
 export default function Renter() {
   const [session, loading] = useSession();
@@ -68,7 +69,18 @@ export default function Renter() {
           <div>
             <div className="grid grid-cols-3 gap-3 mb-3 tracking-wide">
               <div className="flex flex-col items-center">
-                <Picture alt="profile picture" src="/favicon-32x32.png" />
+                <div className="rounded-full h-36 w-36 flex items-center justify-center">
+                  {session && (
+                    <div className="relative h-36 w-36">
+                      <Image
+                        className="rounded-full"
+                        src={session.picture as string}
+                        alt="profile picture"
+                        layout="fill"
+                      />
+                    </div>
+                  )}
+                </div>
                 <div className="tk-text-teal opacity-80 font-medium">
                   Renter
                 </div>

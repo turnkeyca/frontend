@@ -18,6 +18,7 @@ export default function EditRenter() {
   return (
     <div>
       <Header
+        router={router}
         showEdit={false}
         showBack={true}
         showLogout={false}
