@@ -1,8 +1,8 @@
-import { Provider } from "next-auth/client"
+import { Provider } from "next-auth/client";
 import Head from "next/head";
 import "tailwindcss/tailwind.css";
 
-export default function App ({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
@@ -30,15 +30,17 @@ export default function App ({ Component, pageProps }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
+        <link rel="stylesheet" href="globals.css"></link>
       </Head>
       <Provider
         options={{
           clientMaxAge: 0,
-          keepAlive: 0
+          keepAlive: 0,
         }}
-        session={pageProps.session} >
+        session={pageProps.session}
+      >
         <Component {...pageProps} />
       </Provider>
     </>
-  )
+  );
 }
