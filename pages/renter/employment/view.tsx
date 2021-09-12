@@ -1,26 +1,38 @@
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Error, Footer, Header, Label } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, employment], setState] = useState([undefined, undefined]);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
+      return;
+    }
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
       return;
     }
     let _employmentId = router.query.employmentId as string;
     const employmentApi = new EmploymentApi();
-    const sub = employmentApi.getEmployment({ id: _employmentId }).subscribe({
-      next: (u) => setState([undefined, u]),
-      error: (e) => setState([e, undefined]),
-    });
+    const sub = employmentApi
+      .getEmployment({
+        id: _employmentId,
+        token: session.accessToken as string,
+      })
+      .subscribe({
+        next: (u) => setState([undefined, u]),
+        error: (e) => setState([e, undefined]),
+      });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.employmentId]);
+  }, [router.isReady, session, loading, router.query.employmentId]);
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={true}
         showBack={true}

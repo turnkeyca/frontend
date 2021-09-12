@@ -4,7 +4,6 @@ export * from "./error";
 export * from "./footer";
 export * from "./header";
 export * from "./icon";
-export * from "./image";
 export * from "./label";
 export * from "./ntoggle";
 export * from "./picture";

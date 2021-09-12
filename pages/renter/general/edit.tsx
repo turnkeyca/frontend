@@ -12,8 +12,10 @@ import {
 } from "../../../components";
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 import { UrlObject } from "url";
+import { useSession } from "next-auth/client";
 
 export default function General() {
+  const [session, loading] = useSession();
   const router = useRouter();
   let [
     [
@@ -30,7 +32,6 @@ export default function General() {
       moveOutDate,
       movingReason,
       nickname,
-      password,
       pets,
       phoneNumber,
       roommates,
@@ -55,7 +56,6 @@ export default function General() {
     "",
     "",
     "",
-    "",
     false,
     "",
     false,
@@ -67,64 +67,68 @@ export default function General() {
   ]);
   const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
-    if (!router.isReady) {
+    if (!router.isReady || loading) {
       return;
     }
-    const _userId = router.query.userId as string;
-    const sub = userApi.getUser({ id: _userId }).subscribe({
-      next: (u) =>
-        setState([
-          undefined,
-          u.additionalDetailsGeneral,
-          u.additionalDetailsLease,
-          u.bio,
-          u.creditCheck,
-          u.email,
-          u.evicted,
-          u.fullName,
-          u.lawsuit,
-          u.moveInDate,
-          u.moveOutDate,
-          u.movingReason,
-          u.nickname,
-          u.password,
-          u.pets,
-          u.phoneNumber,
-          u.roommates,
-          u.securityDeposit,
-          u.sendNotifications,
-          u.smoker,
-          u.userType,
-          _userId,
-        ]),
-      error: (e) =>
-        setState([
-          e,
-          "",
-          "",
-          "",
-          false,
-          "",
-          false,
-          "",
-          false,
-          "",
-          "",
-          "",
-          "",
-          "",
-          false,
-          "",
-          false,
-          false,
-          false,
-          false,
-          "",
-          _userId,
-        ]),
-    });
+    if (!session) {
+      router.push({ pathname: "/api/auth/signin" });
+      return;
+    }
+    const _userId = session.userId as string;
+    const sub = userApi
+      .getUser({ id: _userId, token: session.accessToken as string })
+      .subscribe({
+        next: (u) =>
+          setState([
+            undefined,
+            u.additionalDetailsGeneral,
+            u.additionalDetailsLease,
+            u.bio,
+            u.creditCheck,
+            u.email,
+            u.evicted,
+            u.fullName,
+            u.lawsuit,
+            u.moveInDate,
+            u.moveOutDate,
+            u.movingReason,
+            u.nickname,
+            u.pets,
+            u.phoneNumber,
+            u.roommates,
+            u.securityDeposit,
+            u.sendNotifications,
+            u.smoker,
+            u.userType,
+            _userId,
+          ]),
+        error: (e) =>
+          setState([
+            e,
+            "",
+            "",
+            "",
+            false,
+            "",
+            false,
+            "",
+            false,
+            "",
+            "",
+            "",
+            "",
+            false,
+            "",
+            false,
+            false,
+            false,
+            false,
+            "",
+            _userId,
+          ]),
+      });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.userId, userApi]);
+  }, [router.isReady, session, loading, userApi]);
 
   function save(next: UrlObject) {
     let obs: Observable<void>;
@@ -141,7 +145,6 @@ export default function General() {
       moveOutDate,
       movingReason,
       nickname,
-      password,
       pets,
       phoneNumber,
       roommates,
@@ -151,20 +154,18 @@ export default function General() {
       userType,
       userStatusType: "active",
     } as UserDto;
-    if (userId) {
-      obs = userApi.updateUser({
-        id: userId,
-        body,
-      });
-    } else {
-      obs = userApi.createUser({ body });
-    }
+    obs = userApi.updateUser({
+      id: userId,
+      body,
+      token: session.accessToken as string,
+    });
     obs.subscribe(() => router.push(next));
   }
 
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={false}
         showBack={true}
@@ -199,7 +200,6 @@ export default function General() {
                     moveOutDate,
                     movingReason,
                     nickname,
-                    password,
                     pets,
                     phoneNumber,
                     roommates,
@@ -235,7 +235,6 @@ export default function General() {
                     moveOutDate,
                     movingReason,
                     nickname,
-                    password,
                     pets,
                     phoneNumber,
                     roommates,
@@ -271,7 +270,6 @@ export default function General() {
                     moveOutDate,
                     movingReason,
                     nickname,
-                    password,
                     pets,
                     phoneNumber,
                     roommates,
@@ -307,7 +305,6 @@ export default function General() {
                     moveOutDate,
                     movingReason,
                     nickname,
-                    password,
                     pets,
                     phoneNumber,
                     roommates,
@@ -343,7 +340,6 @@ export default function General() {
                     moveOutDate,
                     movingReason,
                     nickname,
-                    password,
                     $event.target.value === "true",
                     phoneNumber,
                     roommates,
@@ -387,7 +383,6 @@ export default function General() {
                   moveOutDate,
                   movingReason,
                   nickname,
-                  password,
                   pets,
                   phoneNumber,
                   roommates,

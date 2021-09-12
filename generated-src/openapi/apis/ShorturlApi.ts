@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpQuery, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     GenericError,
     ShortUrlDto,
@@ -20,6 +20,7 @@ import {
 
 export interface GetShortUrlRequest {
     url: string;
+    token: string;
 }
 
 /**
@@ -30,18 +31,24 @@ export class ShorturlApi extends BaseAPI {
     /**
      * return a bitly short url
      */
-    getShortUrl({ url }: GetShortUrlRequest): Observable<ShortUrlDto>
-    getShortUrl({ url }: GetShortUrlRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ShortUrlDto>>
-    getShortUrl({ url }: GetShortUrlRequest, opts?: OperationOpts): Observable<ShortUrlDto | RawAjaxResponse<ShortUrlDto>> {
+    getShortUrl({ url, token }: GetShortUrlRequest): Observable<ShortUrlDto>
+    getShortUrl({ url, token }: GetShortUrlRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ShortUrlDto>>
+    getShortUrl({ url, token }: GetShortUrlRequest, opts?: OperationOpts): Observable<ShortUrlDto | RawAjaxResponse<ShortUrlDto>> {
         throwIfNullOrUndefined(url, 'url', 'getShortUrl');
+        throwIfNullOrUndefined(token, 'token', 'getShortUrl');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'url': url,
         };
 
         return this.request<ShortUrlDto>({
-            url: '/api/short-url',
+            url: '/v1/shorturl',
             method: 'GET',
+            headers,
             query,
         }, opts?.responseOpts);
     };

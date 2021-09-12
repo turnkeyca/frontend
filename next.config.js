@@ -1,31 +1,19 @@
 module.exports = {
+  images: {
+    domains: [`lh3.googleusercontent.com`],
+  },
   async redirects() {
     return [
       {
-        source: "/",
-        destination: "/login",
+        source: `/renter/contact`,
+        destination: `/renter/contact/edit`,
         permanent: false,
       },
       {
-        source: "/renter/contact",
-        destination: "/renter/contact/edit",
-        permanent: false,
+        source: `/v1/:path*`,
+        destination: `${process.env.API_URI}/v1/:path*`,
+        permanent: true,
       },
     ];
-  },
-  async rewrites() {
-    return process.env.NODE_ENV === "production"
-      ? [
-          {
-            source: `/:path*`,
-            destination: `https://testapi.turnkeyapp.ca/:path*`,
-          },
-        ]
-      : [
-          {
-            source: `/:path*`,
-            destination: `http://localhost:4202/:path*`,
-          },
-        ];
   },
 };
