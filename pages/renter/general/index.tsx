@@ -29,15 +29,18 @@ export default function General() {
     }
     const _userId = session.userId as string;
     const userApi = new UserApi();
-    const sub = userApi.getUser({ id: _userId, token: session.accessToken as string }).subscribe({
-      next: (u) => setState([undefined, u, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
-    });
+    const sub = userApi
+      .getUser({ id: _userId, token: session.accessToken as string })
+      .subscribe({
+        next: (u) => setState([undefined, u, _userId]),
+        error: (e) => setState([e, undefined, _userId]),
+      });
     return () => sub.unsubscribe();
   }, [router.isReady, session, loading]);
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={true}
         showBack={true}

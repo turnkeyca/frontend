@@ -37,6 +37,7 @@ export default function Pet() {
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={true}
         showBack={true}

@@ -68,6 +68,7 @@ export default function General() {
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={true}
         showBack={true}

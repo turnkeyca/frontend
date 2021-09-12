@@ -163,6 +163,7 @@ export default function EditContact() {
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={false}
         showBack={true}

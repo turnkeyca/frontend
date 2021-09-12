@@ -1,10 +1,10 @@
 import React, { HTMLAttributes } from "react";
 import { Icon } from "./icon";
-import { useRouter } from "next/router";
-import { signIn, signOut, useSession } from "next-auth/client";
-import { Button } from ".";
+import { NextRouter } from "next/router";
+import { signOut } from "next-auth/client";
 
 export interface IHeader extends HTMLAttributes<HTMLElement> {
+  router: NextRouter;
   title: string;
   showBack: boolean;
   showEdit: boolean;
@@ -13,6 +13,7 @@ export interface IHeader extends HTMLAttributes<HTMLElement> {
 }
 
 export const Header = ({
+  router,
   title,
   showBack,
   showEdit,
@@ -20,7 +21,6 @@ export const Header = ({
   editSamePath = false,
   ...rest
 }: IHeader) => {
-  const router = useRouter();
   return (
     <div className="tk-bg-teal text-white flex justify-between items-center p-3">
       <div>
@@ -38,10 +38,15 @@ export const Header = ({
             name="arrow_back"
           />
         )}
-        {showLogout && <Icon name="logout" handleClick={() => {
-          signOut(); 
-          router.push('');
-        }} />}
+        {showLogout && (
+          <Icon
+            name="logout"
+            handleClick={() => {
+              signOut();
+              router.push("");
+            }}
+          />
+        )}
       </div>
       <div className="text-white text-lg font-medium">{title}</div>
       <div>

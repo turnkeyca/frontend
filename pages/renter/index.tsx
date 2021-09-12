@@ -40,20 +40,23 @@ export default function Renter() {
       return;
     }
     if (!session) {
-      router.push({pathname: '/api/auth/signin'});
+      router.push({ pathname: "/api/auth/signin" });
       return;
     }
     let _userId = session.userId as string;
     const userApi = new UserApi();
-    const sub = userApi.getUser({ id: _userId, token: session.accessToken as string }).subscribe({
-      next: (u) => setState([undefined, u, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
-    });
+    const sub = userApi
+      .getUser({ id: _userId, token: session.accessToken as string })
+      .subscribe({
+        next: (u) => setState([undefined, u, _userId]),
+        error: (e) => setState([e, undefined, _userId]),
+      });
     return () => sub.unsubscribe();
   }, [router.isReady, session, loading]);
   return (
     <div>
       <Header
+        router={router}
         title="My Turnkey"
         showEdit={true}
         showBack={false}

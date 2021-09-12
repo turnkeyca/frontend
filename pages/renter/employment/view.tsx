@@ -32,6 +32,7 @@ export default function Employment() {
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={true}
         showBack={true}

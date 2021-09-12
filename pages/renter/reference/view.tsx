@@ -18,15 +18,18 @@ export default function Reference() {
     }
     let _referenceId = router.query.referenceId as string;
     const referenceApi = new ReferenceApi();
-    const sub = referenceApi.getReference({ id: _referenceId, token: session.accessToken as string }).subscribe({
-      next: (r) => setState([undefined, r]),
-      error: (e) => setState([e, undefined]),
-    });
+    const sub = referenceApi
+      .getReference({ id: _referenceId, token: session.accessToken as string })
+      .subscribe({
+        next: (r) => setState([undefined, r]),
+        error: (e) => setState([e, undefined]),
+      });
     return () => sub.unsubscribe();
   }, [router.isReady, session, loading, router.query.referenceId]);
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={true}
         showBack={true}

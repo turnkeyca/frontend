@@ -22,15 +22,21 @@ export default function Roommate() {
       return;
     }
     let _userId = session.userId as string;
-    let sub = roommateApi.getRoommatesByUserId({ userId: _userId, token: session.accessToken as string }).subscribe({
-      next: (r) => setState([undefined, r, _userId]),
-      error: (e) => setState([e, undefined, _userId]),
-    });
+    let sub = roommateApi
+      .getRoommatesByUserId({
+        userId: _userId,
+        token: session.accessToken as string,
+      })
+      .subscribe({
+        next: (r) => setState([undefined, r, _userId]),
+        error: (e) => setState([e, undefined, _userId]),
+      });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query.userId, roommateApi]);
   return (
     <div>
       <Header
+        router={router}
         title="My Profile"
         showEdit={false}
         showBack={true}
@@ -75,7 +81,10 @@ export default function Roommate() {
                     name="delete"
                     handleClick={() =>
                       roommateApi
-                        .deleteRoommate({ id: roommate.id, token: session.accessToken as string })
+                        .deleteRoommate({
+                          id: roommate.id,
+                          token: session.accessToken as string,
+                        })
                         .subscribe()
                     }
                   />
