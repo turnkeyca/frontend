@@ -17,15 +17,15 @@ export default function Roommate() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    let _userId = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    let _userId = router.query.userId as string;
     let sub = roommateApi
       .getRoommatesByUserId({
         userId: _userId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (r) => setState([undefined, r, _userId]),
@@ -83,7 +83,7 @@ export default function Roommate() {
                       roommateApi
                         .deleteRoommate({
                           id: roommate.id,
-                          token: session.accessToken as string,
+                          token: undefined,
                         })
                         .subscribe()
                     }

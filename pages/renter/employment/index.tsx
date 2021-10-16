@@ -17,22 +17,22 @@ export default function Employment() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    let _userId = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    let _userId = router.query.userId as string;
     let sub = employmentApi
       .getEmploymentsByUserId({
         userId: _userId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (e) => setState([undefined, e, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, employmentApi]);
+  }, [router.isReady,, employmentApi]);
   return (
     <div>
       <Header
@@ -80,7 +80,7 @@ export default function Employment() {
                       employmentApi
                         .deleteEmployment({
                           id: employment.id,
-                          token: session.accessToken as string,
+                          token: undefined,
                         })
                         .subscribe()
                     }

@@ -70,13 +70,13 @@ export default function General() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    const _userId = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    const _userId = router.query.userId as string;
     const sub = userApi
-      .getUser({ id: _userId, token: session.accessToken as string })
+      .getUser({ id: _userId, token: undefined })
       .subscribe({
         next: (u) =>
           setState([
@@ -128,7 +128,7 @@ export default function General() {
           ]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, userApi]);
+  }, [router.isReady,, userApi]);
 
   function save(next: UrlObject) {
     let obs: Observable<void>;
@@ -157,7 +157,7 @@ export default function General() {
     obs = userApi.updateUser({
       id: userId,
       body,
-      token: session.accessToken as string,
+      token: undefined,
     });
     obs.subscribe(() => router.push(next));
   }

@@ -17,22 +17,22 @@ export default function Reference() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    let _userId = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    let _userId = router.query.userId as string;
     let sub = referenceApi
       .getReferencesByUserId({
         userId: _userId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (r) => setState([undefined, r, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, referenceApi]);
+  }, [router.isReady,, referenceApi]);
   return (
     <div>
       <Header
@@ -74,7 +74,7 @@ export default function Reference() {
                       referenceApi
                         .deleteReference({
                           id: reference.id,
-                          token: session.accessToken as string,
+                          token: undefined,
                         })
                         .subscribe()
                     }

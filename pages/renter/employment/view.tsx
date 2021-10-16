@@ -12,23 +12,23 @@ export default function Employment() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
     let _employmentId = router.query.employmentId as string;
     const employmentApi = new EmploymentApi();
     const sub = employmentApi
       .getEmployment({
         id: _employmentId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (u) => setState([undefined, u]),
         error: (e) => setState([e, undefined]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, router.query.employmentId]);
+  }, [router.isReady,, router.query.employmentId]);
   return (
     <div>
       <Header

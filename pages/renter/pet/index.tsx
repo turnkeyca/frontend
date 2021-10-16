@@ -26,14 +26,14 @@ export default function Pet() {
     let sub = petApi
       .getPetsByUserId({
         userId: _userId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (r) => setState([undefined, r, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading]);
+  }, [router.isReady,]);
   return (
     <div>
       <Header
