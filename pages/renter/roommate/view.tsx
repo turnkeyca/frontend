@@ -19,13 +19,13 @@ export default function Roommate() {
     let _roommateId = router.query.roommateId as string;
     const roommateApi = new RoommateApi();
     const sub = roommateApi
-      .getRoommate({ id: _roommateId, token: session.accessToken as string })
+      .getRoommate({ id: _roommateId, token: undefined })
       .subscribe({
         next: (r) => setState([undefined, r]),
         error: (e) => setState([e, undefined]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, router.query.roommateId]);
+  }, [router.isReady,, router.query.roommateId]);
   return (
     <div>
       <Header

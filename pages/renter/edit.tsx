@@ -14,7 +14,7 @@ export default function EditRenter() {
     //   router.push({ pathname: "/api/auth/signin" });
     //   return;
     // }
-  }, [router.isReady, session, loading]);
+  }, [router.isReady,]);
   return (
     <div>
       <Header

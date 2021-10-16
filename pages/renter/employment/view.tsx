@@ -21,14 +21,14 @@ export default function Employment() {
     const sub = employmentApi
       .getEmployment({
         id: _employmentId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (u) => setState([undefined, u]),
         error: (e) => setState([e, undefined]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, router.query.employmentId]);
+  }, [router.isReady,, router.query.employmentId]);
   return (
     <div>
       <Header

@@ -40,7 +40,7 @@ export default function Reference() {
     userId.current = router.query.userId as string;
     let _referenceId = router.query.referenceId as string;
     const sub = referenceApi
-      .getReference({ id: _referenceId, token: session.accessToken as string })
+      .getReference({ id: _referenceId, token: undefined })
       .subscribe({
         next: (r) =>
           setState([
@@ -77,12 +77,12 @@ export default function Reference() {
       obs = referenceApi.updateReference({
         id: referenceId,
         body,
-        token: session.accessToken as string,
+        token: undefined,
       });
     } else {
       obs = referenceApi.createReference({
         body,
-        token: session.accessToken as string,
+        token: undefined,
       });
     }
     obs.subscribe(() =>

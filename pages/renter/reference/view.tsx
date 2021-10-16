@@ -19,13 +19,13 @@ export default function Reference() {
     let _referenceId = router.query.referenceId as string;
     const referenceApi = new ReferenceApi();
     const sub = referenceApi
-      .getReference({ id: _referenceId, token: session.accessToken as string })
+      .getReference({ id: _referenceId, token: undefined })
       .subscribe({
         next: (r) => setState([undefined, r]),
         error: (e) => setState([e, undefined]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, router.query.referenceId]);
+  }, [router.isReady,, router.query.referenceId]);
   return (
     <div>
       <Header

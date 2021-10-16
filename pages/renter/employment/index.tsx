@@ -25,14 +25,14 @@ export default function Employment() {
     let sub = employmentApi
       .getEmploymentsByUserId({
         userId: _userId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (e) => setState([undefined, e, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, employmentApi]);
+  }, [router.isReady,, employmentApi]);
   return (
     <div>
       <Header
@@ -80,7 +80,7 @@ export default function Employment() {
                       employmentApi
                         .deleteEmployment({
                           id: employment.id,
-                          token: session.accessToken as string,
+                          token: undefined,
                         })
                         .subscribe()
                     }

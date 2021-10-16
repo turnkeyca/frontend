@@ -75,7 +75,7 @@ export default function EditContact() {
     // }
     const _userId = router.query.userId as string;
     const sub = userApi
-      .getUser({ id: _userId, token: session.accessToken as string })
+      .getUser({ id: _userId, token: undefined })
       .subscribe({
         next: (u) =>
           setState([
@@ -127,7 +127,7 @@ export default function EditContact() {
           ]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading, userApi]);
+  }, [router.isReady,, userApi]);
 
   function save(next: UrlObject) {
     let obs: Observable<void>;
@@ -156,7 +156,7 @@ export default function EditContact() {
     obs = userApi.updateUser({
       id: userId,
       body,
-      token: session.accessToken as string,
+      token: undefined,
     });
     obs.subscribe(() => router.push(next));
   }

@@ -46,7 +46,7 @@ export default function Employment() {
     const sub = employmentApi
       .getEmployment({
         id: _employmentId,
-        token: session.accessToken as string,
+        token: undefined,
       })
       .subscribe({
         next: (e) =>
@@ -85,12 +85,12 @@ export default function Employment() {
       obs = employmentApi.updateEmployment({
         id: employmentId,
         body,
-        token: session.accessToken as string,
+        token: undefined,
       });
     } else {
       obs = employmentApi.createEmployment({
         body,
-        token: session.accessToken as string,
+        token: undefined,
       });
     }
 

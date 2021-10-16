@@ -47,13 +47,13 @@ export default function Renter() {
     let _userId = router.query.userId as string;
     const userApi = new UserApi();
     const sub = userApi
-      .getUser({ id: _userId, token: session.accessToken as string })
+      .getUser({ id: _userId, token: undefined })
       .subscribe({
         next: (u) => setState([undefined, u, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, session, loading]);
+  }, [router.isReady,]);
   return (
     <div>
       <Header
