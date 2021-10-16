@@ -12,10 +12,10 @@ export default function Employment() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
     let _employmentId = router.query.employmentId as string;
     const employmentApi = new EmploymentApi();
     const sub = employmentApi

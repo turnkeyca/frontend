@@ -33,11 +33,11 @@ export default function Reference() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    userId.current = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    userId.current = router.query.userId as string;
     let _referenceId = router.query.referenceId as string;
     const sub = referenceApi
       .getReference({ id: _referenceId, token: session.accessToken as string })

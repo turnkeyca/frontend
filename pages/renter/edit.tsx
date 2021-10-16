@@ -10,10 +10,10 @@ export default function EditRenter() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
   }, [router.isReady, session, loading]);
   return (
     <div>

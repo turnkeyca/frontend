@@ -33,11 +33,11 @@ export default function Employment() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    let _userId = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    let _userId = router.query.userId as string;
     userId.current = _userId;
     let _employmentId = router.query.employmentId as string;
     if (!_employmentId) {

@@ -27,11 +27,11 @@ export default function Roommate() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    userId.current = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    userId.current = router.query.userId as string;
     let _roommateId = router.query.roommateId as string;
     const sub = roommateApi
       .getRoommate({ id: _roommateId, token: session.accessToken as string })

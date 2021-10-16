@@ -12,10 +12,10 @@ export default function Reference() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
     let _referenceId = router.query.referenceId as string;
     const referenceApi = new ReferenceApi();
     const sub = referenceApi

@@ -69,11 +69,11 @@ export default function EditContact() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    const _userId = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    const _userId = router.query.userId as string;
     const sub = userApi
       .getUser({ id: _userId, token: session.accessToken as string })
       .subscribe({

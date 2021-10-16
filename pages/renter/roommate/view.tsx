@@ -12,10 +12,10 @@ export default function Roommate() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
     let _roommateId = router.query.roommateId as string;
     const roommateApi = new RoommateApi();
     const sub = roommateApi

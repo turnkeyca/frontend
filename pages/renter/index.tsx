@@ -40,11 +40,11 @@ export default function Renter() {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    let _userId = session.userId as string;
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    let _userId = router.query.userId as string;
     const userApi = new UserApi();
     const sub = userApi
       .getUser({ id: _userId, token: session.accessToken as string })

@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Button,
   Error,
@@ -19,16 +19,16 @@ export default function General() {
     undefined,
     undefined,
   ]);
+  const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
     if (!router.isReady || loading) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    const _userId = session.userId as string;
-    const userApi = new UserApi();
+    // if (!session) {
+    //   router.push({ pathname: "/api/auth/signin" });
+    //   return;
+    // }
+    const _userId = router.query.userId as string;
     const sub = userApi
       .getUser({ id: _userId, token: session.accessToken as string })
       .subscribe({
