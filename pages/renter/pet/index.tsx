@@ -26,7 +26,7 @@ export default function Pet() {
     let sub = petApi
       .getPetsByUserId({
         userId: _userId,
-        token: undefined,
+        token: router.query.token as string,
       })
       .subscribe({
         next: (r) => setState([undefined, r, _userId]),

@@ -25,7 +25,7 @@ export default function Reference() {
     let sub = referenceApi
       .getReferencesByUserId({
         userId: _userId,
-        token: undefined,
+        token: router.query.token as string,
       })
       .subscribe({
         next: (r) => setState([undefined, r, _userId]),
@@ -74,7 +74,7 @@ export default function Reference() {
                       referenceApi
                         .deleteReference({
                           id: reference.id,
-                          token: undefined,
+                          token: router.query.token as string,
                         })
                         .subscribe()
                     }

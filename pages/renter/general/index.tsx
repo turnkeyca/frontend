@@ -12,7 +12,6 @@ import {
 import { UserApi } from "../../../generated-src/openapi";
 
 export default function General() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
@@ -21,22 +20,18 @@ export default function General() {
   ]);
   const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     const _userId = router.query.userId as string;
     const sub = userApi
-      .getUser({ id: _userId, token: undefined })
+      .getUser({ id: _userId, token: router.query.token as string })
       .subscribe({
         next: (u) => setState([undefined, u, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,]);
+  }, [router.isReady]);
   return (
     <div>
       <Header

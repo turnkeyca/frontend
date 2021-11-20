@@ -57,7 +57,7 @@ export default function General() {
     // }
     const _userId = router.query.userId as string;
     const sub = userApi
-      .getUser({ id: _userId, token: undefined })
+      .getUser({ id: _userId, token: router.query.token as string })
       .subscribe({
         next: (u) => setState([undefined, u, _userId]),
         error: (e) => setState([e, user, _userId]),

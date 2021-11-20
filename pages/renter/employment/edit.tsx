@@ -10,10 +10,8 @@ import {
   TextInput,
 } from "../../../components";
 import { EmploymentApi, EmploymentDto } from "../../../generated-src/openapi";
-import { useSession } from "next-auth/client";
 
 export default function Employment() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [
     [
@@ -26,17 +24,13 @@ export default function Employment() {
       employmentId,
     ],
     setState,
-  ] = useState([undefined, "", "", "", 0.0, "", undefined]);
+  ] = useState([undefined, undefined, undefined, undefined, undefined, undefined, undefined]);
   const employmentApi = useMemo(() => new EmploymentApi(), []);
   let userId = useRef("");
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     let _userId = router.query.userId as string;
     userId.current = _userId;
     let _employmentId = router.query.employmentId as string;
@@ -46,7 +40,7 @@ export default function Employment() {
     const sub = employmentApi
       .getEmployment({
         id: _employmentId,
-        token: undefined,
+        token: router.query.token as string,
       })
       .subscribe({
         next: (e) =>
@@ -59,13 +53,11 @@ export default function Employment() {
             e.additionalDetails,
             _employmentId,
           ]),
-        error: (e) => setState([e, "", "", "", 0.0, "", _employmentId]),
+        error: (e) => setState([e, undefined, undefined, undefined, undefined, undefined, _employmentId]),
       });
     return () => sub.unsubscribe();
   }, [
     router.isReady,
-    session,
-    loading,
     router.query.employmentId,
     employmentApi,
   ]);
@@ -85,12 +77,12 @@ export default function Employment() {
       obs = employmentApi.updateEmployment({
         id: employmentId,
         body,
-        token: undefined,
+        token: router.query.token as string,
       });
     } else {
       obs = employmentApi.createEmployment({
         body,
-        token: undefined,
+        token: router.query.token as string,
       });
     }
 
@@ -115,7 +107,7 @@ export default function Employment() {
         {!!error && <Error error={error} />}
         <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
           <span className="tk-text-blue font-medium text-xl p-3">
-            Employment Info
+            Employment info
           </span>
         </div>
         <div className="grid grid-cols-1">

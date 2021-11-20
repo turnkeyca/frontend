@@ -19,7 +19,7 @@ export default function Reference() {
     let _referenceId = router.query.referenceId as string;
     const referenceApi = new ReferenceApi();
     const sub = referenceApi
-      .getReference({ id: _referenceId, token: undefined })
+      .getReference({ id: _referenceId, token: router.query.token as string })
       .subscribe({
         next: (r) => setState([undefined, r]),
         error: (e) => setState([e, undefined]),

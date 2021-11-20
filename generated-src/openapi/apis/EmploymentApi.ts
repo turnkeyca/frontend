@@ -15,8 +15,6 @@ import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     EmploymentDto,
-    GenericError,
-    ValidationError,
 } from '../models';
 
 export interface CreateEmploymentRequest {

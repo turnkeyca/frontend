@@ -25,7 +25,7 @@ export default function Employment() {
     let sub = employmentApi
       .getEmploymentsByUserId({
         userId: _userId,
-        token: undefined,
+        token: router.query.token as string,
       })
       .subscribe({
         next: (e) => setState([undefined, e, _userId]),
@@ -80,7 +80,7 @@ export default function Employment() {
                       employmentApi
                         .deleteEmployment({
                           id: employment.id,
-                          token: undefined,
+                          token: router.query.token as string,
                         })
                         .subscribe()
                     }

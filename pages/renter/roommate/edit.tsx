@@ -34,7 +34,7 @@ export default function Roommate() {
     userId.current = router.query.userId as string;
     let _roommateId = router.query.roommateId as string;
     const sub = roommateApi
-      .getRoommate({ id: _roommateId, token: undefined })
+      .getRoommate({ id: _roommateId, token: router.query.token as string })
       .subscribe({
         next: (r) => setState([undefined, r.email, r.fullName, _roommateId]),
         error: (e) => setState([e, "", "", _roommateId]),
@@ -53,12 +53,12 @@ export default function Roommate() {
       obs = roommateApi.updateRoommate({
         id: roommateId,
         body,
-        token: undefined,
+        token: router.query.token as string,
       });
     } else {
       obs = roommateApi.createRoommate({
         body,
-        token: undefined,
+        token: router.query.token as string,
       });
     }
     obs.subscribe(() =>

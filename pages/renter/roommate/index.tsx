@@ -25,7 +25,7 @@ export default function Roommate() {
     let sub = roommateApi
       .getRoommatesByUserId({
         userId: _userId,
-        token: undefined,
+        token: router.query.token as string,
       })
       .subscribe({
         next: (r) => setState([undefined, r, _userId]),
@@ -83,7 +83,7 @@ export default function Roommate() {
                       roommateApi
                         .deleteRoommate({
                           id: roommate.id,
-                          token: undefined,
+                          token: router.query.token as string,
                         })
                         .subscribe()
                     }

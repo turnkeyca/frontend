@@ -14,10 +14,13 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    GenericError,
     UserDto,
-    ValidationError,
 } from '../models';
+
+export interface ActivateUserRequest {
+    id: string;
+    token: string;
+}
 
 export interface DeleteUserRequest {
     id: string;
@@ -39,6 +42,26 @@ export interface UpdateUserRequest {
  * no description
  */
 export class UserApi extends BaseAPI {
+
+    /**
+     * activate a user
+     */
+    activateUser({ id, token }: ActivateUserRequest): Observable<void>
+    activateUser({ id, token }: ActivateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    activateUser({ id, token }: ActivateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(id, 'id', 'activateUser');
+        throwIfNullOrUndefined(token, 'token', 'activateUser');
+
+        const headers: HttpHeaders = {
+            ...(token != null ? { 'Token': String(token) } : undefined),
+        };
+
+        return this.request<void>({
+            url: '/v1/user/{id}/activate'.replace('{id}', encodeURI(id)),
+            method: 'POST',
+            headers,
+        }, opts?.responseOpts);
+    };
 
     /**
      * delete a user
