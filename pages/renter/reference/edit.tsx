@@ -9,15 +9,14 @@ import {
   Label,
   TextInput,
 } from "../../../components";
-import { ReferenceApi, ReferenceDto } from "../../../generated-src/openapi";
-import { useSession } from "next-auth/client";
+import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [
     [
       error,
+      reference,
       additionalDetails,
       email,
       fullName,
@@ -26,17 +25,22 @@ export default function Reference() {
       referenceId,
     ],
     setState,
-  ] = useState([undefined, "", "", "", "", "", undefined]);
+  ] = useState([
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+  ]);
   const referenceApi = useMemo(() => new ReferenceApi(), []);
   let userId = useRef("");
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     userId.current = router.query.userId as string;
     let _referenceId = router.query.referenceId as string;
     const sub = referenceApi
@@ -45,6 +49,7 @@ export default function Reference() {
         next: (r) =>
           setState([
             undefined,
+            r,
             r.additionalDetails,
             r.email,
             r.fullName,
@@ -52,27 +57,29 @@ export default function Reference() {
             r.relationship,
             _referenceId,
           ]),
-        error: (e) => setState([e, "", "", "", "", "", _referenceId]),
+        error: (e) =>
+          setState([
+            e,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            _referenceId,
+          ]),
       });
     return () => sub.unsubscribe();
-  }, [
-    router.isReady,
-    router.query.referenceId,
-    session,
-    loading,
-    referenceApi,
-  ]);
+  }, [router.isReady, router.query.referenceId, referenceApi]);
 
   function save() {
     let obs: Observable<void>;
-    let body = {
-      userId: userId.current,
-      additionalDetails,
-      email,
-      fullName,
-      phoneNumber,
-      relationship,
-    } as ReferenceDto;
+    let body = reference;
+    body.additionalDetails = additionalDetails;
+    body.email = email;
+    body.fullName = fullName;
+    body.phoneNumber = phoneNumber;
+    body.relationship = relationship;
     if (referenceId) {
       obs = referenceApi.updateReference({
         id: referenceId,
@@ -115,6 +122,7 @@ export default function Reference() {
               onChange={($event) =>
                 setState([
                   error,
+                  reference,
                   additionalDetails,
                   email,
                   $event.target.value,
@@ -134,6 +142,7 @@ export default function Reference() {
               onChange={($event) =>
                 setState([
                   error,
+                  reference,
                   additionalDetails,
                   $event.target.value,
                   fullName,
@@ -153,6 +162,7 @@ export default function Reference() {
               onChange={($event) =>
                 setState([
                   error,
+                  reference,
                   additionalDetails,
                   email,
                   fullName,
@@ -172,6 +182,7 @@ export default function Reference() {
               onChange={($event) =>
                 setState([
                   error,
+                  reference,
                   additionalDetails,
                   email,
                   fullName,
@@ -190,6 +201,7 @@ export default function Reference() {
               onChange={($event) =>
                 setState([
                   error,
+                  reference,
                   $event.target.value,
                   email,
                   fullName,

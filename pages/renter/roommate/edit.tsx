@@ -9,46 +9,39 @@ import {
   Label,
   TextInput,
 } from "../../../components";
-import { RoommateApi, RoommateDto } from "../../../generated-src/openapi";
-import { useSession } from "next-auth/client";
+import { RoommateApi } from "../../../generated-src/openapi";
 
 export default function Roommate() {
-  const [session, loading] = useSession();
   const router = useRouter();
-  let [[error, email, fullName, roommateId], setState] = useState([
+  let [[error, roommate, email, fullName, roommateId], setState] = useState([
     undefined,
-    "",
-    "",
+    undefined, 
+    undefined, 
+    undefined, 
     undefined,
   ]);
   const roommateApi = useMemo(() => new RoommateApi(), []);
   let userId = useRef("");
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     userId.current = router.query.userId as string;
     let _roommateId = router.query.roommateId as string;
     const sub = roommateApi
       .getRoommate({ id: _roommateId, token: router.query.token as string })
       .subscribe({
-        next: (r) => setState([undefined, r.email, r.fullName, _roommateId]),
-        error: (e) => setState([e, "", "", _roommateId]),
+        next: (r) => setState([undefined, r, r.email, r.fullName, _roommateId]),
+        error: (e) => setState([e, undefined, undefined, undefined, _roommateId]),
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query.roommateId,, roommateApi]);
 
   function save() {
     let obs: Observable<void>;
-    let body = {
-      email,
-      fullName,
-      userId: userId.current,
-    } as RoommateDto;
+    let body = roommate;
+    body.email = email;
+    body.fullName = fullName;
     if (roommateId) {
       obs = roommateApi.updateRoommate({
         id: roommateId,
@@ -89,7 +82,7 @@ export default function Roommate() {
               type="text"
               className={TextInput}
               onChange={($event) =>
-                setState([error, email, $event.target.value, roommateId])
+                setState([error, roommate, email, $event.target.value, roommateId])
               }
               value={fullName}
             />
@@ -100,7 +93,7 @@ export default function Roommate() {
               type="text"
               className={TextInput}
               onChange={($event) =>
-                setState([error, $event.target.value, fullName, roommateId])
+                setState([error, roommate, $event.target.value, fullName, roommateId])
               }
               value={email}
             />

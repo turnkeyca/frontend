@@ -1,45 +1,38 @@
-import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { Error, Header, Warning } from "../../../components";
+import React, { useEffect, useMemo, useState } from "react";
+import { Button, Error, Header, Icon, Warning } from "../../../components";
 import { PetApi } from "../../../generated-src/openapi";
 
 export default function Pet() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, pets, userId], setState] = useState([
     undefined,
     undefined,
     undefined,
   ]);
+  const petApi = useMemo(() => new PetApi(), []);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    if (!session) {
-      router.push({ pathname: "/api/auth/signin" });
-      return;
-    }
-    let _userId = session.userId as string;
-    setState([undefined, undefined, _userId]);
-    const petApi = new PetApi();
+    let _userId = router.query.userId as string;
     let sub = petApi
       .getPetsByUserId({
         userId: _userId,
         token: router.query.token as string,
       })
       .subscribe({
-        next: (r) => setState([undefined, r, _userId]),
+        next: (e) => setState([undefined, e, _userId]),
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,]);
+  }, [router.isReady, petApi]);
   return (
     <div>
       <Header
         router={router}
         title="My Profile"
-        showEdit={true}
+        showEdit={false}
         showBack={true}
         showLogout={false}
       />
@@ -49,22 +42,58 @@ export default function Pet() {
           <Warning>No pet records found</Warning>
         )}
         <div className="grid grid-cols-1 gap-3">
-          {pets?.map((pet) => {
+          {pets?.map((pet) => (
             <div
-              className="p-3 border shadow"
-              onClick={() =>
-                router.push({
-                  pathname: "/renter/pet/view",
-                  query: { userId, petId: pet.id },
-                })
-              }
+              key={pet.id}
+              className="p-3 border rounded shadow cursor-pointer"
             >
-              <div className="tk-text-blue text-lg font-medium">
-                {pet.breed}
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="tk-text-blue text-lg font-medium">
+                    {pet.petType}
+                  </div>
+                  <div className="tk-text-blue">{pet.breed}</div>
+                  <div className="text-gray-600 text-sm">
+                    {pet.sizeType}
+                  </div>
+                </div>
+                <div className="flex tk-text-blue">
+                  <Icon
+                    name="edit"
+                    handleClick={() =>
+                      router.push({
+                        pathname: "/renter/pet/view",
+                        query: { userId, petId: pet.id },
+                      })
+                    }
+                  />
+                  <Icon
+                    className="mr-2"
+                    name="delete"
+                    handleClick={() =>
+                      petApi
+                        .deletePet({
+                          id: pet.id,
+                          token: router.query.token as string,
+                        })
+                        .subscribe()
+                    }
+                  />
+                </div>
               </div>
-              <div className="tk-text-blue">{pet.weight}</div>
-            </div>;
-          })}
+            </div>
+          ))}
+          <Button
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/pet/edit",
+                query: router.query,
+              })
+            }
+            variant="primary"
+          >
+            <Icon name="add"></Icon> ADD EMPLOYMENT
+          </Button>
         </div>
       </div>
     </div>

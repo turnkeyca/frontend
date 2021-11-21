@@ -1,11 +1,9 @@
-import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { Button, Error, Header, Icon, Warning } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, employments, userId], setState] = useState([
     undefined,
@@ -14,13 +12,9 @@ export default function Employment() {
   ]);
   const employmentApi = useMemo(() => new EmploymentApi(), []);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     let _userId = router.query.userId as string;
     let sub = employmentApi
       .getEmploymentsByUserId({
@@ -32,7 +26,7 @@ export default function Employment() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,, employmentApi]);
+  }, [router.isReady, employmentApi]);
   return (
     <div>
       <Header

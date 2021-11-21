@@ -1,11 +1,9 @@
-import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { Error, Header, Icon, Warning } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, references, userId], setState] = useState([
     undefined,
@@ -14,13 +12,9 @@ export default function Reference() {
   ]);
   const referenceApi = useMemo(() => new ReferenceApi(), []);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     let _userId = router.query.userId as string;
     let sub = referenceApi
       .getReferencesByUserId({
@@ -32,7 +26,7 @@ export default function Reference() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,, referenceApi]);
+  }, [router.isReady, referenceApi]);
   return (
     <div>
       <Header
