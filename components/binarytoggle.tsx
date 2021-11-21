@@ -17,10 +17,10 @@ export interface ToggleTarget extends HTMLInputElement {
   value: string;
 }
 
-let TRUE_CLASSES_TRUE = "tk-bg-teal text-white";
-let TRUE_CLASSES_FALSE = "bg-white tk-text-teal";
-let FALSE_CLASSES_TRUE = "bg-white tk-text-amber";
-let FALSE_CLASSES_FALSE = "tk-bg-amber text-white";
+const TRUE_CLASSES_TRUE = "tk-bg-teal text-white";
+const TRUE_CLASSES_FALSE = "bg-white tk-text-teal";
+const FALSE_CLASSES_TRUE = "bg-white tk-text-amber";
+const FALSE_CLASSES_FALSE = "tk-bg-amber text-white";
 
 export const Toggle = ({
   className,
@@ -35,13 +35,13 @@ export const Toggle = ({
   const toggleValue = (incomingValue: boolean) => {
     if (_value) {
       setState(!incomingValue);
-      value = _value;
+      value = !incomingValue;
       handleChange({
         target: { name, value: `${value}` } as ToggleTarget,
       } as ToggleEvent);
     } else {
       setState(incomingValue);
-      value = _value;
+      value = incomingValue;
       handleChange({
         target: { name, value: `${value}` } as ToggleTarget,
       } as ToggleEvent);

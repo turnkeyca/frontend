@@ -21,7 +21,6 @@ export default function General() {
       user,
       additionalDetailsGeneral,
       creditCheck,
-      email,
       evicted,
       lawsuit,
       pets,
@@ -30,7 +29,6 @@ export default function General() {
     ],
     setState,
   ] = useState([
-    undefined,
     undefined,
     undefined,
     undefined,
@@ -53,10 +51,9 @@ export default function General() {
         next: (u) =>
           setState([
             undefined,
-            user,
+            u,
             u.additionalDetailsGeneral,
             u.creditCheck,
-            u.email,
             u.evicted,
             u.lawsuit,
             u.pets,
@@ -73,7 +70,6 @@ export default function General() {
             undefined,
             undefined,
             undefined,
-            undefined,
             _userId,
           ]),
       });
@@ -83,7 +79,12 @@ export default function General() {
   function save(next: UrlObject) {
     let obs: Observable<void>;
     let body = user;
-
+    body.additionalDetailsGeneral = additionalDetailsGeneral;
+    body.creditCheck = creditCheck;
+    body.evicted = evicted;
+    body.lawsuit = lawsuit;
+    body.pets = pets;
+    body.smoker = smoker;
     obs = userApi.updateUser({
       id: userId,
       body,
@@ -115,19 +116,19 @@ export default function General() {
               <Toggle
                 labelFalse="No"
                 labelTrue="Yes"
-                handleChange={($event) =>
+                handleChange={($event) => {
                   setState([
                     error,
                     user,
                     additionalDetailsGeneral,
                     creditCheck,
-                    email,
                     evicted,
                     lawsuit,
                     pets,
                     $event.target.value === "true",
                     userId,
                   ])
+                }
                 }
                 value={smoker}
               />
@@ -145,7 +146,6 @@ export default function General() {
                     user,
                     additionalDetailsGeneral,
                     creditCheck,
-                    email,
                     evicted,
                     $event.target.value === "true",
                     pets,
@@ -169,7 +169,6 @@ export default function General() {
                     user,
                     additionalDetailsGeneral,
                     creditCheck,
-                    email,
                     $event.target.value === "true",
                     lawsuit,
                     pets,
@@ -193,7 +192,6 @@ export default function General() {
                     user,
                     additionalDetailsGeneral,
                     $event.target.value === "true",
-                    email,
                     evicted,
                     lawsuit,
                     pets,
@@ -217,7 +215,6 @@ export default function General() {
                     user,
                     additionalDetailsGeneral,
                     creditCheck,
-                    email,
                     evicted,
                     lawsuit,
                     $event.target.value === "true",
@@ -249,7 +246,6 @@ export default function General() {
                   user,
                   $event.target.value,
                   creditCheck,
-                  email,
                   evicted,
                   lawsuit,
                   pets,
