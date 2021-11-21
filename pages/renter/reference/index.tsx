@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Error, Header, Icon, Warning } from "../../../components";
+import { Button, Error, Header, Icon, Warning } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
@@ -77,6 +77,17 @@ export default function Reference() {
               </div>
             </div>;
           })}
+          <Button
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/employment/edit",
+                query: router.query,
+              })
+            }
+            variant="primary"
+          >
+            <Icon name="add"></Icon> ADD REFERENCE
+          </Button>
         </div>
       </div>
     </div>

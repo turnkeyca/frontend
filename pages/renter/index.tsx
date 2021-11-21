@@ -70,7 +70,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/general",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
@@ -85,7 +85,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/lease",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
@@ -100,7 +100,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/employment",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
@@ -115,7 +115,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/reference",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 p-3"

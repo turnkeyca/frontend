@@ -5,6 +5,5 @@ export * from './ReferenceDto';
 export * from './RegisterTokenDto';
 export * from './RoommateDto';
 export * from './ShortURLDto';
-export * from './ShortUrlDto';
 export * from './TokenDto';
 export * from './UserDto';

@@ -81,7 +81,7 @@ export default function General() {
             <div>
               <Button
                 handleClick={() =>
-                  router.push({ pathname: "/renter/pet", query: { userId } })
+                  router.push({ pathname: "/renter/pet", query: { userId, token: router.query.token } })
                 }
                 variant="secondary"
               >
