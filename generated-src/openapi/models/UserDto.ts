@@ -12,128 +12,165 @@
  */
 
 /**
+ * UserDto UserDto UserDto UserDto UserDto UserDto user dto
  * @export
  * @interface UserDto
  */
 export interface UserDto {
     /**
+     * accepted terms
+     * @type {boolean}
+     * @memberof UserDto
+     */
+    acceptedTerms?: boolean;
+    /**
+     * additional details general
      * @type {string}
      * @memberof UserDto
      */
     additionalDetailsGeneral?: string;
     /**
+     * additional details lease
      * @type {string}
      * @memberof UserDto
      */
     additionalDetailsLease?: string;
     /**
+     * bio
      * @type {string}
      * @memberof UserDto
      */
     bio?: string;
     /**
+     * created on
      * @type {string}
      * @memberof UserDto
      */
     createdOn?: string;
     /**
+     * can credit check
      * @type {boolean}
      * @memberof UserDto
      */
     creditCheck?: boolean;
     /**
+     * email
      * @type {string}
      * @memberof UserDto
      */
     email?: string;
     /**
+     * has previous eviction
      * @type {boolean}
      * @memberof UserDto
      */
     evicted?: boolean;
     /**
+     * full name
      * @type {string}
      * @memberof UserDto
      */
     fullName?: string;
     /**
+     * Id
      * @type {string}
      * @memberof UserDto
      */
     id?: string;
     /**
+     * last updated
      * @type {string}
      * @memberof UserDto
      */
     lastUpdated?: string;
     /**
+     * has previous lawsuit
      * @type {boolean}
      * @memberof UserDto
      */
     lawsuit?: boolean;
     /**
+     * login Id
      * @type {string}
      * @memberof UserDto
      */
     loginId?: string;
     /**
+     * move in date
      * @type {string}
      * @memberof UserDto
      */
     moveInDate?: string;
     /**
+     * move out date
      * @type {string}
      * @memberof UserDto
      */
     moveOutDate?: string;
     /**
+     * moving reason
      * @type {string}
      * @memberof UserDto
      */
     movingReason?: string;
     /**
+     * nickname
      * @type {string}
      * @memberof UserDto
      */
     nickname?: string;
     /**
+     * has pets
      * @type {boolean}
      * @memberof UserDto
      */
     pets?: boolean;
     /**
+     * phone number
      * @type {string}
      * @memberof UserDto
      */
     phoneNumber?: string;
     /**
+     * has roommates
      * @type {boolean}
      * @memberof UserDto
      */
     roommates?: boolean;
     /**
+     * has security deposit
      * @type {boolean}
      * @memberof UserDto
      */
     securityDeposit?: boolean;
     /**
+     * send notifications
      * @type {boolean}
      * @memberof UserDto
      */
     sendNotifications?: boolean;
     /**
+     * is smoker
      * @type {boolean}
      * @memberof UserDto
      */
     smoker?: boolean;
     /**
+     * UserStatusType UserStatusType UserStatusType UserStatusType UserStatusType UserStatusType user status type
      * @type {string}
      * @memberof UserDto
      */
     userStatusType?: string;
     /**
+     * UserType UserType UserType UserType UserType UserType user type
      * @type {string}
      * @memberof UserDto
      */
     userType?: string;
+    /**
+     * walkthrough complete
+     * @type {boolean}
+     * @memberof UserDto
+     */
+    walkthroughComplete?: boolean;
 }

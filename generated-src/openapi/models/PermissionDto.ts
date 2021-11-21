@@ -12,51 +12,45 @@
  */
 
 /**
- * PetDto PetDto PetDto PetDto PetDto PetDto pet dto
+ * PermissionDto PermissionDto PermissionDto PermissionDto PermissionDto PermissionDto permission dto
  * @export
- * @interface PetDto
+ * @interface PermissionDto
  */
-export interface PetDto {
-    /**
-     * breed
-     * @type {string}
-     * @memberof PetDto
-     */
-    breed?: string;
+export interface PermissionDto {
     /**
      * created on
      * @type {string}
-     * @memberof PetDto
+     * @memberof PermissionDto
      */
     createdOn?: string;
     /**
      * Id
      * @type {string}
-     * @memberof PetDto
+     * @memberof PermissionDto
      */
     id?: string;
     /**
      * last updated
      * @type {string}
-     * @memberof PetDto
+     * @memberof PermissionDto
      */
     lastUpdated?: string;
     /**
-     * pet type
+     * on user Id
      * @type {string}
-     * @memberof PetDto
+     * @memberof PermissionDto
      */
-    petType?: string;
+    onUserId?: string;
     /**
-     * size type
+     * PermissionType PermissionType PermissionType PermissionType PermissionType PermissionType permission type
      * @type {string}
-     * @memberof PetDto
+     * @memberof PermissionDto
      */
-    sizeType?: string;
+    permission?: string;
     /**
      * user Id
      * @type {string}
-     * @memberof PetDto
+     * @memberof PermissionDto
      */
     userId?: string;
 }

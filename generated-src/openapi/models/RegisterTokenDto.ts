@@ -12,21 +12,25 @@
  */
 
 /**
+ * RegisterTokenDto RegisterTokenDto RegisterTokenDto RegisterTokenDto RegisterTokenDto RegisterTokenDto register token dto
  * @export
  * @interface RegisterTokenDto
  */
 export interface RegisterTokenDto {
     /**
+     * login Id
      * @type {string}
      * @memberof RegisterTokenDto
      */
     id?: string;
     /**
+     * is new user
      * @type {boolean}
      * @memberof RegisterTokenDto
      */
     newUser?: boolean;
     /**
+     * secret
      * @type {string}
      * @memberof RegisterTokenDto
      */
