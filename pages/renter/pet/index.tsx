@@ -53,9 +53,7 @@ export default function Pet() {
                     {pet.petType}
                   </div>
                   <div className="tk-text-blue">{pet.breed}</div>
-                  <div className="text-gray-600 text-sm">
-                    {pet.sizeType}
-                  </div>
+                  <div className="text-gray-600 text-sm">{pet.sizeType}</div>
                 </div>
                 <div className="flex tk-text-blue">
                   <Icon
@@ -92,7 +90,7 @@ export default function Pet() {
             }
             variant="primary"
           >
-            <Icon name="add"></Icon> ADD EMPLOYMENT
+            <Icon name="add"></Icon> ADD PET
           </Button>
         </div>
       </div>

@@ -9,15 +9,15 @@ import {
   Label,
   TextInput,
 } from "../../../components";
-import { RoommateApi } from "../../../generated-src/openapi";
+import { RoommateApi, RoommateDto } from "../../../generated-src/openapi";
 
 export default function Roommate() {
   const router = useRouter();
   let [[error, roommate, email, fullName, roommateId], setState] = useState([
     undefined,
-    undefined, 
-    undefined, 
-    undefined, 
+    undefined,
+    undefined,
+    undefined,
     undefined,
   ]);
   const roommateApi = useMemo(() => new RoommateApi(), []);
@@ -32,14 +32,17 @@ export default function Roommate() {
       .getRoommate({ id: _roommateId, token: router.query.token as string })
       .subscribe({
         next: (r) => setState([undefined, r, r.email, r.fullName, _roommateId]),
-        error: (e) => setState([e, undefined, undefined, undefined, _roommateId]),
+        error: (e) =>
+          setState([e, undefined, undefined, undefined, _roommateId]),
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query.roommateId, roommateApi]);
 
   function save() {
     let obs: Observable<void>;
-    let body = roommate;
+    let body = roommate
+      ? roommate
+      : ({ userId: userId.current } as RoommateDto);
     body.email = email;
     body.fullName = fullName;
     if (roommateId) {
@@ -82,7 +85,13 @@ export default function Roommate() {
               type="text"
               className={TextInput}
               onChange={($event) =>
-                setState([error, roommate, email, $event.target.value, roommateId])
+                setState([
+                  error,
+                  roommate,
+                  email,
+                  $event.target.value,
+                  roommateId,
+                ])
               }
               value={fullName}
             />
@@ -93,7 +102,13 @@ export default function Roommate() {
               type="text"
               className={TextInput}
               onChange={($event) =>
-                setState([error, roommate, $event.target.value, fullName, roommateId])
+                setState([
+                  error,
+                  roommate,
+                  $event.target.value,
+                  fullName,
+                  roommateId,
+                ])
               }
               value={email}
             />

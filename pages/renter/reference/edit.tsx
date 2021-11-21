@@ -9,7 +9,7 @@ import {
   Label,
   TextInput,
 } from "../../../components";
-import { ReferenceApi } from "../../../generated-src/openapi";
+import { ReferenceApi, ReferenceDto } from "../../../generated-src/openapi";
 
 export default function Reference() {
   const router = useRouter();
@@ -74,7 +74,9 @@ export default function Reference() {
 
   function save() {
     let obs: Observable<void>;
-    let body = reference;
+    let body = reference
+      ? reference
+      : ({ userId: userId.current } as ReferenceDto);
     body.additionalDetails = additionalDetails;
     body.email = email;
     body.fullName = fullName;

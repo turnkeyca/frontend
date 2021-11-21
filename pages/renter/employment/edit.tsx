@@ -89,7 +89,7 @@ export default function Employment() {
     obs.subscribe(() =>
       router.push({
         pathname: "/renter/employment",
-        query: { userId: router.query.userId },
+        query: { userId: router.query.userId, token: router.query.token },
       })
     );
   }
