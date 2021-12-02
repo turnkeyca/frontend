@@ -1,7 +1,6 @@
 import React, { HTMLAttributes } from "react";
 import { Icon } from "./icon";
 import { NextRouter } from "next/router";
-import { signOut } from "next-auth/client";
 
 export interface IHeader extends HTMLAttributes<HTMLElement> {
   router: NextRouter;
@@ -42,7 +41,7 @@ export const Header = ({
           <Icon
             name="logout"
             handleClick={() => {
-              signOut();
+              console.log("log out")
               router.push("");
             }}
           />

@@ -1,4 +1,3 @@
-import { Provider } from "next-auth/client";
 import Head from "next/head";
 import "tailwindcss/tailwind.css";
 
@@ -32,15 +31,7 @@ export default function App({ Component, pageProps }) {
         ></link>
         <link rel="stylesheet" href="globals.css"></link>
       </Head>
-      <Provider
-        options={{
-          clientMaxAge: 0,
-          keepAlive: 0,
-        }}
-        session={pageProps.session}
-      >
-        <Component {...pageProps} />
-      </Provider>
+      <Component {...pageProps} />
     </>
   );
 }
