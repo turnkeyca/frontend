@@ -1,53 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { UserApi, UserDto } from "../../generated-src/openapi";
+import { UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Icon } from "../../components";
-import { useSession } from "next-auth/client";
-import Image from "next/image";
 
 export default function Renter() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
-    {
-      additionalDetailsGeneral: "",
-      additionalDetailsLease: "",
-      bio: "",
-      creditCheck: false,
-      email: "",
-      evicted: false,
-      fullName: "",
-      id: "",
-      lawsuit: false,
-      moveInDate: "",
-      moveOutDate: "",
-      movingReason: "",
-      nickname: "",
-      password: "",
-      pets: false,
-      phoneNumber: "",
-      roommates: false,
-      securityDeposit: false,
-      sendNotifications: false,
-      smoker: false,
-      userType: "",
-      userStatusType: "",
-    } as UserDto,
+    undefined,
     undefined,
   ]);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     let _userId = router.query.userId as string;
     const userApi = new UserApi();
     const sub = userApi
-      .getUser({ id: _userId, token: undefined })
+      .getUser({ id: _userId, token: router.query.token as string })
       .subscribe({
         next: (u) => setState([undefined, u, _userId]),
         error: (e) => setState([e, undefined, _userId]),
@@ -70,7 +40,7 @@ export default function Renter() {
             <div className="grid grid-cols-3 gap-3 mb-3 tracking-wide">
               <div className="flex flex-col items-center">
                 <div className="rounded-full h-36 w-36 flex items-center justify-center">
-                  {session && (
+                  {/* {session && (
                     <div className="relative h-36 w-36">
                       <Image
                         className="rounded-full"
@@ -79,7 +49,7 @@ export default function Renter() {
                         layout="fill"
                       />
                     </div>
-                  )}
+                  )} */}
                 </div>
                 <div className="tk-text-teal opacity-80 font-medium">
                   Renter
@@ -100,7 +70,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/general",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
@@ -115,7 +85,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/lease",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
@@ -130,7 +100,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/employment",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
@@ -145,7 +115,7 @@ export default function Renter() {
                 onClick={() =>
                   router.push({
                     pathname: "/renter/reference",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 p-3"

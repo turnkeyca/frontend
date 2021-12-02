@@ -10,153 +10,63 @@ import {
   TextInput,
   Label,
 } from "../../../components";
-import { UserApi, UserDto } from "../../../generated-src/openapi";
-import { useSession } from "next-auth/client";
+import { UserApi } from "../../../generated-src/openapi";
 
 export default function EditContact() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [
     [
       error,
-      additionalDetailsGeneral,
-      additionalDetailsLease,
-      bio,
-      creditCheck,
-      email,
-      evicted,
-      fullName,
-      lawsuit,
-      moveInDate,
-      moveOutDate,
-      movingReason,
-      nickname,
-      pets,
-      phoneNumber,
-      roommates,
-      securityDeposit,
-      sendNotifications,
-      smoker,
-      userType,
+      user,
       userId,
+      email,
+      phoneNumber,
     ],
     setState,
   ] = useState([
     undefined,
-    "",
-    "",
-    "",
-    false,
-    "",
-    false,
-    "",
-    false,
-    "",
-    "",
-    "",
-    "",
-    false,
-    "",
-    false,
-    false,
-    false,
-    false,
-    "",
+    undefined,
+    undefined,
+    undefined,
     undefined,
   ]);
   const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     const _userId = router.query.userId as string;
     const sub = userApi
-      .getUser({ id: _userId, token: undefined })
+      .getUser({ id: _userId, token: router.query.token as string })
       .subscribe({
         next: (u) =>
           setState([
             undefined,
-            u.additionalDetailsGeneral,
-            u.additionalDetailsLease,
-            u.bio,
-            u.creditCheck,
-            u.email,
-            u.evicted,
-            u.fullName,
-            u.lawsuit,
-            u.moveInDate,
-            u.moveOutDate,
-            u.movingReason,
-            u.nickname,
-            u.pets,
-            u.phoneNumber,
-            u.roommates,
-            u.securityDeposit,
-            u.sendNotifications,
-            u.smoker,
-            u.userType,
+            u,
             _userId,
+            u.email,
+            u.phoneNumber,
           ]),
         error: (e) =>
           setState([
             e,
-            "",
-            "",
-            "",
-            false,
-            "",
-            false,
-            "",
-            false,
-            "",
-            "",
-            "",
-            "",
-            false,
-            "",
-            false,
-            false,
-            false,
-            false,
-            "",
+            undefined,
             _userId,
+            undefined,
+            undefined,
           ]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,, userApi]);
+  }, [router.isReady, userApi]);
 
   function save(next: UrlObject) {
-    let obs: Observable<void>;
-    let body = {
-      additionalDetailsGeneral,
-      additionalDetailsLease,
-      bio,
-      creditCheck,
-      email,
-      evicted,
-      fullName,
-      lawsuit,
-      moveInDate,
-      moveOutDate,
-      movingReason,
-      nickname,
-      pets,
-      phoneNumber,
-      roommates,
-      securityDeposit,
-      sendNotifications,
-      smoker,
-      userType,
-      userStatusType: "active",
-    } as UserDto;
-    obs = userApi.updateUser({
+    let body = user;
+    body.email = email;
+    body.phoneNumber = phoneNumber;
+    const obs: Observable<void> = userApi.updateUser({
       id: userId,
       body,
-      token: undefined,
+      token: router.query.token as string,
     });
     obs.subscribe(() => router.push(next));
   }
@@ -184,29 +94,28 @@ export default function EditContact() {
               onChange={($event) =>
                 setState([
                   error,
-                  additionalDetailsGeneral,
-                  additionalDetailsLease,
-                  bio,
-                  creditCheck,
-                  $event.target.value,
-                  evicted,
-                  fullName,
-                  lawsuit,
-                  moveInDate,
-                  moveOutDate,
-                  movingReason,
-                  nickname,
-                  pets,
-                  phoneNumber,
-                  roommates,
-                  securityDeposit,
-                  sendNotifications,
-                  smoker,
-                  userType,
+                  user,
                   userId,
+                  email,
+                  phoneNumber,
                 ])
               }
               value={email}
+              className={TextInput}
+            />
+            <Label>Phone number</Label>
+            <input
+              type="text"
+              onChange={($event) =>
+                setState([
+                  error,
+                  user,
+                  userId,
+                  email,
+                  phoneNumber,
+                ])
+              }
+              value={phoneNumber}
               className={TextInput}
             />
           </div>

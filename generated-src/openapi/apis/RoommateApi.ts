@@ -14,9 +14,7 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    GenericError,
     RoommateDto,
-    ValidationError,
 } from '../models';
 
 export interface CreateRoommateRequest {

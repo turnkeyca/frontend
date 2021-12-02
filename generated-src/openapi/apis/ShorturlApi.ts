@@ -14,7 +14,6 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    GenericError,
     ShortUrlDto,
 } from '../models';
 

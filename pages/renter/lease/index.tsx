@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import {
@@ -12,58 +11,26 @@ import {
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 
 export default function General() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
-    {
-      additionalDetails: "",
-      additionalDetailsLease: "",
-      bio: "",
-      city: "",
-      creditCheck: false,
-      email: "",
-      evicted: false,
-      fullName: "",
-      id: "",
-      lawsuit: false,
-      monthlyBudgetMax: 0,
-      monthlyBudgetMin: 0,
-      moveInDate: "",
-      moveOutDate: "",
-      movingReason: "",
-      nickname: "",
-      password: "",
-      pets: false,
-      phoneNumber: "",
-      propertyManagementCompany: "",
-      province: "",
-      roommates: false,
-      securityDeposit: false,
-      sendNotifications: false,
-      smoker: false,
-      userType: "",
-    } as UserDto,
+    undefined,
     undefined,
   ]);
   const userApi = useMemo(() => new UserApi(), []);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     const _userId = router.query.userId as string;
     const sub = userApi
-      .getUser({ id: _userId, token: undefined })
+      .getUser({ id: _userId, token: router.query.token as string })
       .subscribe({
         next: (u) => setState([undefined, u, _userId]),
         error: (e) => setState([e, user, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,]);
+  }, [router.isReady]);
 
   return (
     <div>
@@ -96,7 +63,7 @@ export default function General() {
                 handleClick={() =>
                   router.push({
                     pathname: "/renter/roommate",
-                    query: { userId },
+                    query: { userId, token: router.query.token },
                   })
                 }
                 variant="secondary"

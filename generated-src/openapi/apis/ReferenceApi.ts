@@ -14,9 +14,7 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    GenericError,
     ReferenceDto,
-    ValidationError,
 } from '../models';
 
 export interface CreateReferenceRequest {
@@ -113,7 +111,7 @@ export class ReferenceApi extends BaseAPI {
     };
 
     /**
-     * return all references ofr a user
+     * return all references for a user
      */
     getReferencesByUserId({ userId, token }: GetReferencesByUserIdRequest): Observable<Array<ReferenceDto>>
     getReferencesByUserId({ userId, token }: GetReferencesByUserIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<ReferenceDto>>>

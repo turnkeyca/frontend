@@ -12,36 +12,43 @@
  */
 
 /**
+ * RoommateDto RoommateDto RoommateDto RoommateDto RoommateDto RoommateDto roommate dto
  * @export
  * @interface RoommateDto
  */
 export interface RoommateDto {
     /**
+     * created on
      * @type {string}
      * @memberof RoommateDto
      */
     createdOn?: string;
     /**
+     * email
      * @type {string}
      * @memberof RoommateDto
      */
     email?: string;
     /**
+     * full name
      * @type {string}
      * @memberof RoommateDto
      */
     fullName?: string;
     /**
+     * Id
      * @type {string}
      * @memberof RoommateDto
      */
     id?: string;
     /**
+     * last updated
      * @type {string}
      * @memberof RoommateDto
      */
     lastUpdated?: string;
     /**
+     * user Id
      * @type {string}
      * @memberof RoommateDto
      */
