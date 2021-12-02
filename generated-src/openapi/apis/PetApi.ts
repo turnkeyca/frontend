@@ -14,9 +14,7 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    GenericError,
     PetDto,
-    ValidationError,
 } from '../models';
 
 export interface CreatePetRequest {
@@ -113,7 +111,7 @@ export class PetApi extends BaseAPI {
     };
 
     /**
-     * return all pets ofr a user
+     * return all pets for a user
      */
     getPetsByUserId({ userId, token }: GetPetsByUserIdRequest): Observable<Array<PetDto>>
     getPetsByUserId({ userId, token }: GetPetsByUserIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PetDto>>>

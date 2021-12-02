@@ -12,51 +12,61 @@
  */
 
 /**
+ * ReferenceDto ReferenceDto ReferenceDto ReferenceDto ReferenceDto ReferenceDto reference dto
  * @export
  * @interface ReferenceDto
  */
 export interface ReferenceDto {
     /**
+     * additional details
      * @type {string}
      * @memberof ReferenceDto
      */
     additionalDetails?: string;
     /**
+     * created on
      * @type {string}
      * @memberof ReferenceDto
      */
     createdOn?: string;
     /**
+     * email
      * @type {string}
      * @memberof ReferenceDto
      */
     email?: string;
     /**
+     * full name
      * @type {string}
      * @memberof ReferenceDto
      */
     fullName?: string;
     /**
+     * Id
      * @type {string}
      * @memberof ReferenceDto
      */
     id?: string;
     /**
+     * last updated
      * @type {string}
      * @memberof ReferenceDto
      */
     lastUpdated?: string;
     /**
+     * phone number
      * @type {string}
      * @memberof ReferenceDto
      */
     phoneNumber?: string;
     /**
+     * relationship
      * @type {string}
      * @memberof ReferenceDto
      */
     relationship?: string;
     /**
+     * user Id
      * @type {string}
      * @memberof ReferenceDto
      */

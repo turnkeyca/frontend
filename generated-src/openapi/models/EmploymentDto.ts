@@ -12,56 +12,67 @@
  */
 
 /**
+ * EmploymentDto EmploymentDto EmploymentDto EmploymentDto EmploymentDto EmploymentDto employment dto
  * @export
  * @interface EmploymentDto
  */
 export interface EmploymentDto {
     /**
+     * additional details
      * @type {string}
      * @memberof EmploymentDto
      */
     additionalDetails?: string;
     /**
+     * annual salary
      * @type {number}
      * @memberof EmploymentDto
      */
     annualSalary?: number;
     /**
+     * created on
      * @type {string}
      * @memberof EmploymentDto
      */
     createdOn?: string;
     /**
+     * duration
      * @type {string}
      * @memberof EmploymentDto
      */
     duration?: string;
     /**
+     * employer
      * @type {string}
      * @memberof EmploymentDto
      */
     employer?: string;
     /**
+     * Id
      * @type {string}
      * @memberof EmploymentDto
      */
     id?: string;
     /**
+     * last updated
      * @type {string}
      * @memberof EmploymentDto
      */
     lastUpdated?: string;
     /**
+     * occupation
      * @type {string}
      * @memberof EmploymentDto
      */
     occupation?: string;
     /**
+     * rent affordability
      * @type {string}
      * @memberof EmploymentDto
      */
     rentAffordability?: string;
     /**
+     * user Id
      * @type {string}
      * @memberof EmploymentDto
      */

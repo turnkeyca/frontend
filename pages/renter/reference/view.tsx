@@ -1,31 +1,25 @@
-import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Error, Footer, Header, Label } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference() {
-  const [session, loading] = useSession();
   const router = useRouter();
   let [[error, reference], setState] = useState([undefined, undefined]);
   useEffect(() => {
-    if (!router.isReady || loading) {
+    if (!router.isReady) {
       return;
     }
-    // if (!session) {
-    //   router.push({ pathname: "/api/auth/signin" });
-    //   return;
-    // }
     let _referenceId = router.query.referenceId as string;
     const referenceApi = new ReferenceApi();
     const sub = referenceApi
-      .getReference({ id: _referenceId, token: undefined })
+      .getReference({ id: _referenceId, token: router.query.token as string })
       .subscribe({
         next: (r) => setState([undefined, r]),
         error: (e) => setState([e, undefined]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,, router.query.referenceId]);
+  }, [router.isReady, router.query.referenceId]);
   return (
     <div>
       <Header

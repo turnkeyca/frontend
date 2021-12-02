@@ -12,13 +12,15 @@
  */
 
 /**
+ * ShortURLDto ShortURLDto short Url dto
  * @export
- * @interface ShortUrlDto
+ * @interface ShortURLDto
  */
-export interface ShortUrlDto {
+export interface ShortURLDto {
     /**
+     * Url
      * @type {string}
-     * @memberof ShortUrlDto
+     * @memberof ShortURLDto
      */
     url?: string;
 }

@@ -18,7 +18,7 @@ export const Footer = ({ showProfile, showConnections, ...rest }: IFooter) => {
             onClick={() =>
               router.push({
                 pathname: "/renter",
-                query: { userId: router.query.userId },
+                query: { userId: router.query.userId, token: router.query.token },
               })
             }
           >
@@ -32,10 +32,11 @@ export const Footer = ({ showProfile, showConnections, ...rest }: IFooter) => {
           <div
             className="cursor-pointer tk-text-teal flex flex-col items-center justify-center"
             onClick={() =>
-              router.push({
-                pathname: "/renter/activity",
-                query: { userId: router.query.userId },
-              })
+              // router.push({
+              //   pathname: "/renter/activity",
+              //   query: { userId: router.query.userId },
+              // })
+              console.log("user navigated to activity")
             }
           >
             <Icon name="list" />
