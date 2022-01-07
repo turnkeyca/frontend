@@ -26,7 +26,7 @@ export default function Pet() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, petApi]);
+  }, [router.isReady, router.query, petApi]);
   return (
     <div>
       <Header

@@ -58,7 +58,7 @@ export default function Employment() {
     return () => sub.unsubscribe();
   }, [
     router.isReady,
-    router.query.employmentId,
+    router.query,
     employmentApi,
   ]);
 

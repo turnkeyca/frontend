@@ -22,7 +22,7 @@ export default function Pet() {
         error: (e) => setState([e, undefined]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.petId]);
+  }, [router.isReady, router.query]);
   return (
     <div>
       <Header

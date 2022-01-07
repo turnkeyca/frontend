@@ -48,7 +48,7 @@ export default function EditLease() {
           setState([e, undefined, undefined, undefined, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, userApi]);
+  }, [router.isReady, router.query, userApi]);
 
   function save(next: UrlObject) {
     let body = user;

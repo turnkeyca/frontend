@@ -47,7 +47,7 @@ export default function Pet() {
           setState([e, undefined, undefined, undefined, undefined, _petId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.petId, petApi]);
+  }, [router.isReady, router.query, petApi]);
 
   function save() {
     let obs: Observable<void>;

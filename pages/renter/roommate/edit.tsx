@@ -36,7 +36,7 @@ export default function Roommate() {
           setState([e, undefined, undefined, undefined, _roommateId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.roommateId, roommateApi]);
+  }, [router.isReady, router.query, roommateApi]);
 
   function save() {
     let obs: Observable<void>;

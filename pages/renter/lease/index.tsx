@@ -30,7 +30,7 @@ export default function General() {
         error: (e) => setState([e, user, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady]);
+  }, [router.isReady, router.query, user, userApi]);
 
   return (
     <div>
