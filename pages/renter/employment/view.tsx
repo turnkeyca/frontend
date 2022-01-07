@@ -22,7 +22,7 @@ export default function Employment() {
         error: (e) => setState([e, undefined]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.employmentId]);
+  }, [router.isReady, router.query]);
   return (
     <div>
       <Header

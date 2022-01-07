@@ -8,4 +8,14 @@ module.exports = {
       },
     ];
   },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/v1/:path*",
+  //       headers: [
+  //         { key: "Access-Control-Allow-Origin", value: "*" },
+  //       ]
+  //     }
+  //   ]
+  // }
 };

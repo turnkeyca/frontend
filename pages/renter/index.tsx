@@ -23,7 +23,7 @@ export default function Renter() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady,]);
+  }, [router.isReady, router.query]);
   return (
     <div>
       <Header

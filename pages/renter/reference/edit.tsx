@@ -70,7 +70,7 @@ export default function Reference() {
           ]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, router.query.referenceId, referenceApi]);
+  }, [router.isReady, router.query, referenceApi]);
 
   function save() {
     let obs: Observable<void>;

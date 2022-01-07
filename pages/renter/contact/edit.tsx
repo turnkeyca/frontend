@@ -57,7 +57,7 @@ export default function EditContact() {
           ]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, userApi]);
+  }, [router.isReady, router.query, userApi]);
 
   function save(next: UrlObject) {
     let body = user;

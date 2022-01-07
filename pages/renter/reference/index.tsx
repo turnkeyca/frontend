@@ -26,7 +26,7 @@ export default function Reference() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, referenceApi]);
+  }, [router.isReady, router.query, referenceApi]);
   return (
     <div>
       <Header

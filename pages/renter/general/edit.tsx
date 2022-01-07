@@ -74,7 +74,7 @@ export default function General() {
           ]),
       });
     return () => sub.unsubscribe();
-  }, [router.isReady, , userApi]);
+  }, [router.isReady, router.query, userApi]);
 
   function save(next: UrlObject) {
     let obs: Observable<void>;
