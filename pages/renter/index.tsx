@@ -126,6 +126,21 @@ export default function Renter() {
                 </div>
                 <Icon name="chevron_right" />
               </div>
+              <div
+                onClick={() =>
+                  router.push({
+                    pathname: "/renter/walkthrough/1",
+                    query: { userId, token: router.query.token },
+                  })
+                }
+                className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
+              >
+                <div className="flex items-center">
+                  <span className="mr-1">Walkthrough</span>
+                  <Icon name="error_outline" small={true} />
+                </div>
+                <Icon name="chevron_right" />
+              </div>
             </div>
           </div>
         )}

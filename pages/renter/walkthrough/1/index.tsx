@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Icon, ProgressBar } from "../../../../components";
-import { WalkProgress } from "../../../../components/walkthroughprogressbar";
+import { Error, Header, Button, ProgressBar } from "../../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -34,7 +33,28 @@ export default function RenterWalkthrough1() {
                 showBack={false}
                 showLogout={true}
             />
-            <WalkProgress progress="15%"/>
+            <ProgressBar progress="1/6" />
+            <div className="place-items-center">
+                <p className="text-center tk-text-teal text-3xl font-semibold pt-5">First...</p>
+                <p className="text-center tk-text-blue text-medium p-8">Complete your
+                    Turnkey profile with all the information
+                    required on a standard rental application.</p>
+                <img></img>
+                <div className="flex flex-col gap-5 px-16">
+                    <Button variant="secondary" handleClick={() =>
+                        router.push({
+                            pathname: "/renter/walkthrough/2",
+                            query: { userId, token: router.query.token },
+                        })}
+                    >Next</Button>
+                    <Button variant="tertiary" handleClick={() =>
+                        router.push({
+                            pathname: "/renter",
+                            query: { userId, token: router.query.token },
+                        })}
+                    >Skip Demo</Button>
+                </div>
+            </div>
         </div>
     );
 }

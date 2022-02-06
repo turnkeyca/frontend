@@ -3,6 +3,7 @@
     --amber: #feb249;
     --blue: #002447;
     --grey: #f3f4f6;
+    --dark-grey: #e0e0e0;
     --white: #ffffff;
   }
   
@@ -20,6 +21,10 @@
   
   .tk-bg-grey {
     background-color: var(--grey);
+  }
+
+  .tk-bg-dark-grey {
+    background-color: var(--dark-grey);
   }
   
   .tk-bg-amber {

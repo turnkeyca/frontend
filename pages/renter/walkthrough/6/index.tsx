@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Icon, ProgressBar } from "../../../../components";
-import { WalkProgress } from "../../../../components/walkthroughprogressbar";
+import { Error, Header, Button, ProgressBar } from "../../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -34,7 +33,23 @@ export default function RenterWalkthrough1() {
                 showBack={false}
                 showLogout={true}
             />
-            <WalkProgress progress="98%"/>
+            <ProgressBar progress="1/6" />
+            <div className="place-items-center">
+                <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
+                    So...
+                </p>
+                <p className="text-center tk-text-blue text-medium p-8">
+                    Don't forget to accept their request to view your profile!
+                </p>
+                <img></img>
+                <div className="flex flex-col gap-5 px-16">
+                    <Button variant="secondary" handleClick={() =>
+                        router.push({
+                            pathname: "/renter",
+                            query: { userId, token: router.query.token },
+                        })}>Get Started!</Button>
+                </div>
+            </div>
         </div>
     );
 }
