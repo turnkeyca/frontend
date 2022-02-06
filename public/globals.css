@@ -18,6 +18,10 @@
   .tk-text-amber {
     color: var(--amber);
   }
+
+  .tk-text-dark-grey {
+    color: var(--dark-grey);
+  }
   
   .tk-bg-grey {
     background-color: var(--grey);

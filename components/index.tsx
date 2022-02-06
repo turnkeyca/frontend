@@ -12,5 +12,6 @@ export * from "./select";
 export * from "./shareablelink";
 export * from "./spinner";
 export * from "./text";
+export * from "./textinput";
 export * from "./warning";
 export * from "./yesno";

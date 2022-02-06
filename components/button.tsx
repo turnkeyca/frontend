@@ -26,7 +26,7 @@ export const Button = ({
     <button
       type={type}
       onClick={handleClick}
-      className={"flex justify-center items-center cursor-pointer rounded tracking-wide font-medium text-sm p-3 "
+      className={"flex justify-center items-center cursor-pointer rounded tracking-wide font-medium uppercase text-sm p-3 "
         .concat(colourClasses)
         .concat(" ")
         .concat(className)}
