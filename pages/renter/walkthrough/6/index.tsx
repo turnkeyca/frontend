@@ -29,11 +29,11 @@ export default function RenterWalkthrough1() {
             <Header
                 router={router}
                 title="My Turnkey"
-                showEdit={true}
+                showEdit={false}
                 showBack={false}
-                showLogout={true}
+                showLogout={false}
             />
-            <ProgressBar progress="1/6" />
+            <ProgressBar progress="full" />
             <div className="place-items-center">
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
                     So...
