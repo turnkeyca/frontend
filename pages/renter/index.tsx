@@ -129,7 +129,7 @@ export default function Renter() {
               <div
                 onClick={() =>
                   router.push({
-                    pathname: "/renter/walkthrough/1",
+                    pathname: "/renter/walkthrough",
                     query: { userId, token: router.query.token },
                   })
                 }
