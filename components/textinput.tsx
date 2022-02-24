@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from "react";
 
-export interface ITextField extends HTMLAttributes<HTMLElement> {
+export interface ITextField extends HTMLAttributes<HTMLInputElement> {
     type?: "text" | "email" | "password";
 }
 

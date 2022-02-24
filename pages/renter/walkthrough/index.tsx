@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar } from "../../../components";
+import { Error, Header, Button, ProgressBar, CenterdImage } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -39,7 +39,7 @@ export default function RenterWalkthrough1() {
                 <p className="text-center tk-text-blue text-medium p-8">Complete your
                     Turnkey profile with all the information
                     required on a standard rental application.</p>
-                <img></img>
+                <CenterdImage src="../../assets/images/renter_profile.png" alt="renter profile"></CenterdImage>
                 <div className="flex flex-col gap-5 px-16">
                     <Button variant="secondary" handleClick={() =>
                         router.push({
