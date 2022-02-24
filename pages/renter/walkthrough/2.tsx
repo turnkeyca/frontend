@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar, CenterdImage } from "../../../components";
-import Lottie from 'react-lottie';
-import * as animationData from "../../assets/lotties/pulse-selector.json";
+import { Error, Header, Button, ProgressBar, CenterdImage, PulseLottie } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -27,15 +25,6 @@ export default function RenterWalkthrough1() {
         return () => sub.unsubscribe();
     }, [router.isReady, router.query]);
 
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: animationData,
-        rendererSettings: {
-            preserveAspectRation: "xMidYMid slice"
-        }
-    };
-
     return (
         <div>
             <Header
@@ -46,13 +35,15 @@ export default function RenterWalkthrough1() {
                 showLogout={false}
             />
             <ProgressBar progress="2/6" />
-            <Lottie options={defaultOptions} height={100} width={100}/>
             <div className="place-items-center">
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">Next...</p>
-                <p className="text-center tk-text-blue text-medium p-8">Search for listings
-                on your preferred listing platform.</p>
-                <CenterdImage src="../../assets/images/renter_profile.png" alt="renter profile"></CenterdImage>
-                <div className="flex flex-col gap-5 px-16">
+                <p className="text-center tk-text-blue text-medium text-medium pt-8 px-8">Search for listings
+                    on your preferred listing platform.</p>
+                <div>
+                    <PulseLottie left={200} top={525}  width={100} height={100}/>
+                    <CenterdImage src="../../assets/images/renter_profile.png" alt="renter profile"></CenterdImage>
+                </div>
+                <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>
                         router.push({
                             pathname: "/renter/walkthrough/3",

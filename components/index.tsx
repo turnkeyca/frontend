@@ -10,6 +10,7 @@ export * from "./logo";
 export * from "./ntoggle";
 export * from "./picture";
 export * from "./progressbar";
+export * from "./pulseLottie";
 export * from "./select";
 export * from "./shareablelink";
 export * from "./spinner";

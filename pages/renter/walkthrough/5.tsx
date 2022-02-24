@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar } from "../../../components";
+import { Error, Header, Button, ProgressBar, CenterdImage } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -38,12 +38,12 @@ export default function RenterWalkthrough1() {
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
                     Oh, and one more thing...
                 </p>
-                <p className="text-center tk-text-blue text-medium p-8">
+                <p className="text-center tk-text-blue text-medium pt-8 px-8">
                     When a landlord opens your Turnkey profile for the first time, 
                     they will send you a request to view it...
                 </p>
-                <img></img>
-                <div className="flex flex-col gap-5 px-16">
+                <CenterdImage src="../../assets/images/notification_lockscreen.png"></CenterdImage>
+                <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>
                         router.push({
                             pathname: "/renter/walkthrough/6",

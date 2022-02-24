@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar } from "../../../components";
+import { Error, Header, Button, ProgressBar, CenterdImage } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -38,13 +38,16 @@ export default function RenterWalkthrough1() {
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
                     Finally...
                 </p>
-                <p className="text-center tk-text-blue text-medium p-8">
-                    While in the listing platform, you can send a message 
-                    to the landlord to express your interest in the listing 
+                <p className="text-center tk-text-blue text-medium pt-8 px-8">
+                    While in the listing platform, you can send a message
+                    to the landlord to express your interest in the listing
                     and share your Turnkey link.
                 </p>
-                <img></img>
-                <div className="flex flex-col gap-5 px-16">
+                v<div>
+                    <CenterdImage src="../../assets/images/rental_url_share.png" className="w-5/6"></CenterdImage>
+                    <CenterdImage src="../../assets/images/default_user_icon.png" className="w-5/6"></CenterdImage>
+                </div>
+                <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>
                         router.push({
                             pathname: "/renter/walkthrough/5",
