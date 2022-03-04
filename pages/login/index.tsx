@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { UserApi } from "../../generated-src/openapi";
+import { AuthenticationApi, RegisterTokenDto} from "../../generated-src/openapi";
 import { Button, Header, Logo } from "../../components";
 
 export default function Index() {
@@ -8,7 +8,7 @@ export default function Index() {
     let [
         [
             error,
-            email,
+            id,
             password
         ],
         setState,
@@ -17,16 +17,32 @@ export default function Index() {
         "",
         ""
     ]);
-    const userApi = useMemo(() => new UserApi(), []);
+    const authApi = useMemo(() => new AuthenticationApi(), []);
     useEffect(() => {
         if (!router.isReady) {
             return;
         }
-    }, [router.isReady, router.query, userApi]);
+    }, [router.isReady, router.query, authApi]);
 
 
     function login() {
-        console.log(email, password)
+        const body: RegisterTokenDto = {
+            id: id,
+            newUser: false,
+            secret: "theonekeytorulethemall", // REPLACE WITH MORE SECURE CALL
+        }
+        const obs = authApi.registerNewToken({ body }).subscribe({
+            next: (tk) => {
+                console.log(tk)
+                router.push({
+                    pathname: "/renter",
+                    query: { userId: tk.id, token: tk.token },
+                })
+            },
+            error: () => console.log(error)
+        });
+
+        return () => obs.unsubscribe();
     }
 
     return (
@@ -40,10 +56,10 @@ export default function Index() {
             ></Header>
             <div className="flex flex-col p-6 gap-4">
                 <Logo src="../../assets/images/Turnkey_logo_colour.png"></Logo>
-                <p className="align-left tk-text-blue">Email:</p>
+                <p className="align-left tk-text-blue">User name:</p>
                 <input
                     className="tk-border-blue border-2 rounded-xl p-2 w-full"
-                    type="email"
+                    type="id"
                     onChange={($event) =>
                         setState([
                             error,
@@ -51,7 +67,7 @@ export default function Index() {
                             password,
                         ])
                     }
-                    value={email}
+                    value={id}
                 >
                 </input>
                 <p className="align-left tk-text-blue">Password:</p>
@@ -61,7 +77,7 @@ export default function Index() {
                     onChange={($event) =>
                         setState([
                             error,
-                            email,
+                            id,
                             $event.target.value,
                         ])
                     }

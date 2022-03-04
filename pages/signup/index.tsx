@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Observable } from "rxjs";
 import { useRouter } from "next/router";
-import { AuthenticationApi, RegisterNewTokenRequest, RegisterTokenDto, TokenDto } from "../../generated-src/openapi";
+import { AuthenticationApi, RegisterTokenDto } from "../../generated-src/openapi";
 import { Button, Header, Logo } from "../../components";
 
 
@@ -28,23 +27,23 @@ export default function Index() {
 
 
     function signup() {
-        console.log(id, password)
-        let obs: Observable<TokenDto>;
         const body: RegisterTokenDto = {
             id: id,
             newUser: true,
             secret: "theonekeytorulethemall", // REPLACE WITH MORE SECURE CALL
         }
-        console.log(body)
-        obs = authApi.registerNewToken({ body });
-        obs.subscribe(message => {
-            if (message) {
-                console.log(message)
-            }
-            else {
-                console.log("No message for signup")
-            }
+        const obs = authApi.registerNewToken({ body }).subscribe({
+            next: (tk) => {
+                console.log(tk)
+                router.push({
+                    pathname: "/renter",
+                    query: { userId: tk.id, token: tk.token },
+                })
+            },
+            error: () => console.log(error)
         });
+
+        return () => obs.unsubscribe();
     }
 
     return (
