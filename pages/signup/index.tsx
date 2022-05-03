@@ -76,9 +76,10 @@ export default function Index() {
                     value={id}
                 >
                 </input>
-                <p className="align-left tk-text-blue">Password:</p>
+                
+                {/* <p className="align-left tk-text-blue">Password:</p> */}
                 {/* Hold password values and update the state */}
-                <input
+                {/* <input
                     className="tk-border-blue border-2 rounded-xl p-2 w-full"
                     type="password"
                     onChange={($event) =>
@@ -89,8 +90,8 @@ export default function Index() {
                         ])
                     }
                     value={password}
-                >
-                </input>
+                > */}
+                {/* </input> */}
 
                 <Button variant="secondary" handleClick={() => signup()}>
                     Next

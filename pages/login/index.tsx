@@ -91,7 +91,7 @@ export default function Index() {
                     value={id}
                 >
                 </input>
-                <p className="align-left tk-text-blue">Password:</p>
+                {/* <p className="align-left tk-text-blue">Password:</p>
                 <input
                     className="tk-border-blue border-2 rounded-xl p-2 w-full"
                     type="password"
@@ -104,7 +104,7 @@ export default function Index() {
                     }
                     value={password}
                 >
-                </input>
+                </input> */}
 
                 <Button variant="secondary" handleClick={() => login()}>
                     Log In
@@ -114,9 +114,9 @@ export default function Index() {
                     <p className="uppercase tk-text-dark-grey text-center">
                         Forgot Username
                     </p>
-                    <p className="uppercase tk-text-dark-grey text-center">
+                    {/* <p className="uppercase tk-text-dark-grey text-center">
                         Forgot Password
-                    </p>
+                    </p> */}
                     <p className="uppercase tk-text-dark-grey text-center" onClick={() =>
                         router.push({
                             pathname: "/signup"
