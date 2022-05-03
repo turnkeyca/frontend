@@ -27,23 +27,26 @@ export default function Index() {
 
 
     function signup() {
-        const body: RegisterTokenDto = {
-            id: id,
-            newUser: true,
-            secret: "theonekeytorulethemall", // REPLACE WITH MORE SECURE CALL
-        }
-        const obs = authApi.registerNewToken({ body }).subscribe({
-            next: (tk) => {
-                console.log(tk)
-                router.push({
-                    pathname: "/renter",
-                    query: { userId: tk.id, token: tk.token },
-                })
-            },
-            error: () => console.log(error)
-        });
+        fetch("/api/secrets")
+            .then(response => response.json())
+            .then(data => {
+                const body: RegisterTokenDto = {
+                    id: id,
+                    newUser: true,
+                    secret: data.secret,
+                }
+                const obs = authApi.registerNewToken({ body }).subscribe({
+                    next: (tk) => {
+                        router.push({
+                            pathname: "/renter",
+                            query: { userId: tk.id, token: tk.token },
+                        })
+                    },
+                    error: () => console.log(error)
+                });
 
-        return () => obs.unsubscribe();
+                return () => obs.unsubscribe();
+            })
     }
 
     return (

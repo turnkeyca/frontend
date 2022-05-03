@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { AuthenticationApi, RegisterTokenDto} from "../../generated-src/openapi";
+import { AuthenticationApi, RegisterTokenDto } from "../../generated-src/openapi";
 import { Button, Header, Logo } from "../../components";
 
 export default function Index() {
@@ -26,23 +26,26 @@ export default function Index() {
 
 
     function login() {
-        const body: RegisterTokenDto = {
-            id: id,
-            newUser: false,
-            secret: "theonekeytorulethemall", // REPLACE WITH MORE SECURE CALL
-        }
-        const obs = authApi.registerNewToken({ body }).subscribe({
-            next: (tk) => {
-                console.log(tk)
-                router.push({
-                    pathname: "/renter",
-                    query: { userId: tk.id, token: tk.token },
-                })
-            },
-            error: () => console.log(error)
-        });
+        fetch("/api/secrets")
+            .then(response => response.json())
+            .then(data => {
+                const body: RegisterTokenDto = {
+                    id: id,
+                    newUser: false,
+                    secret: data.secret,
+                }
+                const obs = authApi.registerNewToken({ body }).subscribe({
+                    next: (tk) => {
+                        router.push({
+                            pathname: "/renter",
+                            query: { userId: tk.id, token: tk.token },
+                        })
+                    },
+                    error: () => console.log(error)
+                });
 
-        return () => obs.unsubscribe();
+                return () => obs.unsubscribe();
+            })
     }
 
     return (
