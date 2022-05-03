@@ -42,7 +42,7 @@ export const Header = ({
             name="logout"
             handleClick={() => {
               console.log("log out")
-              router.push("");
+              router.push("/");
             }}
           />
         )}

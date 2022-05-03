@@ -3,6 +3,7 @@
     --amber: #feb249;
     --blue: #002447;
     --grey: #f3f4f6;
+    --dark-grey: #e0e0e0;
     --white: #ffffff;
   }
   
@@ -17,9 +18,17 @@
   .tk-text-amber {
     color: var(--amber);
   }
+
+  .tk-text-dark-grey {
+    color: var(--dark-grey);
+  }
   
   .tk-bg-grey {
     background-color: var(--grey);
+  }
+
+  .tk-bg-dark-grey {
+    background-color: var(--dark-grey);
   }
   
   .tk-bg-amber {
@@ -48,5 +57,6 @@
   .material-icons.md-24 {
     font-size: 24px;
   }
+
   
   
