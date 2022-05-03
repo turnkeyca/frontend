@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { AuthenticationApi, RegisterTokenDto } from "../../generated-src/openapi";
+import { AuthenticationApi, RegisterTokenDto, UserApi } from "../../generated-src/openapi";
 import { Button, Header, Logo } from "../../components";
 
 export default function Index() {
@@ -23,7 +23,7 @@ export default function Index() {
             return;
         }
     }, [router.isReady, router.query, authApi]);
-
+    const userApi = new UserApi();
 
     function login() {
         fetch("/api/secrets")
@@ -36,10 +36,28 @@ export default function Index() {
                 }
                 const obs = authApi.registerNewToken({ body }).subscribe({
                     next: (tk) => {
-                        router.push({
-                            pathname: "/renter",
-                            query: { userId: tk.id, token: tk.token },
-                        })
+                        const sub = userApi
+                            .getUser({ id: tk.id, token: tk.token as string })
+                            .subscribe({
+                                next: (user) => {
+                                    id = tk.id;
+                                    if (!user.walkthroughComplete) {
+                                        // go to walk through if not yet completed
+                                        router.push({
+                                            pathname: "/renter/walkthrough",
+                                            query: { userId: tk.id as string, token: tk.token as string },
+                                        })
+                                    }
+                                    else {
+                                        // otherwise go to main page
+                                        router.push({
+                                            pathname: "/renter",
+                                            query: { userId: tk.id as string, token: tk.token as string },
+                                        })
+                                    }
+                                },
+                                error: (e) => console.log(e),
+                            });
                     },
                     error: () => console.log(error)
                 });

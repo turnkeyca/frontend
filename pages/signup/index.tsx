@@ -38,7 +38,7 @@ export default function Index() {
                 const obs = authApi.registerNewToken({ body }).subscribe({
                     next: (tk) => {
                         router.push({
-                            pathname: "/renter",
+                            pathname: "/renter/walkthrough",
                             query: { userId: tk.id, token: tk.token },
                         })
                     },
