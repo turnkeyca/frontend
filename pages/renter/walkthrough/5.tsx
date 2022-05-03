@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar, CenterdImage } from "../../../components";
+import { Error, Header, Button, ProgressBar, CenteredImage } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -43,7 +43,7 @@ export default function RenterWalkthrough1() {
                     they will send you a request to view it...
                 </p>
                 <div className="static h-96"> 
-                    <CenterdImage className="w-screen h-full" src="/assets/images/notification_lockscreen.png"></CenterdImage>
+                    <CenteredImage className="w-screen h-full" src="/assets/images/notification_lockscreen.png"></CenteredImage>
                 </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>

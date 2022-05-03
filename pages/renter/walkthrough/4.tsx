@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar, CenterdImage } from "../../../components";
+import { Error, Header, Button, ProgressBar, CenteredImage } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -44,8 +44,8 @@ export default function RenterWalkthrough1() {
                     and share your Turnkey link.
                 </p>
                 <div className="flex flex-col space-y-4 h-96"> 
-                    <CenterdImage src="/assets/images/rental_url_share.png" className="w-screen h-full"></CenterdImage>
-                    <CenterdImage src="/assets/images/default_user_icon.png" className="w-screen h-full"></CenterdImage>
+                    <CenteredImage src="/assets/images/rental_url_share.png" className="w-screen h-full"></CenteredImage>
+                    <CenteredImage src="/assets/images/default_user_icon.png" className="w-screen h-full"></CenteredImage>
                 </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>

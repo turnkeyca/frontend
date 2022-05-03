@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar, CenterdImage, PulseLottie } from "../../../components";
+import { Error, Header, Button, ProgressBar, CenteredImage, PulseLottie } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -40,7 +40,7 @@ export default function RenterWalkthrough1() {
                     Turnkey profile with all the information
                     required on a standard rental application.</p>
                 <div className="static h-96"> 
-                    <CenterdImage className="w-screen h-full" src="/assets/images/renter_profile.png" alt="renter profile" ></CenterdImage>
+                    <CenteredImage className="w-screen h-full" src="/assets/images/renter_profile.png" alt="renter profile" ></CenteredImage>
                     <PulseLottie left={200} top={400} width={100} height={100}/>
                 </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">

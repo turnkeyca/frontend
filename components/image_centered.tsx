@@ -7,7 +7,7 @@ export interface ICenteredImage extends HTMLAttributes<HTMLElement> {
     alt?: string;
   }
   
-  export const CenterdImage = ({
+  export const CenteredImage = ({
       src,
       className,
       alt,
