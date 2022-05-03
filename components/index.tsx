@@ -1,6 +1,7 @@
 export * from "./binarytoggle";
 export * from "./button";
 export * from "./error";
+export * from "./floating_dialogue";
 export * from "./footer";
 export * from "./header";
 export * from "./icon";

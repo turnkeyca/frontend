@@ -42,7 +42,10 @@ export const Header = ({
             name="logout"
             handleClick={() => {
               console.log("log out")
-              router.push("/");
+              router.push({
+                pathname: "/logout",
+                query: { userId: router.query.userId, token: router.query.token },
+              })
             }}
           />
         )}
