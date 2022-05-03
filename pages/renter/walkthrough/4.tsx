@@ -38,14 +38,14 @@ export default function RenterWalkthrough1() {
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
                     Finally...
                 </p>
-                <p className="text-center tk-text-blue text-medium pt-8 px-8">
+                <p className="text-center tk-text-blue text-medium pt-8 px-8 h-32">
                     While in the listing platform, you can send a message
                     to the landlord to express your interest in the listing
                     and share your Turnkey link.
                 </p>
-                v<div>
-                    <CenterdImage src="../../assets/images/rental_url_share.png" className="w-5/6"></CenterdImage>
-                    <CenterdImage src="../../assets/images/default_user_icon.png" className="w-5/6"></CenterdImage>
+                <div className="flex flex-col space-y-4 h-96"> 
+                    <CenterdImage src="/assets/images/rental_url_share.png" className="w-screen h-full"></CenterdImage>
+                    <CenterdImage src="/assets/images/default_user_icon.png" className="w-screen h-full"></CenterdImage>
                 </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>

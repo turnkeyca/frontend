@@ -38,12 +38,12 @@ export default function RenterWalkthrough1() {
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
                     So...
                 </p>
-                <p className="text-center tk-text-blue text-medium pt-8 px-8">
+                <p className="text-center tk-text-blue text-medium pt-8 px-8 h-32">
                     Don't forget to accept their request to view your profile!
                 </p>
-                <div>
-                    <PulseLottie left={250} top={325} width={50} height={50}/>
-                    <CenterdImage src="../../assets/images/view_requests.png" alt="renter profile"></CenterdImage>
+                <div className="static h-96"> 
+                    <CenterdImage className="w-screen h-full" src="/assets/images/view_requests.png" alt="renter profile"></CenterdImage>
+                    <PulseLottie left={200} top={525} width={50} height={50}/>
                 </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-20">
                     <Button variant="secondary" handleClick={() =>

@@ -1,4 +1,5 @@
 import React, { HTMLAttributes } from "react";
+import Image from 'next/image'
 
 export interface ICenteredImage extends HTMLAttributes<HTMLElement> {
     src: string;
@@ -13,14 +14,14 @@ export interface ICenteredImage extends HTMLAttributes<HTMLElement> {
     ...rest
   }: ICenteredImage) => {
     return (
-        <div>
-        <div className="w-screen h-1/6"></div>
-        <div className="container">
-            <img className={"mx-auto ".concat(className)}
+        <div className={"relative container ".concat(className)}>
+            <Image className={"mx-auto"}
                 src={src}
-                alt={alt}>
-            </img>
+                alt={alt}
+                layout='fill'
+                objectFit='contain'
+                >
+            </Image>
         </div>
-    </div>
     );
   };

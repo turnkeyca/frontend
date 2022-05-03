@@ -38,11 +38,13 @@ export default function RenterWalkthrough1() {
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
                     Oh, and one more thing...
                 </p>
-                <p className="text-center tk-text-blue text-medium pt-8 px-8">
+                <p className="text-center tk-text-blue text-medium pt-8 px-8 h-32">
                     When a landlord opens your Turnkey profile for the first time, 
                     they will send you a request to view it...
                 </p>
-                <CenterdImage src="../../assets/images/notification_lockscreen.png"></CenterdImage>
+                <div className="static h-96"> 
+                    <CenterdImage className="w-screen h-full" src="/assets/images/notification_lockscreen.png"></CenterdImage>
+                </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>
                         router.push({

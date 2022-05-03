@@ -38,12 +38,12 @@ export default function RenterWalkthrough1() {
                 <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
                     After you find a place you like...
                 </p>
-                <p className="text-center tk-text-blue text-medium pt-8 px-8">
+                <p className="text-center tk-text-blue text-medium pt-8 px-8 h-32">
                     Share your Turnkey profile by copying your unique Renter ID link.
                 </p>
-                <div>
+                <div className="static h-96"> 
+                    <CenterdImage className="w-screen h-full" src="/assets/images/share_renter_profile.png" alt="renter profile"></CenterdImage>
                     <PulseLottie left={200} top={525} width={50} height={50}/>
-                    <CenterdImage src="../../assets/images/share_renter_profile.png" alt="renter profile"></CenterdImage>
                 </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>
