@@ -26,7 +26,7 @@ export default function Index() {
     }, [router.isReady, router.query, authApi]);
 
 
-    function signup() {
+    function profileSelect() {
         fetch("/api/secrets")
             .then(response => response.json())
             .then(data => {
@@ -38,7 +38,7 @@ export default function Index() {
                 const obs = authApi.registerNewToken({ body }).subscribe({
                     next: (tk) => {
                         router.push({
-                            pathname: "/renter/walkthrough",
+                            pathname: "/signup/profileSelect",
                             query: { userId: tk.id, token: tk.token },
                         })
                     },
@@ -93,7 +93,7 @@ export default function Index() {
                 > */}
                 {/* </input> */}
 
-                <Button variant="secondary" handleClick={() => signup()}>
+                <Button variant="secondary" handleClick={() => profileSelect()}>
                     Next
                 </Button>
 

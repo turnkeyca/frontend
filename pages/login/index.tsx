@@ -44,14 +44,14 @@ export default function Index() {
                                     if (!user.walkthroughComplete) {
                                         // go to walk through if not yet completed
                                         router.push({
-                                            pathname: "/renter/walkthrough",
+                                            pathname: "/" + user.userType + "/walkthrough",
                                             query: { userId: tk.id as string, token: tk.token as string },
                                         })
                                     }
                                     else {
                                         // otherwise go to main page
                                         router.push({
-                                            pathname: "/renter",
+                                            pathname: "/" + user.userType,
                                             query: { userId: tk.id as string, token: tk.token as string },
                                         })
                                     }
