@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { UserApi, UserDto } from "../../generated-src/openapi";
 import { Button, Header, Logo, Toggle } from "../../components";
-import { ConnectableObservable } from "rxjs";
 
 
 export default function Index() {
@@ -42,7 +41,7 @@ export default function Index() {
                             next: () => {
                                 // move to next stage
                                 router.push({
-                                    pathname: "/renter/walkthrough",
+                                    pathname: "/signup/profileBuild",
                                     query: { userId: user_id, token: token },
                                 })
                             },
@@ -61,7 +60,7 @@ export default function Index() {
                             next: () => {
                                 // move to next stage
                                 router.push({
-                                    pathname: "/landlord/walkthrough",
+                                    pathname: "/signup/profileBuild",
                                     query: { userId: user_id, token: token },
                                 })
                             },
@@ -82,7 +81,7 @@ export default function Index() {
         <div>
             <Header
                 router={router}
-                title="Signup"
+                title="Sign Up"
                 showEdit={false}
                 showBack={true}
                 showLogout={false}
@@ -107,14 +106,6 @@ export default function Index() {
                 <Button variant="secondary" handleClick={() => procede()}>
                     Next
                 </Button>
-
-                <div className="flex flex-col place-items-center">
-                    <p className="uppercase tk-text-dark-grey text-center" onClick={() =>
-                        router.push({
-                            pathname: "/login"
-                        })}>
-                        ALREADY HAVE AN ACCOUNT? CLICK HERE TO LOG IN</p>
-                </div>
             </div>
         </div>)
 }

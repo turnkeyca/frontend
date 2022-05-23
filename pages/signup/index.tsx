@@ -53,7 +53,7 @@ export default function Index() {
         <div>
             <Header
                 router={router}
-                title="Signup"
+                title="Sign Up"
                 showEdit={false}
                 showBack={true}
                 showLogout={false}

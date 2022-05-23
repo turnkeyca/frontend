@@ -50,13 +50,13 @@ export default function RenterWalkthrough1() {
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
                     <Button variant="secondary" handleClick={() =>
                         router.push({
-                            pathname: "/renter/walkthrough/5",
+                            pathname: "/landlord/walkthrough/5",
                             query: { userId, token: router.query.token },
                         })}
                     >Next</Button>
                     <Button variant="tertiary" handleClick={() =>
                         router.push({
-                            pathname: "/renter",
+                            pathname: "/landlord",
                             query: { userId, token: router.query.token },
                         })}
                     >Skip Demo</Button>
