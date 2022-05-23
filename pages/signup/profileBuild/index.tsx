@@ -71,6 +71,7 @@ export default function Index() {
                 <p className="tk-red-required">* required</p>
                 <p className="align-left tk-text-blue">Full name*</p>
                 <input
+                // TODO: Make impossible to submit empty
                     className="tk-border-blue border-2 rounded-xl p-2 w-full"
                     type="text"
                     required={true}
@@ -88,6 +89,7 @@ export default function Index() {
 
                 <p className="align-left tk-text-blue">What shall we call you?*</p>
                 <input
+                // TODO: Make impossible to submit empty
                     className="tk-border-blue border-2 rounded-xl p-2 w-full"
                     type="text"
                     required={true}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { UserApi } from "../../../generated-src/openapi";
+import { UpdateUserRequest, UserApi, UserDto } from "../../../generated-src/openapi";
+import { Observable } from "rxjs";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar, CenteredImage } from "../../../components";
+import { Header, Button, ProgressBar, CenteredImage, PulseLottie } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
@@ -24,6 +25,30 @@ export default function RenterWalkthrough1() {
             });
         return () => sub.unsubscribe();
     }, [router.isReady, router.query]);
+
+    function completeWalkthrough() {
+        const userApi = new UserApi();
+        user.walkthroughComplete = true;
+
+        let obs: Observable<void>;
+        let body = user as UserDto;
+
+        const updateRequest = {
+            id: router.query.userId as string,
+            token: router.query.token as string,
+            body: body
+        } as UpdateUserRequest;
+        
+        obs = userApi.updateUser(updateRequest);
+
+        obs.subscribe(() =>
+            router.push({
+                pathname: "/landlord",
+                query: { userId: router.query.userId, token: router.query.token },
+            })
+        );
+    }
+
     return (
         <div>
             <Header
@@ -33,31 +58,19 @@ export default function RenterWalkthrough1() {
                 showBack={false}
                 showLogout={false}
             />
-            <ProgressBar progress="5/6" />
+            <ProgressBar progress="full" />
             <div className="place-items-center">
-                <p className="text-center tk-text-teal text-3xl font-semibold pt-5">
-                    Oh, and one more thing...
-                </p>
+                <p className="text-center tk-text-teal text-3xl font-semibold pt-5">View your Applicants' Profile</p>
                 <p className="text-center tk-text-blue text-medium pt-8 px-8 h-32">
-                    When a landlord opens your Turnkey profile for the first time, 
-                    they will send you a request to view it...
+                    A renter submits their profile to you which can be used as a rental application.
                 </p>
                 <div className="static h-96"> 
-                    <CenteredImage className="w-screen h-full" src="/assets/images/notification_lockscreen.png"></CenteredImage>
+                    <CenteredImage className="w-screen h-full" src="/assets/images/renter_profile.png" alt="renter profile" ></CenteredImage>
+                    <PulseLottie left={200} top={400} width={100} height={100}/>
                 </div>
                 <div className="flex flex-col gap-5 px-16 absolute w-screen bottom-4">
-                    <Button variant="secondary" handleClick={() =>
-                        router.push({
-                            pathname: "/landlord/walkthrough/6",
-                            query: { userId, token: router.query.token },
-                        })}
-                    >Next</Button>
-                    <Button variant="tertiary" handleClick={() =>
-                        router.push({
-                            pathname: "/landlord",
-                            query: { userId, token: router.query.token },
-                        })}
-                    >Skip Demo</Button>
+                    <Button variant="secondary" handleClick={() => completeWalkthrough()}>
+                        GET STARTED!</Button>
                 </div>
             </div>
         </div>

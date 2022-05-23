@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { UpdateUserRequest, UserApi, UserDto } from "../../../generated-src/openapi";
 import { Observable } from "rxjs";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar, CenteredImage, PulseLottie } from "../../../components";
+import { Header, Button, ProgressBar, CenteredImage, PulseLottie } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();
