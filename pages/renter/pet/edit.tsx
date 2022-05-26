@@ -13,7 +13,7 @@ import {
 } from "../../../components";
 import { PetApi, PetDto } from "../../../generated-src/openapi";
 
-export default function Pet() {
+export default function Pet(props) {
   const router = useRouter();
   let [[error, pet, breed, petType, sizeType, petId], setState] = useState([
     undefined,
@@ -70,7 +70,7 @@ export default function Pet() {
 
     obs.subscribe(() =>
       router.push({
-        pathname: "/renter/pet",
+        pathname: props.next_action_path,
         query: { userId: router.query.userId, token: router.query.token },
       })
     );
@@ -80,7 +80,7 @@ export default function Pet() {
     <div>
       <Header
         router={router}
-        title="My Profile"
+        title={props.header_text}
         showEdit={false}
         showBack={true}
         showLogout={false}
@@ -153,4 +153,9 @@ export default function Pet() {
       <Footer showProfile={true} showConnections={true} />
     </div>
   );
+}
+
+Pet.defaultProps = {
+  header_text: "My Profile",
+  next_action_path: "/renter/reference/view"
 }

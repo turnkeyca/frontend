@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Button, Error, Header, Icon, Warning } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
-export default function Reference() {
+export default function Reference(props) {
   const router = useRouter();
   let [[error, references, userId], setState] = useState([
     undefined,
@@ -31,7 +31,7 @@ export default function Reference() {
     <div>
       <Header
         router={router}
-        title="My Profile"
+        title={props.header_text}
         showEdit={false}
         showBack={true}
         showLogout={false}
@@ -92,4 +92,9 @@ export default function Reference() {
       </div>
     </div>
   );
+}
+
+Reference.defaultProps = {
+  header_text: "My Profile",
+  next_action_path: "/renter/reference/view"
 }
