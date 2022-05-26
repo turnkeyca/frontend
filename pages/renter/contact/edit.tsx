@@ -12,7 +12,7 @@ import {
 } from "../../../components";
 import { UserApi } from "../../../generated-src/openapi";
 
-export default function EditContact() {
+export default function EditContact(props) {
   const router = useRouter();
   let [
     [
@@ -60,6 +60,7 @@ export default function EditContact() {
   }, [router.isReady, router.query, userApi]);
 
   function save(next: UrlObject) {
+    console.log(next)
     let body = user;
     body.email = email;
     body.phoneNumber = phoneNumber;
@@ -74,7 +75,7 @@ export default function EditContact() {
     <div>
       <Header
         router={router}
-        title="My Profile"
+        title={props.header_text}
         showEdit={false}
         showBack={true}
         showLogout={false}
@@ -96,7 +97,7 @@ export default function EditContact() {
                   error,
                   user,
                   userId,
-                  email,
+                  $event.currentTarget.value,
                   phoneNumber,
                 ])
               }
@@ -112,7 +113,7 @@ export default function EditContact() {
                   user,
                   userId,
                   email,
-                  phoneNumber,
+                  $event.currentTarget.value,
                 ])
               }
               value={phoneNumber}
@@ -121,11 +122,13 @@ export default function EditContact() {
           </div>
           <Button
             variant="secondary"
-            handleClick={() =>
+            handleClick={() => {
+              console.log(props.next_action_path)
               save({
-                pathname: "/renter/contact",
+                pathname: props.next_action_path,
                 query: router.query,
               })
+            }
             }
           >
             NEXT
@@ -135,4 +138,9 @@ export default function EditContact() {
       <Footer showProfile={true} showConnections={true} />
     </div>
   );
+}
+
+EditContact.defaultProps = {
+  header_text: "My Profile",
+  next_action_path: "/renter/contact"
 }

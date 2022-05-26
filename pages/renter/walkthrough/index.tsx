@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Header, Button, ProgressBar, CenteredImage, PulseLottie } from "../../../components";
+import {  Header, Button, ProgressBar, CenteredImage, PulseLottie } from "../../../components";
 
 export default function RenterWalkthrough1() {
     const router = useRouter();

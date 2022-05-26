@@ -11,7 +11,7 @@ import {
 } from "../../../components";
 import { EmploymentApi, EmploymentDto } from "../../../generated-src/openapi";
 
-export default function Employment() {
+export default function Employment(props) {
   const router = useRouter();
   let [
     [
@@ -88,7 +88,7 @@ export default function Employment() {
 
     obs.subscribe(() =>
       router.push({
-        pathname: "/renter/employment",
+        pathname: props.next_action_path,
         query: { userId: router.query.userId, token: router.query.token },
       })
     );
@@ -98,7 +98,7 @@ export default function Employment() {
     <div>
       <Header
         router={router}
-        title="My Profile"
+        title={props.header_text}
         showEdit={false}
         showBack={true}
         showLogout={false}
@@ -213,4 +213,9 @@ export default function Employment() {
       <Footer showProfile={true} showConnections={true} />
     </div>
   );
+}
+
+Employment.defaultProps = {
+  header_text: "My Profile",
+  next_action_path: "/renter/employment"
 }
