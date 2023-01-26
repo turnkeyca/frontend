@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
-        <link rel="stylesheet" href="globals.css"></link>
+        <link rel="stylesheet" href="/globals.css"></link>
       </Head>
       <Component {...pageProps} />
     </>

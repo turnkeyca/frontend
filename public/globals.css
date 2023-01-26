@@ -3,6 +3,7 @@
     --amber: #feb249;
     --blue: #002447;
     --grey: #f3f4f6;
+    --dark-grey: #e0e0e0;
     --white: #ffffff;
   }
   
@@ -17,9 +18,17 @@
   .tk-text-amber {
     color: var(--amber);
   }
+
+  .tk-text-dark-grey {
+    color: var(--dark-grey);
+  }
   
   .tk-bg-grey {
     background-color: var(--grey);
+  }
+
+  .tk-bg-dark-grey {
+    background-color: var(--dark-grey);
   }
   
   .tk-bg-amber {
@@ -41,12 +50,24 @@
   .tk-border-amber {
     border-color: var(--amber);
   }
+
+  .tk-border-grey {
+    border-color: var(--dark-grey);
+  }
   
   .material-icons.md-18 {
     font-size: 18px;
   }
+
   .material-icons.md-24 {
     font-size: 24px;
   }
+
+  .tk-red-required {
+    color: red;
+    font-size: 16px;
+  }
+
+
   
   

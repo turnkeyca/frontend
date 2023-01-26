@@ -12,8 +12,9 @@ import {
 } from "../../../components";
 import { UserApi, UserDto } from "../../../generated-src/openapi";
 import { UrlObject } from "url";
+import { prependOnceListener } from "process";
 
-export default function General() {
+export default function General(props) {
   const router = useRouter();
   let [
     [
@@ -97,7 +98,7 @@ export default function General() {
     <div>
       <Header
         router={router}
-        title="My Profile"
+        title={props.header_text}
         showEdit={false}
         showBack={true}
         showLogout={false}
@@ -260,7 +261,7 @@ export default function General() {
             variant="secondary"
             handleClick={() =>
               save({
-                pathname: "/renter/general",
+                pathname: props.next_action_path,
                 query: router.query,
               })
             }
@@ -272,4 +273,9 @@ export default function General() {
       <Footer showProfile={true} showConnections={true} />
     </div>
   );
+}
+
+General.defaultProps = {
+  header_text: "My Profile",
+  next_action_path: "/renter/general"
 }

@@ -1,0 +1,5 @@
+Plan:
+- Reach endpoint and see if logged in
+- If logged in -> redirect to listing page
+- If not logged in -> to log in page (keep link)
+    - Then redirect to listing page

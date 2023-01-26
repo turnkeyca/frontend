@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from "react";
 
 export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "tertiary" | "quatrenary";
   className?: string;
   handleClick?: () => any;
 }
@@ -21,12 +21,14 @@ export const Button = ({
     colourClasses = "text-white tk-bg-amber";
   } else if (variant === "tertiary") {
     colourClasses = "tk-text-blue bg-white border tk-border-blue";
+  } else if (variant === "quatrenary") {
+    colourClasses = "tk-text-teal bg-white border tk-border-teal";
   }
   return (
     <button
       type={type}
       onClick={handleClick}
-      className={"flex justify-center items-center cursor-pointer rounded tracking-wide font-medium text-sm p-3 "
+      className={"flex justify-center items-center cursor-pointer rounded tracking-wide font-medium uppercase text-sm p-3 "
         .concat(colourClasses)
         .concat(" ")
         .concat(className)}

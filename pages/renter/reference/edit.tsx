@@ -11,7 +11,7 @@ import {
 } from "../../../components";
 import { ReferenceApi, ReferenceDto } from "../../../generated-src/openapi";
 
-export default function Reference() {
+export default function Reference(props) {
   const router = useRouter();
   let [
     [
@@ -95,7 +95,7 @@ export default function Reference() {
       });
     }
     obs.subscribe(() =>
-      router.push({ pathname: "/renter/reference/view", query: router.query })
+      router.push({ pathname: props.next_action_path, query: router.query })
     );
   }
 
@@ -103,7 +103,7 @@ export default function Reference() {
     <div>
       <Header
         router={router}
-        title="My Profile"
+        title={props.header_text}
         showEdit={false}
         showBack={true}
         showLogout={false}
@@ -223,4 +223,9 @@ export default function Reference() {
       <Footer showProfile={true} showConnections={true} />
     </div>
   );
+}
+
+Reference.defaultProps = {
+  header_text: "My Profile",
+  next_action_path: "/renter/reference/view"
 }

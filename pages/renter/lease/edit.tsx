@@ -13,7 +13,7 @@ import {
 } from "../../../components";
 import { UserApi } from "../../../generated-src/openapi";
 
-export default function EditLease() {
+export default function EditLease(props) {
   const router = useRouter();
   let [
     [error, user, movingReason, roommates, additionalDetailsLease, userId],
@@ -66,7 +66,7 @@ export default function EditLease() {
     <div>
       <Header
         router={router}
-        title="My Profile"
+        title={props.header_text}
         showEdit={false}
         showBack={true}
         showLogout={false}
@@ -118,7 +118,7 @@ export default function EditLease() {
                 handleClick={() =>
                   save({
                     pathname: "/renter/roommate",
-                    query: { userId },
+                    query: router.query,
                   })
                 }
                 variant="secondary"
@@ -148,7 +148,7 @@ export default function EditLease() {
             variant="secondary"
             handleClick={() =>
               save({
-                pathname: "/renter/lease",
+                pathname: props.next_action_path,
                 query: router.query,
               })
             }
@@ -160,4 +160,9 @@ export default function EditLease() {
       <Footer showProfile={true} showConnections={true} />
     </div>
   );
+}
+
+EditLease.defaultProps = {
+  header_text: "My Profile",
+  next_action_path: "/renter/lease"
 }
