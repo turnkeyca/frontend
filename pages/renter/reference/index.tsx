@@ -42,22 +42,30 @@ export default function Reference(props) {
           <Warning>No reference records found</Warning>
         )}
         <div className="grid grid-cols-1 gap-3">
-          {references?.map((reference) => {
-            <div key={reference.id} className="p-3 border shadow">
+          {references?.map((reference) => (
+            <div 
+            key={reference.id} 
+            className="p-3 border rounded shadow cursor-pointer"
+            onClick={() =>
+              router.push({
+                pathname: "/renter/reference/view",
+                query: { userId, token:router.query.token, referenceId: reference.id },
+              })}
+            >
               <div className="flex justify-between items-center">
                 <div>
                   <div className="tk-text-blue text-lg font-medium">
-                    {reference.breed}
+                    {reference.fullName}
                   </div>
-                  <div className="tk-text-blue">{reference.weight}</div>
+                  <div className="tk-text-blue">{reference.email}</div>
                 </div>
                 <div className="flex tk-text-blue">
                   <Icon
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/reference/view",
-                        query: { userId, referenceId: reference.id },
+                        pathname: "/renter/reference/edit",
+                        query: { userId, token:router.query.token, referenceId: reference.id },
                       })
                     }
                   />
@@ -75,12 +83,12 @@ export default function Reference(props) {
                   />
                 </div>
               </div>
-            </div>;
-          })}
+            </div>
+          ))}
           <Button
             handleClick={() =>
               router.push({
-                pathname: "/renter/employment/edit",
+                pathname: "/renter/reference/edit",
                 query: router.query,
               })
             }
