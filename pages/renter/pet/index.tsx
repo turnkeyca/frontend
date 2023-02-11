@@ -46,6 +46,12 @@ export default function Pet() {
             <div
               key={pet.id}
               className="p-3 border rounded shadow cursor-pointer"
+              onClick={() =>
+                router.push({
+                  pathname: "/renter/pet/view",
+                  query: { userId, token:router.query.token , petId: pet.id },
+                })
+              }
             >
               <div className="flex justify-between items-center">
                 <div>
@@ -60,8 +66,8 @@ export default function Pet() {
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/pet/view",
-                        query: { userId, petId: pet.id },
+                        pathname: "/renter/pet/edit",
+                        query: { userId, token:router.query.token , petId: pet.id },
                       })
                     }
                   />
