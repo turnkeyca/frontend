@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Error, Header, Icon, Warning } from "../../../components";
+import { Button, Error, Footer, Header, Icon, Warning } from "../../../components";
 import { PetApi } from "../../../generated-src/openapi";
 
 export default function Pet() {
@@ -100,6 +100,7 @@ export default function Pet() {
           </Button>
         </div>
       </div>
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }

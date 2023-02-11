@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Error, Header, Icon, Warning } from "../../../components";
+import { Button, Error, Header, Footer, Icon, Warning } from "../../../components";
 import { ReferenceApi } from "../../../generated-src/openapi";
 
 export default function Reference(props) {
@@ -98,6 +98,7 @@ export default function Reference(props) {
           </Button>
         </div>
       </div>
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }
