@@ -38,6 +38,11 @@ export default function Pet() {
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
+        <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
+          <span className="tk-text-blue font-medium text-xl p-3">
+            Pet Info
+          </span>
+        </div>
         {pets !== undefined && pets.length === 0 && (
           <Warning>No pet records found</Warning>
         )}

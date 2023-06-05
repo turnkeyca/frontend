@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Error, Header, Icon, Warning } from "../../../components";
+import { Button, Error, Header, Footer, Icon, Warning } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
@@ -38,6 +38,11 @@ export default function Employment() {
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
+        <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
+          <span className="tk-text-blue font-medium text-xl p-3">
+            Employment Info
+          </span>
+        </div>
         {employments !== undefined && employments.length === 0 && (
           <Warning>No employment records found</Warning>
         )}
@@ -62,8 +67,8 @@ export default function Employment() {
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/employment/view",
-                        query: { userId, employmentId: employment.id },
+                        pathname: "/renter/employment/edit",
+                        query: { userId, token: router.query.token, employmentId: employment.id },
                       })
                     }
                   />
@@ -96,6 +101,7 @@ export default function Employment() {
           </Button>
         </div>
       </div>
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }
