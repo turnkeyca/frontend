@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Error, Header, Icon, Warning } from "../../../components";
+import { Error, Header, Icon, Warning, Button, Footer } from "../../../components";
 import { RoommateApi } from "../../../generated-src/openapi";
 
 export default function Roommate() {
@@ -54,7 +54,7 @@ export default function Roommate() {
               onClick={() =>
                 router.push({
                   pathname: "/renter/roommate/view",
-                  query: { userId, roommateId: roommate.id },
+                  query: { userId, token: router.query.token, roommateId: roommate.id },
                 })
               }
             >
@@ -70,8 +70,8 @@ export default function Roommate() {
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/employment/view",
-                        query: { userId, roommateId: roommate.id },
+                        pathname: "/renter/roommate/edit",
+                        query: { userId, token: router.query.token ,roommateId: roommate.id },
                       })
                     }
                   />
@@ -91,8 +91,20 @@ export default function Roommate() {
               </div>
             </div>
           ))}
+          <Button
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/roommate/edit",
+                query: router.query,
+              })
+            }
+            variant="primary"
+          >
+            <Icon name="add"></Icon> ADD ROOMMATE
+          </Button>
         </div>
       </div>
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }
