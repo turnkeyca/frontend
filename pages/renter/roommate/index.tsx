@@ -27,6 +27,21 @@ export default function Roommate() {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query, roommateApi]);
+
+  function delRoomate(roommateId) {
+    roommateApi
+    .deleteRoommate({
+      id: roommateId,
+      token: router.query.token as string,
+    })
+    .subscribe();
+
+    router.push({
+      pathname: "/renter/roommate",
+      query: router.query,
+    });
+  }
+
   return (
     <div>
       <Header
@@ -79,12 +94,7 @@ export default function Roommate() {
                     className="mr-2"
                     name="delete"
                     handleClick={() =>
-                      roommateApi
-                        .deleteRoommate({
-                          id: roommate.id,
-                          token: router.query.token as string,
-                        })
-                        .subscribe()
+                      delRoomate(roommate.id)
                     }
                   />
                 </div>

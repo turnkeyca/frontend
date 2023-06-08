@@ -27,6 +27,18 @@ export default function Employment() {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query, employmentApi]);
+
+  function delEmployment(employmentId) {
+    employmentApi
+      .deleteEmployment({
+        id: employmentId,
+        token: router.query.token as string,
+      })
+      .subscribe();
+      
+      router.reload();
+  }
+
   return (
     <div>
       <Header
@@ -53,7 +65,14 @@ export default function Employment() {
               className="p-3 border rounded shadow cursor-pointer"
             >
               <div className="flex justify-between items-center">
-                <div>
+                <div
+                  onClick={() =>
+                    router.push({
+                      pathname: "/renter/employment/view",
+                      query: { userId, token: router.query.token, employmentId: employment.id },
+                    })
+                  }
+                >
                   <div className="tk-text-blue text-lg font-medium">
                     {employment.employer}
                   </div>
@@ -76,12 +95,13 @@ export default function Employment() {
                     className="mr-2"
                     name="delete"
                     handleClick={() =>
-                      employmentApi
-                        .deleteEmployment({
-                          id: employment.id,
-                          token: router.query.token as string,
-                        })
-                        .subscribe()
+                      delEmployment(employment.id)
+                      // employmentApi
+                      //   .deleteEmployment({
+                      //     id: employment.id,
+                      //     token: router.query.token as string,
+                      //   })
+                      //   .subscribe()
                     }
                   />
                 </div>
