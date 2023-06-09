@@ -8,6 +8,7 @@ export * from "./icon";
 export * from "./image_centered";
 export * from "./label";
 export * from "./logo";
+export * from "./menuListOption";
 export * from "./ntoggle";
 export * from "./picture";
 export * from "./progressbar";

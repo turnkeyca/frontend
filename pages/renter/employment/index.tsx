@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Error, Header, Icon, Warning } from "../../../components";
+import { Button, Error, Header, Footer, Icon, Warning } from "../../../components";
 import { EmploymentApi } from "../../../generated-src/openapi";
 
 export default function Employment() {
@@ -27,6 +27,18 @@ export default function Employment() {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query, employmentApi]);
+
+  function delEmployment(employmentId) {
+    employmentApi
+      .deleteEmployment({
+        id: employmentId,
+        token: router.query.token as string,
+      })
+      .subscribe();
+
+      router.reload();
+  }
+
   return (
     <div>
       <Header
@@ -38,6 +50,11 @@ export default function Employment() {
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
+        <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
+          <span className="tk-text-blue font-medium text-xl p-3">
+            Employment Info
+          </span>
+        </div>
         {employments !== undefined && employments.length === 0 && (
           <Warning>No employment records found</Warning>
         )}
@@ -48,7 +65,14 @@ export default function Employment() {
               className="p-3 border rounded shadow cursor-pointer"
             >
               <div className="flex justify-between items-center">
-                <div>
+                <div
+                  onClick={() =>
+                    router.push({
+                      pathname: "/renter/employment/view",
+                      query: { userId, token: router.query.token, employmentId: employment.id },
+                    })
+                  }
+                >
                   <div className="tk-text-blue text-lg font-medium">
                     {employment.employer}
                   </div>
@@ -62,22 +86,15 @@ export default function Employment() {
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/employment/view",
-                        query: { userId, employmentId: employment.id },
+                        pathname: "/renter/employment/edit",
+                        query: { userId, token: router.query.token, employmentId: employment.id },
                       })
                     }
                   />
                   <Icon
                     className="mr-2"
                     name="delete"
-                    handleClick={() =>
-                      employmentApi
-                        .deleteEmployment({
-                          id: employment.id,
-                          token: router.query.token as string,
-                        })
-                        .subscribe()
-                    }
+                    handleClick={() => delEmployment(employment.id)}
                   />
                 </div>
               </div>
@@ -96,6 +113,7 @@ export default function Employment() {
           </Button>
         </div>
       </div>
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }

@@ -266,7 +266,7 @@ export default function General(props) {
               })
             }
           >
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>

@@ -43,6 +43,9 @@ export default function Reference(props) {
     }
     userId.current = router.query.userId as string;
     let _referenceId = router.query.referenceId as string;
+    if (!_referenceId) {
+      return;
+    }
     const sub = referenceApi
       .getReference({ id: _referenceId, token: router.query.token as string })
       .subscribe({
@@ -216,7 +219,7 @@ export default function Reference(props) {
             />
           </div>
           <Button variant="secondary" handleClick={() => save()}>
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>
@@ -227,5 +230,5 @@ export default function Reference(props) {
 
 Reference.defaultProps = {
   header_text: "My Profile",
-  next_action_path: "/renter/reference/view"
+  next_action_path: "/renter/reference"
 }

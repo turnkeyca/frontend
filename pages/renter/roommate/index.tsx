@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Error, Header, Icon, Warning } from "../../../components";
+import { Error, Header, Icon, Warning, Button, Footer } from "../../../components";
 import { RoommateApi } from "../../../generated-src/openapi";
 
 export default function Roommate() {
@@ -27,6 +27,21 @@ export default function Roommate() {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query, roommateApi]);
+
+  function delRoomate(roommateId) {
+    roommateApi
+      .deleteRoommate({
+        id: roommateId,
+        token: router.query.token as string,
+      })
+      .subscribe();
+
+    router.push({
+      pathname: "/renter/roommate",
+      query: router.query,
+    });
+  }
+
   return (
     <div>
       <Header
@@ -38,6 +53,11 @@ export default function Roommate() {
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
+        <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
+          <span className="tk-text-blue font-medium text-xl p-3">
+            Roomate Info
+          </span>
+        </div>
         {roommates !== undefined && roommates.length === 0 && (
           <Warning>No roommate records found</Warning>
         )}
@@ -45,16 +65,16 @@ export default function Roommate() {
           {roommates?.map((roommate) => (
             <div
               key={roommate.id}
-              className="p-3 border shadow"
-              onClick={() =>
-                router.push({
-                  pathname: "/renter/roommate/view",
-                  query: { userId, roommateId: roommate.id },
-                })
-              }
-            >
+              className="p-3 border shadow">
               <div className="flex justify-between items-center">
-                <div>
+                <div
+                  onClick={() =>
+                    router.push({
+                      pathname: "/renter/roommate/view",
+                      query: { userId, token: router.query.token, roommateId: roommate.id },
+                    })
+                  }
+                >
                   <div className="tk-text-blue text-lg font-medium">
                     {roommate.fullName}
                   </div>
@@ -65,29 +85,34 @@ export default function Roommate() {
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/employment/view",
-                        query: { userId, roommateId: roommate.id },
+                        pathname: "/renter/roommate/edit",
+                        query: { userId, token: router.query.token, roommateId: roommate.id },
                       })
                     }
                   />
                   <Icon
                     className="mr-2"
                     name="delete"
-                    handleClick={() =>
-                      roommateApi
-                        .deleteRoommate({
-                          id: roommate.id,
-                          token: router.query.token as string,
-                        })
-                        .subscribe()
-                    }
+                    handleClick={() => delRoomate(roommate.id)}
                   />
                 </div>
               </div>
             </div>
           ))}
+          <Button
+            handleClick={() =>
+              router.push({
+                pathname: "/renter/roommate/edit",
+                query: router.query,
+              })
+            }
+            variant="primary"
+          >
+            <Icon name="add"></Icon> ADD ROOMMATE
+          </Button>
         </div>
       </div>
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }

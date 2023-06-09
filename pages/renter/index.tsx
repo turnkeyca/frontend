@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Icon } from "../../components";
+import { Error, Footer, Header, Icon, MenuListOption } from "../../components";
 
 export default function Renter() {
   const router = useRouter();
@@ -24,6 +24,36 @@ export default function Renter() {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query]);
+  let menuOptions = [
+    {
+      url: "/renter/general",
+      text: "General Information",
+    },
+    {
+      url: "/renter/contact",
+      text: "Contact Information",
+    },
+    {
+      url: "/renter/lease",
+      text: "Lease Information",
+    },
+    {
+      url: "/renter/employment",
+      text: "Employment Information",
+    },
+    {
+      url: "/renter/pet",
+      text: "Pet Information",
+    },
+    {
+      url: "/renter/reference",
+      text: "Reference Infromation",
+    },
+    {
+      url: "/renter/roommate",
+      text: "Roommate Infromation",
+    },
+  ]
   return (
     <div>
       <Header
@@ -66,66 +96,18 @@ export default function Renter() {
               </div>
             </div>
             <div className="tk-text-blue tracking-wide">
-              <div
-                onClick={() =>
-                  router.push({
-                    pathname: "/renter/general",
-                    query: { userId, token: router.query.token },
-                  })
+              {/* Add Menu Options */}
+              {menuOptions.map((option) =>
+                <MenuListOption 
+                  handleClick={() =>
+                    router.push({
+                        pathname: option.url,
+                        query: router.query,
+                    })
                 }
-                className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
-              >
-                <div className="flex items-center">
-                  <span className="mr-1">General information</span>
-                  <Icon name="error_outline" small={true} />
-                </div>
-                <Icon name="chevron_right" />
-              </div>
-              <div
-                onClick={() =>
-                  router.push({
-                    pathname: "/renter/lease",
-                    query: { userId, token: router.query.token },
-                  })
-                }
-                className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
-              >
-                <div className="flex items-center">
-                  <span className="mr-1">Lease information</span>
-                  <Icon name="error_outline" small={true} />
-                </div>
-                <Icon name="chevron_right" />
-              </div>
-              <div
-                onClick={() =>
-                  router.push({
-                    pathname: "/renter/employment",
-                    query: { userId, token: router.query.token },
-                  })
-                }
-                className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 border-b-0 p-3"
-              >
-                <div className="flex items-center">
-                  <span className="mr-1">Employment information</span>
-                  <Icon name="error_outline" small={true} />
-                </div>
-                <Icon name="chevron_right" />
-              </div>
-              <div
-                onClick={() =>
-                  router.push({
-                    pathname: "/renter/reference",
-                    query: { userId, token: router.query.token },
-                  })
-                }
-                className="flex items-center justify-between cursor-pointer border border-r-0 border-l-0 p-3"
-              >
-                <div className="flex items-center">
-                  <span className="mr-1">Reference information</span>
-                  <Icon name="error_outline" small={true} />
-                </div>
-                <Icon name="chevron_right" />
-              </div>
+                displayText={option.text}
+              />
+              )}
             </div>
           </div>
         )}

@@ -42,7 +42,7 @@ export default function Employment() {
         </div>
         <div className="grid grid-cols-1">
           <div className="grid grid-cols-1 gap-1 border border-t-0 border-l-0 border-r-0 p-3">
-            <Label>Current employment</Label>
+            <Label>Current employer</Label>
             <span className="text-gray-600 text-sm tracking-wide">
               {employment?.employer}
             </span>

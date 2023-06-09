@@ -146,7 +146,7 @@ export default function Pet(props) {
             />
           </div>
           <Button variant="secondary" handleClick={() => save()}>
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>
@@ -157,5 +157,5 @@ export default function Pet(props) {
 
 Pet.defaultProps = {
   header_text: "My Profile",
-  next_action_path: "/renter/reference/view"
+  next_action_path: "/renter/pet"
 }

@@ -28,6 +28,9 @@ export default function Roommate() {
     }
     userId.current = router.query.userId as string;
     let _roommateId = router.query.roommateId as string;
+    if (!_roommateId) {
+      return;
+    }
     const sub = roommateApi
       .getRoommate({ id: _roommateId, token: router.query.token as string })
       .subscribe({
@@ -58,7 +61,7 @@ export default function Roommate() {
       });
     }
     obs.subscribe(() =>
-      router.push({ pathname: "/renter/roommate/view", query: router.query })
+      router.push({ pathname: "/renter/roommate", query: router.query })
     );
   }
 
@@ -114,7 +117,7 @@ export default function Roommate() {
             />
           </div>
           <Button variant="secondary" handleClick={() => save()}>
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>

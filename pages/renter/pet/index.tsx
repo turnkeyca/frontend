@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Error, Header, Icon, Warning } from "../../../components";
+import { Button, Error, Footer, Header, Icon, Warning } from "../../../components";
 import { PetApi } from "../../../generated-src/openapi";
 
 export default function Pet() {
@@ -27,6 +27,18 @@ export default function Pet() {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query, petApi]);
+
+  function delPet(petId) {
+    petApi
+      .deletePet({
+        id: petId,
+        token: router.query.token as string,
+      })
+      .subscribe();
+
+    router.reload();
+  }
+
   return (
     <div>
       <Header
@@ -38,6 +50,11 @@ export default function Pet() {
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
+        <div className="flex items-center justify-center border border-t-0 border-l-0 border-r-0">
+          <span className="tk-text-blue font-medium text-xl p-3">
+            Pet Info
+          </span>
+        </div>
         {pets !== undefined && pets.length === 0 && (
           <Warning>No pet records found</Warning>
         )}
@@ -48,7 +65,13 @@ export default function Pet() {
               className="p-3 border rounded shadow cursor-pointer"
             >
               <div className="flex justify-between items-center">
-                <div>
+                <div
+                  onClick={() =>
+                    router.push({
+                      pathname: "/renter/pet/view",
+                      query: { userId, token: router.query.token, petId: pet.id },
+                    })
+                  }>
                   <div className="tk-text-blue text-lg font-medium">
                     {pet.petType}
                   </div>
@@ -60,22 +83,15 @@ export default function Pet() {
                     name="edit"
                     handleClick={() =>
                       router.push({
-                        pathname: "/renter/pet/view",
-                        query: { userId, petId: pet.id },
+                        pathname: "/renter/pet/edit",
+                        query: { userId, token: router.query.token, petId: pet.id },
                       })
                     }
                   />
                   <Icon
                     className="mr-2"
                     name="delete"
-                    handleClick={() =>
-                      petApi
-                        .deletePet({
-                          id: pet.id,
-                          token: router.query.token as string,
-                        })
-                        .subscribe()
-                    }
+                    handleClick={() => delPet(pet.id)}
                   />
                 </div>
               </div>
@@ -94,6 +110,7 @@ export default function Pet() {
           </Button>
         </div>
       </div>
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }
