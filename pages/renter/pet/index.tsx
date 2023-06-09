@@ -27,6 +27,18 @@ export default function Pet() {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query, petApi]);
+
+  function delPet(petId) {
+    petApi
+      .deletePet({
+        id: petId,
+        token: router.query.token as string,
+      })
+      .subscribe();
+
+    router.reload();
+  }
+
   return (
     <div>
       <Header
@@ -51,15 +63,15 @@ export default function Pet() {
             <div
               key={pet.id}
               className="p-3 border rounded shadow cursor-pointer"
-              onClick={() =>
-                router.push({
-                  pathname: "/renter/pet/view",
-                  query: { userId, token:router.query.token , petId: pet.id },
-                })
-              }
             >
               <div className="flex justify-between items-center">
-                <div>
+                <div
+                  onClick={() =>
+                    router.push({
+                      pathname: "/renter/pet/view",
+                      query: { userId, token: router.query.token, petId: pet.id },
+                    })
+                  }>
                   <div className="tk-text-blue text-lg font-medium">
                     {pet.petType}
                   </div>
@@ -72,21 +84,14 @@ export default function Pet() {
                     handleClick={() =>
                       router.push({
                         pathname: "/renter/pet/edit",
-                        query: { userId, token:router.query.token , petId: pet.id },
+                        query: { userId, token: router.query.token, petId: pet.id },
                       })
                     }
                   />
                   <Icon
                     className="mr-2"
                     name="delete"
-                    handleClick={() =>
-                      petApi
-                        .deletePet({
-                          id: pet.id,
-                          token: router.query.token as string,
-                        })
-                        .subscribe()
-                    }
+                    handleClick={() => delPet(pet.id)}
                   />
                 </div>
               </div>

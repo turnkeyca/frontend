@@ -27,6 +27,18 @@ export default function Reference(props) {
       });
     return () => sub.unsubscribe();
   }, [router.isReady, router.query, referenceApi]);
+
+  function delReference(referenceId) {
+    referenceApi
+      .deleteReference({
+        id: referenceId,
+        token: router.query.token as string,
+      })
+      .subscribe();
+
+    router.reload();
+  }
+
   return (
     <div>
       <Header
@@ -50,15 +62,15 @@ export default function Reference(props) {
           {references?.map((reference) => (
             <div 
             key={reference.id} 
-            className="p-3 border rounded shadow cursor-pointer"
-            onClick={() =>
-              router.push({
-                pathname: "/renter/reference/view",
-                query: { userId, token:router.query.token, referenceId: reference.id },
-              })}
-            >
+            className="p-3 border rounded shadow cursor-pointer">
               <div className="flex justify-between items-center">
-                <div>
+                <div
+                  onClick={() =>
+                    router.push({
+                      pathname: "/renter/reference/view",
+                      query: { userId, token:router.query.token, referenceId: reference.id },
+                    })}
+                >
                   <div className="tk-text-blue text-lg font-medium">
                     {reference.fullName}
                   </div>
@@ -77,14 +89,7 @@ export default function Reference(props) {
                   <Icon
                     className="mr-2"
                     name="delete"
-                    handleClick={() =>
-                      referenceApi
-                        .deleteReference({
-                          id: reference.id,
-                          token: router.query.token as string,
-                        })
-                        .subscribe()
-                    }
+                    handleClick={() => delReference(reference.id)}
                   />
                 </div>
               </div>

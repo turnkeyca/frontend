@@ -30,11 +30,11 @@ export default function Roommate() {
 
   function delRoomate(roommateId) {
     roommateApi
-    .deleteRoommate({
-      id: roommateId,
-      token: router.query.token as string,
-    })
-    .subscribe();
+      .deleteRoommate({
+        id: roommateId,
+        token: router.query.token as string,
+      })
+      .subscribe();
 
     router.push({
       pathname: "/renter/roommate",
@@ -65,16 +65,16 @@ export default function Roommate() {
           {roommates?.map((roommate) => (
             <div
               key={roommate.id}
-              className="p-3 border shadow"
-              onClick={() =>
-                router.push({
-                  pathname: "/renter/roommate/view",
-                  query: { userId, token: router.query.token, roommateId: roommate.id },
-                })
-              }
-            >
+              className="p-3 border shadow">
               <div className="flex justify-between items-center">
-                <div>
+                <div
+                  onClick={() =>
+                    router.push({
+                      pathname: "/renter/roommate/view",
+                      query: { userId, token: router.query.token, roommateId: roommate.id },
+                    })
+                  }
+                >
                   <div className="tk-text-blue text-lg font-medium">
                     {roommate.fullName}
                   </div>
@@ -86,16 +86,14 @@ export default function Roommate() {
                     handleClick={() =>
                       router.push({
                         pathname: "/renter/roommate/edit",
-                        query: { userId, token: router.query.token ,roommateId: roommate.id },
+                        query: { userId, token: router.query.token, roommateId: roommate.id },
                       })
                     }
                   />
                   <Icon
                     className="mr-2"
                     name="delete"
-                    handleClick={() =>
-                      delRoomate(roommate.id)
-                    }
+                    handleClick={() => delRoomate(roommate.id)}
                   />
                 </div>
               </div>
