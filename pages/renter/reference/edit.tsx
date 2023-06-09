@@ -219,7 +219,7 @@ export default function Reference(props) {
             />
           </div>
           <Button variant="secondary" handleClick={() => save()}>
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>

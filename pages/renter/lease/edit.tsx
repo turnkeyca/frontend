@@ -153,7 +153,7 @@ export default function EditLease(props) {
               })
             }
           >
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>

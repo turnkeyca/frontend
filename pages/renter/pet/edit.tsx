@@ -146,7 +146,7 @@ export default function Pet(props) {
             />
           </div>
           <Button variant="secondary" handleClick={() => save()}>
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>

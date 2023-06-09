@@ -35,7 +35,7 @@ export default function Employment() {
         token: router.query.token as string,
       })
       .subscribe();
-      
+
       router.reload();
   }
 
@@ -94,15 +94,7 @@ export default function Employment() {
                   <Icon
                     className="mr-2"
                     name="delete"
-                    handleClick={() =>
-                      delEmployment(employment.id)
-                      // employmentApi
-                      //   .deleteEmployment({
-                      //     id: employment.id,
-                      //     token: router.query.token as string,
-                      //   })
-                      //   .subscribe()
-                    }
+                    handleClick={() => delEmployment(employment.id)}
                   />
                 </div>
               </div>

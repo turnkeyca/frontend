@@ -131,7 +131,7 @@ export default function EditContact(props) {
             }
             }
           >
-            NEXT
+            SAVE
           </Button>
         </div>
       </div>
