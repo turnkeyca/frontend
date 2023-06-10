@@ -15,7 +15,7 @@ export default function Index() {
         setState,
     ] = useState([
         undefined,
-        false
+        true
     ]);
     useEffect(() => {
         if (!router.isReady) {
@@ -89,9 +89,9 @@ export default function Index() {
             <div className="flex flex-col p-6 gap-4">
                 <Logo src="../../assets/images/Turnkey_logo_colour.png"></Logo>
 
-                <p className="align-left tk-text-blue">Are you a renter or a landlord?</p>
+                {/* <p className="align-left tk-text-blue">Are you a renter or a landlord?</p> */}
                 {/* Hold id values and update the state */}
-                <Toggle
+                {/* <Toggle
                     labelFalse="Landlord"
                     labelTrue="Renter"
                     handleChange={($event) =>
@@ -101,10 +101,10 @@ export default function Index() {
                         ])
                     }
                     value={userType}
-                />
+                /> */}
 
                 <Button variant="secondary" handleClick={() => procede()}>
-                    Next
+                    Make Renter Profile
                 </Button>
             </div>
         </div>)
