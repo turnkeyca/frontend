@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UserApi } from "../../generated-src/openapi";
+import { PermissionApi, UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Icon, MenuListOption } from "../../components";
 
@@ -23,6 +23,12 @@ export default function Renter() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
+
+    const permissionApi = new PermissionApi();
+    const userPerms = async () => {
+      const perms = await permissionApi.getPermissionsByUserId({ userId: _userId, token: router.query.token as string });
+      return perms
+    }
   }, [router.isReady, router.query]);
   let menuOptions = [
     {
