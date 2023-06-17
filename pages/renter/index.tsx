@@ -8,13 +8,49 @@ export default function Renter() {
   let [[error, user, userId], setState] = useState([
     undefined,
     undefined,
-    undefined,
+    undefined
   ]);
+
+  const [canEdit, setEdit] = useState(false);
+  const [canView, setView] = useState(false);
+
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     let _userId = router.query.userId as string;
+    const permissionApi = new PermissionApi();
+    const perms = permissionApi
+      .getPermissionsByUserId({ userId: _userId, token: router.query.token as string })
+      .subscribe({
+        next: (permList) => {
+          permList.forEach(element => {
+            if (element['onUserId'] == userId) {
+              console.log(element)
+              if (element['permission'] == "view") {
+                setView(true)
+                console.log(`Can View`)
+              }
+              else if (element['permission'] == "edit") {
+                setEdit(true)
+                console.log(`Can Edit`)
+              }
+            }
+          });
+        },
+        error: (e) => setState([e, undefined, undefined])
+      })
+    return () => perms.unsubscribe();
+
+  }, [router.isReady, router.query]);
+
+
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    let _userId = router.query.userId as string;
+
     const userApi = new UserApi();
     const sub = userApi
       .getUser({ id: _userId, token: router.query.token as string })
@@ -24,12 +60,8 @@ export default function Renter() {
       });
     return () => sub.unsubscribe();
 
-    const permissionApi = new PermissionApi();
-    const userPerms = async () => {
-      const perms = await permissionApi.getPermissionsByUserId({ userId: _userId, token: router.query.token as string });
-      return perms
-    }
   }, [router.isReady, router.query]);
+
   let menuOptions = [
     {
       url: "/renter/general",
@@ -65,7 +97,7 @@ export default function Renter() {
       <Header
         router={router}
         title="My Turnkey"
-        showEdit={true}
+        showEdit={canEdit}
         showBack={false}
         showLogout={true}
       />
@@ -104,15 +136,15 @@ export default function Renter() {
             <div className="tk-text-blue tracking-wide">
               {/* Add Menu Options */}
               {menuOptions.map((option) =>
-                <MenuListOption 
+                <MenuListOption
                   handleClick={() =>
                     router.push({
-                        pathname: option.url,
-                        query: router.query,
+                      pathname: option.url,
+                      query: router.query,
                     })
-                }
-                displayText={option.text}
-              />
+                  }
+                  displayText={option.text}
+                />
               )}
             </div>
           </div>
