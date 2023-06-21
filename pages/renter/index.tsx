@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PermissionApi, UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Icon, MenuListOption } from "../../components";
+import { checkPermissions } from "../../utils";
 
 export default function Renter() {
   const router = useRouter();
@@ -13,37 +14,7 @@ export default function Renter() {
 
   const [canEdit, setEdit] = useState(false);
   const [canView, setView] = useState(false);
-
-  useEffect(() => {
-    if (!router.isReady) {
-      return;
-    }
-    let _userId = router.query.userId as string;
-    const permissionApi = new PermissionApi();
-    const perms = permissionApi
-      .getPermissionsByUserId({ userId: _userId, token: router.query.token as string })
-      .subscribe({
-        next: (permList) => {
-          permList.forEach(element => {
-            if (element['onUserId'] == userId) {
-              console.log(element)
-              if (element['permission'] == "view") {
-                setView(true)
-                console.log(`Can View`)
-              }
-              else if (element['permission'] == "edit") {
-                setEdit(true)
-                console.log(`Can Edit`)
-              }
-            }
-          });
-        },
-        error: (e) => setState([e, undefined, undefined])
-      })
-    return () => perms.unsubscribe();
-
-  }, [router.isReady, router.query]);
-
+  useEffect(() => checkPermissions(router, setView, setEdit, setState));
 
   useEffect(() => {
     if (!router.isReady) {
