@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PermissionApi, UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Icon, MenuListOption } from "../../components";
+import { Error, Footer, Header, Icon, MenuListOption, ShareableLink } from "../../components";
 import { checkPermissions } from "../../utils";
 
 export default function Renter() {
@@ -90,9 +90,6 @@ export default function Renter() {
                     </div>
                   )} */}
                 </div>
-                <div className="tk-text-teal opacity-80 font-medium">
-                  Renter
-                </div>
               </div>
               <div className="col-span-2 w-full">
                 <div className="tk-text-blue text-lg font-medium">
@@ -104,6 +101,16 @@ export default function Renter() {
                 <div className="text-gray-600 text-sm">{user.bio}</div>
               </div>
             </div>
+
+            <div className="flex items-center pr-0.5 pl-1.5 pb-1 w-full place-content-between">
+              <div className="tk-text-teal opacity-80 font-medium">
+                Renter
+              </div>
+              <div>
+                <ShareableLink />
+              </div>
+            </div>
+
             <div className="tk-text-blue tracking-wide">
               {/* Add Menu Options */}
               {menuOptions.map((option) =>
