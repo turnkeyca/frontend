@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PermissionApi, UserApi } from "../../generated-src/openapi";
+import { ShorturlApi, UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Icon, MenuListOption, ShareableLink } from "../../components";
 import { checkPermissions } from "../../utils";
@@ -107,7 +107,13 @@ export default function Renter() {
                 Renter
               </div>
               <div>
-                <ShareableLink />
+                {!!canEdit && <ShareableLink handleClick={() => {
+                  router.push({
+                    pathname: "renter/shareprofile",
+                    query: router.query
+                  })
+                }
+                } />}
               </div>
             </div>
 
