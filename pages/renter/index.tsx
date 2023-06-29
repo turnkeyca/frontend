@@ -107,13 +107,7 @@ export default function Renter() {
                 Renter
               </div>
               <div>
-                {!!canEdit && <ShareableLink handleClick={() => {
-                  router.push({
-                    pathname: "renter/shareprofile",
-                    query: router.query
-                  })
-                }
-                } />}
+                {!!canEdit && <ShareableLink router={router} />}
               </div>
             </div>
 
