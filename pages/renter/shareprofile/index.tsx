@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ShorturlApi, UserApi } from "../../generated-src/openapi";
+import { ShorturlApi, UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Icon, MenuListOption, ShareableLink } from "../../components";
-import { checkPermissions } from "../../utils";
+import { Error, Footer, Header, Button } from "../../../components";
 
 export default function Renter() {
   const router = useRouter();
@@ -11,10 +10,6 @@ export default function Renter() {
     undefined,
     undefined
   ]);
-
-  const [canEdit, setEdit] = useState(false);
-  const [canView, setView] = useState(false);
-  useEffect(() => checkPermissions(router, setView, setEdit, setState));
 
   useEffect(() => {
     if (!router.isReady) {
@@ -33,54 +28,29 @@ export default function Renter() {
 
   }, [router.isReady, router.query]);
 
-  let menuOptions = [
-    {
-      url: "/renter/general",
-      text: "General Information",
-    },
-    {
-      url: "/renter/contact",
-      text: "Contact Information",
-    },
-    {
-      url: "/renter/lease",
-      text: "Lease Information",
-    },
-    {
-      url: "/renter/employment",
-      text: "Employment Information",
-    },
-    {
-      url: "/renter/pet",
-      text: "Pet Information",
-    },
-    {
-      url: "/renter/reference",
-      text: "Reference Infromation",
-    },
-    {
-      url: "/renter/roommate",
-      text: "Roommate Infromation",
-    },
-  ]
+
   return (
     <div>
       <Header
         router={router}
-        title="My Turnkey"
+        title="Share My Profile"
         showEdit={false}
         showBack={true}
-        showLogout={true}
+        showLogout={false}
       />
       <div className="p-3">
         {!!error && <Error error={error} />}
         {!!user && (
           <div>
-            
+            <div className="w-full space-y-1.5 flex-col justify-center">
+              <Button variant="secondary" className="w-full">Copy Link to Clipboard</Button>
+              <Button variant="primary" className="w-full">Share Turnkey Profile</Button>
+              <Button variant="tertiary" className="w-full">Download PDF</Button>
+            </div>
           </div>
         )}
       </div>
-      <Footer showProfile={true} showConnections={false} />
+      <Footer showProfile={true} showConnections={true} />
     </div>
   );
 }
