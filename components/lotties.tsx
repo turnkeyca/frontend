@@ -8,6 +8,7 @@ export interface IPulseLottie extends HTMLAttributes<HTMLElement> {
     top: number;
     width: number;
     height: number;
+    customStyle?: object;
     animationSrc?: any;
 }
 
@@ -16,6 +17,7 @@ export const Lottie = ({
     top,
     width,
     height,
+    customStyle,
     animationSrc,
     ...rest
 }: IPulseLottie) => {
@@ -23,6 +25,7 @@ export const Lottie = ({
     const defaultOptions = {
         loop: true,
         autoplay: true,
+        animationData: animationSrc,
         rendererSettings: {
             preserveAspectRation: "xMidYMid slice",
         }
@@ -34,11 +37,7 @@ export const Lottie = ({
             options={defaultOptions} 
             height={height}
             width={width}
-            style={{
-                position: "absolute",
-                left: left,
-                top: top
-            }}
+            style={customStyle}
             />
         </div>
     );
@@ -61,7 +60,17 @@ export const PulseLottie = ({
     };
     
     return (
-        <Lottie left={left} top={top} width={width} height={height} animationSrc={pulseAnimationData}/>
+        <Lottie 
+        left={left} 
+        top={top} 
+        width={width} 
+        height={height} 
+        animationSrc={pulseAnimationData} 
+        customStyle={{
+            position: "absolute",
+            left: left,
+            top: top
+        }}/>
     );
 };
 
@@ -82,6 +91,16 @@ export const MobileNotificationLottie = ({
     };
     
     return (
-        <Lottie left={left} top={top} width={width} height={height} animationSrc={notificationAnimationData}/>
+        <Lottie 
+        left={left} 
+        top={top} 
+        width={width} 
+        height={height} 
+        animationSrc={notificationAnimationData} 
+        customStyle={{
+            // position: "relative",
+            left: left,
+            top: top
+        }}/>
     );
 };

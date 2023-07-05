@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ShorturlApi, UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Button, PulseLottie, CenteredImage } from "../../../components";
+import { Error, Footer, Header, Button, MobileNotificationLottie, CenteredImage } from "../../../components";
 
 export default function Renter() {
   const router = useRouter();
@@ -44,7 +44,7 @@ export default function Renter() {
           <div>
             <div className="w-full space-y-1.5 flex-col justify-center">
               <CenteredImage className="w-screen h-full" src="/assets/images/Turnkey_logo_colour.png" alt="turnkey logo" ></CenteredImage>
-              <PulseLottie left={200} top={400} width={100} height={100} />
+              <MobileNotificationLottie left={200} top={400} width={100} height={100} />
               <Button variant="secondary" className="w-full">Copy Link to Clipboard</Button>
               <Button variant="primary" className="w-full">Share Turnkey Profile</Button>
               <Button variant="tertiary" className="w-full">Download PDF</Button>
