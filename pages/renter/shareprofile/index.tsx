@@ -42,7 +42,7 @@ export default function Renter() {
         {!!error && <Error error={error} />}
         {!!user && (
           <div>
-            <div className="w-full space-y-1.5 flex-col justify-center">
+            <div className="w-full h-full space-y-1.5 flex-col justify-center">
               <CenteredImage className="w-screen h-full" src="/assets/images/Turnkey_logo_colour.png" alt="turnkey logo" ></CenteredImage>
               <MobileNotificationLottie left={200} top={400} width={100} height={100} />
               <Button variant="secondary" className="w-full">Copy Link to Clipboard</Button>
