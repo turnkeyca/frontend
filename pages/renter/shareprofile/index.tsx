@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ShorturlApi, UserApi } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Button, MobileNotificationLottie, CenteredImage } from "../../../components";
+import { Error, Footer, Header, Button, MobileNotificationLottie, CenteredImage, TextField } from "../../../components";
 
 export default function Renter() {
   const router = useRouter();
@@ -42,13 +42,27 @@ export default function Renter() {
         {!!error && <Error error={error} />}
         {!!user && (
           <div>
-            <div className="w-full h-full space-y-1.5 flex-col justify-center">
-              <CenteredImage className="w-screen h-full" src="/assets/images/Turnkey_logo_colour.png" alt="turnkey logo" ></CenteredImage>
-              <MobileNotificationLottie left={200} top={400} width={100} height={100} />
+            <CenteredImage className="w-64 h-24" src="/assets/images/Turnkey_logo_colour.png" alt="turnkey logo" ></CenteredImage>
+            <p className="text-center tk-text-teal text-3xl font-semibold pt-5">Share your Turnkey Profile</p>
+            <p className="text-center tk-text-blue text-medium text-medium pt-8 px-8 h-32">
+              Copy your URL profile link & share it with landlords to apply for the perfect rental suite!
+            </p>
+            <MobileNotificationLottie left={200} top={400} width={250} height={250} />
+            <div className="w-full h-32 space-y-1.5 flex-col justify-center">
               <Button variant="secondary" className="w-full">Copy Link to Clipboard</Button>
               <Button variant="primary" className="w-full">Share Turnkey Profile</Button>
-              <Button variant="tertiary" className="w-full">Download PDF</Button>
+              <Button variant="quaternary" className="w-full">Download PDF</Button>
+              <Button variant="tertiary" className="w-full">How does this work?</Button>
             </div>
+            <br/><br/>
+            <div className="w-full h-32 space-y-1.5 flex-col justify-center">
+            <p className="text-center tk-text-blue text-medium text-medium pt-8 px-8 h-32">
+              This "COPY LINK TO KEYBOARD" feature feature is coming soon!
+              <br/><br/>
+              Check out the "HOW DOES IT WORK?" to understand the Turnkey renter journey.
+            </p>
+            </div>
+            <br/><br/><br/><br/>
           </div>
         )}
       </div>
