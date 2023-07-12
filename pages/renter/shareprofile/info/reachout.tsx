@@ -45,10 +45,22 @@ export default function Renter() {
             <CenteredImage className="w-64 h-24" src="/assets/images/Turnkey_logo_colour.png" alt="turnkey logo" ></CenteredImage>
             <p className="text-center tk-text-teal text-3xl font-semibold pt-5">Next...</p>
             <p className="text-center tk-text-blue text-medium text-medium pt-8 px-8 h-32">
-                Find a property that you like and messages the landlord on this listing platform.
+              Find a property that you like and messages the landlord on this listing platform.
             </p>
-            <CenteredImage className="w-64 h-24" src="/assets/images/Turnkey_logo_colour.png" alt="turnkey logo" ></CenteredImage>
-            <Button variant="secondary" className="w-full">What's next?</Button>
+            <div className="flex flex-col space-y-4 h-80">
+              <CenteredImage src="/assets/images/rental_url_share.png" className="w-80 h-full"></CenteredImage>
+              <CenteredImage src="/assets/images/default_user_icon.png" className="w-80 h-full"></CenteredImage>
+            </div>
+            <Button
+              variant="secondary"
+              className="w-full"
+              handleClick={() => {
+                router.push({
+                  pathname: "/renter/shareprofile/info/sharelink",
+                  query: router.query,
+                })
+              }
+              }>THEN WHAT?</Button>
           </div>
         )}
       </div>

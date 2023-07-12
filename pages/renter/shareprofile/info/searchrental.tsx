@@ -47,8 +47,17 @@ export default function Renter() {
             <p className="text-center tk-text-blue text-medium text-medium pt-8 px-8 h-32">
                Look for a property to rent on your preferred listing platform.
             </p>
-            <CenteredImage className="w-64 h-24" src="/assets/images/Turnkey_logo_colour.png" alt="turnkey logo" ></CenteredImage>
-            <Button variant="secondary" className="w-full">What's next?</Button>
+            <CenteredImage className="w-full h-64" src="/assets/images/rental_sites.png" alt="turnkey logo" ></CenteredImage>
+            <Button
+              variant="secondary"
+              className="w-full"
+              handleClick={() => {
+                router.push({
+                  pathname: "/renter/shareprofile/info/reachout",
+                  query: router.query,
+                })
+              }
+              }>What's next?</Button>
           </div>
         )}
       </div>
