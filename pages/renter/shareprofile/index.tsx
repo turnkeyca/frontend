@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { ShorturlApi, UserApi } from "../../../generated-src/openapi";
+import React, { useEffect, useState, useMemo } from "react";
+import { AuthenticationApi, ShorturlApi, UserApi, RegisterTokenDto } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Button, MobileNotificationLottie, CenteredImage, TextField } from "../../../components";
 
@@ -14,6 +14,21 @@ export default function Renter() {
   let [[shortUrl], setURLState] = useState([
     undefined
   ]);
+
+  const authApi = useMemo(() => new AuthenticationApi(), []);
+
+  async function get_share_token() {
+    fetch("/api/secrets")
+            .then(response => response.json())
+            .then(data => {
+                const body: RegisterTokenDto = {
+                    id: '',
+                    newUser: false,
+                    secret: data.secret,
+                }
+                const obs = authApi.registerNewToken({ body })
+
+  }
 
   useEffect(() => {
     if (!router.isReady) {
@@ -33,20 +48,23 @@ export default function Renter() {
   }, [router.isReady, router.query]);
 
   useEffect(() => {
+    // Generate the short url for sharing
     if (!router.isReady) {
       return;
     }
+
+    // need to make a new token so that others can view the profile
     let _token = router.query.token as string;
     let _userId = router.query.userId as string;
 
     var hostname = window.location.hostname
     if (hostname == 'localhost') {
-        hostname = '127.0.0.1'
+      hostname = '127.0.0.1'
     }
 
-    var base_url=`${window.location.protocol}//${hostname}`  
+    var base_url = `${window.location.protocol}//${hostname}`
     if (window.location.port !== '') {
-      base_url=`${base_url}:${window.location.port}`
+      base_url = `${base_url}:${window.location.port}`
     }
 
     const urlApi = new ShorturlApi();
@@ -85,7 +103,7 @@ export default function Renter() {
             </p>
             <MobileNotificationLottie left={200} top={400} width={250} height={250} />
             <div className="w-full h-32 space-y-1.5 flex-col justify-center">
-              <TextField value={shortUrl}/>
+              <TextField value={shortUrl} />
               <Button variant="secondary" className="w-full" handleClick={() => {
                 navigator.clipboard.writeText(shortUrl)
               }}>Copy Link to Clipboard</Button>
