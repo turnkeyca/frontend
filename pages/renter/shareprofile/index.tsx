@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { AuthenticationApi, ShorturlApi, UserApi, RegisterTokenDto } from "../../../generated-src/openapi";
 import { useRouter } from "next/router";
 import { Error, Footer, Header, Button, MobileNotificationLottie, CenteredImage, TextField } from "../../../components";
+import { interopDefault } from "next/dist/server/load-components";
 
 export default function Renter() {
   const router = useRouter();
@@ -15,20 +16,39 @@ export default function Renter() {
     undefined
   ]);
 
+  let [[shareToken], setTokenState] = useState([
+    undefined
+  ])
+
   const authApi = useMemo(() => new AuthenticationApi(), []);
 
-  async function get_share_token() {
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    let _userId = router.query.userId as string;
     fetch("/api/secrets")
-            .then(response => response.json())
-            .then(data => {
-                const body: RegisterTokenDto = {
-                    id: '',
-                    newUser: false,
-                    secret: data.secret,
-                }
-                const obs = authApi.registerNewToken({ body })
+      .then(response => response.json())
+      .then(data => {
+        const body: RegisterTokenDto = {
+          id: _userId,
+          newUser: false,
+          secret: data.secret,
+        }
+        const obs = authApi.registerNewToken({ body }).subscribe({
+          next: (tk) => {
+            console.log(tk);
+            setTokenState([tk.token]);
+          },
+          error: (e) => {
+            console.log(e);
+            setState([e, undefined, undefined])
+          },
+        });
 
-  }
+        return () => obs.unsubscribe();
+      })
+  }, [router.isReady, router.query])
 
   useEffect(() => {
     if (!router.isReady) {
@@ -54,7 +74,7 @@ export default function Renter() {
     }
 
     // need to make a new token so that others can view the profile
-    let _token = router.query.token as string;
+    let _token = shareToken as string;
     let _userId = router.query.userId as string;
 
     var hostname = window.location.hostname
