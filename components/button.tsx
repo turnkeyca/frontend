@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from "react";
 
 export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "tertiary" | "quatrenary";
+  variant?: "primary" | "secondary" | "tertiary" | "quaternary";
   className?: string;
   handleClick?: () => any;
 }
@@ -21,7 +21,7 @@ export const Button = ({
     colourClasses = "text-white tk-bg-amber";
   } else if (variant === "tertiary") {
     colourClasses = "tk-text-blue bg-white border tk-border-blue";
-  } else if (variant === "quatrenary") {
+  } else if (variant === "quaternary") {
     colourClasses = "tk-text-teal bg-white border tk-border-teal";
   }
   return (

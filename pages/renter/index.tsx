@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { UserApi } from "../../generated-src/openapi";
+import { ShorturlApi, UserApi } from "../../generated-src/openapi";
 import { useRouter } from "next/router";
-import { Error, Footer, Header, Icon, MenuListOption } from "../../components";
+import { Error, Footer, Header, Icon, MenuListOption, ShareableLink } from "../../components";
+import { checkPermissions } from "../../utils";
 
 export default function Renter() {
   const router = useRouter();
   let [[error, user, userId], setState] = useState([
     undefined,
     undefined,
-    undefined,
+    undefined
   ]);
+
+  const [canEdit, setEdit] = useState(false);
+  const [canView, setView] = useState(false);
+  useEffect(() => checkPermissions(router, setView, setEdit, setState));
+
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     let _userId = router.query.userId as string;
+
     const userApi = new UserApi();
     const sub = userApi
       .getUser({ id: _userId, token: router.query.token as string })
@@ -23,7 +30,9 @@ export default function Renter() {
         error: (e) => setState([e, undefined, _userId]),
       });
     return () => sub.unsubscribe();
+
   }, [router.isReady, router.query]);
+
   let menuOptions = [
     {
       url: "/renter/general",
@@ -59,7 +68,7 @@ export default function Renter() {
       <Header
         router={router}
         title="My Turnkey"
-        showEdit={true}
+        showEdit={canEdit}
         showBack={false}
         showLogout={true}
       />
@@ -81,9 +90,6 @@ export default function Renter() {
                     </div>
                   )} */}
                 </div>
-                <div className="tk-text-teal opacity-80 font-medium">
-                  Renter
-                </div>
               </div>
               <div className="col-span-2 w-full">
                 <div className="tk-text-blue text-lg font-medium">
@@ -95,18 +101,28 @@ export default function Renter() {
                 <div className="text-gray-600 text-sm">{user.bio}</div>
               </div>
             </div>
+
+            <div className="flex items-center pr-0.5 pl-1.5 pb-1 w-full place-content-between">
+              <div className="tk-text-teal opacity-80 font-medium">
+                Renter
+              </div>
+              <div>
+                {!!canEdit && <ShareableLink router={router} />}
+              </div>
+            </div>
+
             <div className="tk-text-blue tracking-wide">
               {/* Add Menu Options */}
               {menuOptions.map((option) =>
-                <MenuListOption 
+                <MenuListOption
                   handleClick={() =>
                     router.push({
-                        pathname: option.url,
-                        query: router.query,
+                      pathname: option.url,
+                      query: router.query,
                     })
-                }
-                displayText={option.text}
-              />
+                  }
+                  displayText={option.text}
+                />
               )}
             </div>
           </div>
